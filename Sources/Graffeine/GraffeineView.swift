@@ -126,11 +126,20 @@ open class GraffeineView: UIView {
     }
 
     private func locateClass(named: String) -> AnyClass? {
-        guard (!configClass.isEmpty),
-            let namespace = (Bundle.main.infoDictionary?[String(kCFBundleExecutableKey)] as? String)
-                ?? (Bundle(for: type(of: self)).infoDictionary?[String(kCFBundleExecutableKey)] as? String),
-            let aClass = NSClassFromString("\(namespace).\(configClass)")
+        let named = sanitize(named)
+        let namespace = sanitize(
+            (Bundle.main.infoDictionary?[String(kCFBundleExecutableKey)] as? String)
+                ?? (Bundle(for: type(of: self)).infoDictionary?[String(kCFBundleExecutableKey)] as? String)
+                ?? ""
+        )
+
+        guard (!named.isEmpty),
+            let aClass = NSClassFromString("\(namespace).\(named)")
             else { return nil }
         return aClass
+    }
+
+    private func sanitize(_ str: String) -> String {
+        return str.replacingOccurrences(of: "-", with: "_")
     }
 }
