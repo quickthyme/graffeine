@@ -1,0 +1,613 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DC612E7423B4410400C08AB5 /* StoryboardLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC612E7223B440F400C08AB5 /* StoryboardLoader.swift */; };
+		DC612E8223B449A100C08AB5 /* GraffeineViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC612E8123B4495400C08AB5 /* GraffeineViewTests.swift */; };
+		DC7F21B223C6B36B009629DD /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21B123C6B36B009629DD /* SampleData.swift */; };
+		DC7F21B523C6B490009629DD /* GraffeineBarLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21B423C6B490009629DD /* GraffeineBarLayerTests.swift */; };
+		DC7F21B723C6BE0A009629DD /* DimensionalUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21B623C6BE0A009629DD /* DimensionalUnitTests.swift */; };
+		DC7F21B923C6BE4E009629DD /* Normalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21B823C6BE4E009629DD /* Normalized.swift */; };
+		DC7F21BC23C6C1B0009629DD /* GraffeineLineLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21BA23C6C162009629DD /* GraffeineLineLayerTests.swift */; };
+		DC7F21BE23C6C360009629DD /* GraffeineGridLineLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */; };
+		DCF3C76523C6963800F5F92F /* SampleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF3C76423C6963800F5F92F /* SampleConfig.swift */; };
+		DCF3C77123C6995900F5F92F /* GraffeineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC612E7C23B4445100C08AB5 /* GraffeineView.swift */; };
+		DCF3C77223C6995900F5F92F /* GraffeineViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FD223C5A837008338EB /* GraffeineViewConfig.swift */; };
+		DCF3C77323C6996000F5F92F /* GraffeineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC612E7E23B444A900C08AB5 /* GraffeineLayer.swift */; };
+		DCF3C77423C6996000F5F92F /* GraffeineLayer+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC612E8323B46FB800C08AB5 /* GraffeineLayer+Data.swift */; };
+		DCF3C77523C6996000F5F92F /* GraffeineLayer+DimensionalUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC612E8723B4774000C08AB5 /* GraffeineLayer+DimensionalUnit.swift */; };
+		DCF3C77623C6996400F5F92F /* GraffeineBarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC612E8C23B4833B00C08AB5 /* GraffeineBarLayer.swift */; };
+		DCF3C77723C6996400F5F92F /* GraffeineBarLayer+Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5E25E523BE851E006562B6 /* GraffeineBarLayer+Bar.swift */; };
+		DCF3C77823C6996900F5F92F /* GraffeineGridLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9E5A1323C42DD100050A0B /* GraffeineGridLineLayer.swift */; };
+		DCF3C77923C6996900F5F92F /* GraffeineGridLineLayer+GridLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9E5A1423C42E5800050A0B /* GraffeineGridLineLayer+GridLine.swift */; };
+		DCF3C77A23C6997000F5F92F /* GraffeineHorizontalGutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC87B6A223C5069200C4C334 /* GraffeineHorizontalGutter.swift */; };
+		DCF3C77B23C6997000F5F92F /* GraffeineHorizontalGutter+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC87B6A323C5069200C4C334 /* GraffeineHorizontalGutter+Label.swift */; };
+		DCF3C77C23C6997500F5F92F /* GraffeineVerticalGutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FCC23C59340008338EB /* GraffeineVerticalGutter.swift */; };
+		DCF3C77D23C6997500F5F92F /* GraffeineVerticalGutter+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FCD23C59340008338EB /* GraffeineVerticalGutter+Label.swift */; };
+		DCF3C77E23C6997A00F5F92F /* GraffeineLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FD423C5B590008338EB /* GraffeineLineLayer.swift */; };
+		DCF3C77F23C6997A00F5F92F /* GraffeineLineLayer+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FD523C5B590008338EB /* GraffeineLineLayer+Line.swift */; };
+		DCF3C78623C69AE200F5F92F /* libGraffeine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF3C76A23C6993A00F5F92F /* libGraffeine.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DCF3C78423C69AD900F5F92F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC612E1C23B43B8000C08AB5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCF3C76923C6993A00F5F92F;
+			remoteInfo = Graffeine;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DCF3C76823C6993A00F5F92F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DC5E25E523BE851E006562B6 /* GraffeineBarLayer+Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineBarLayer+Bar.swift"; sourceTree = "<group>"; };
+		DC612E3A23B43B8300C08AB5 /* GraffeineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraffeineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC612E5D23B43CCB00C08AB5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC612E7223B440F400C08AB5 /* StoryboardLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardLoader.swift; sourceTree = "<group>"; };
+		DC612E7C23B4445100C08AB5 /* GraffeineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineView.swift; sourceTree = "<group>"; };
+		DC612E7E23B444A900C08AB5 /* GraffeineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineLayer.swift; sourceTree = "<group>"; };
+		DC612E8123B4495400C08AB5 /* GraffeineViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineViewTests.swift; sourceTree = "<group>"; };
+		DC612E8323B46FB800C08AB5 /* GraffeineLayer+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLayer+Data.swift"; sourceTree = "<group>"; };
+		DC612E8723B4774000C08AB5 /* GraffeineLayer+DimensionalUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLayer+DimensionalUnit.swift"; sourceTree = "<group>"; };
+		DC612E8C23B4833B00C08AB5 /* GraffeineBarLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineBarLayer.swift; sourceTree = "<group>"; };
+		DC7F21B123C6B36B009629DD /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		DC7F21B423C6B490009629DD /* GraffeineBarLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineBarLayerTests.swift; sourceTree = "<group>"; };
+		DC7F21B623C6BE0A009629DD /* DimensionalUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionalUnitTests.swift; sourceTree = "<group>"; };
+		DC7F21B823C6BE4E009629DD /* Normalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Normalized.swift; sourceTree = "<group>"; };
+		DC7F21BA23C6C162009629DD /* GraffeineLineLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineLineLayerTests.swift; sourceTree = "<group>"; };
+		DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineGridLineLayerTests.swift; sourceTree = "<group>"; };
+		DC87B6A223C5069200C4C334 /* GraffeineHorizontalGutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineHorizontalGutter.swift; sourceTree = "<group>"; };
+		DC87B6A323C5069200C4C334 /* GraffeineHorizontalGutter+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineHorizontalGutter+Label.swift"; sourceTree = "<group>"; };
+		DC9A1FCC23C59340008338EB /* GraffeineVerticalGutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineVerticalGutter.swift; sourceTree = "<group>"; };
+		DC9A1FCD23C59340008338EB /* GraffeineVerticalGutter+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineVerticalGutter+Label.swift"; sourceTree = "<group>"; };
+		DC9A1FD223C5A837008338EB /* GraffeineViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineViewConfig.swift; sourceTree = "<group>"; };
+		DC9A1FD423C5B590008338EB /* GraffeineLineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineLineLayer.swift; sourceTree = "<group>"; };
+		DC9A1FD523C5B590008338EB /* GraffeineLineLayer+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLineLayer+Line.swift"; sourceTree = "<group>"; };
+		DC9E5A1323C42DD100050A0B /* GraffeineGridLineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineGridLineLayer.swift; sourceTree = "<group>"; };
+		DC9E5A1423C42E5800050A0B /* GraffeineGridLineLayer+GridLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineGridLineLayer+GridLine.swift"; sourceTree = "<group>"; };
+		DCF3C76423C6963800F5F92F /* SampleConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleConfig.swift; sourceTree = "<group>"; };
+		DCF3C76A23C6993A00F5F92F /* libGraffeine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGraffeine.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DC612E3723B43B8300C08AB5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCF3C78623C69AE200F5F92F /* libGraffeine.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCF3C76723C6993A00F5F92F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DC59FB3523C4F68E00684E03 /* Horizontal */ = {
+			isa = PBXGroup;
+			children = (
+				DC87B6A223C5069200C4C334 /* GraffeineHorizontalGutter.swift */,
+				DC87B6A323C5069200C4C334 /* GraffeineHorizontalGutter+Label.swift */,
+			);
+			path = Horizontal;
+			sourceTree = "<group>";
+		};
+		DC5E25E323BE84AA006562B6 /* Bar */ = {
+			isa = PBXGroup;
+			children = (
+				DC612E8C23B4833B00C08AB5 /* GraffeineBarLayer.swift */,
+				DC5E25E523BE851E006562B6 /* GraffeineBarLayer+Bar.swift */,
+			);
+			path = Bar;
+			sourceTree = "<group>";
+		};
+		DC5E25E423BE84BD006562B6 /* Line */ = {
+			isa = PBXGroup;
+			children = (
+				DC9A1FD423C5B590008338EB /* GraffeineLineLayer.swift */,
+				DC9A1FD523C5B590008338EB /* GraffeineLineLayer+Line.swift */,
+			);
+			path = Line;
+			sourceTree = "<group>";
+		};
+		DC612E1B23B43B8000C08AB5 = {
+			isa = PBXGroup;
+			children = (
+				DCF3C78223C699B900F5F92F /* Frameworks */,
+				DC612E2523B43B8000C08AB5 /* Products */,
+				DC612E4923B43C1800C08AB5 /* Sources */,
+				DC612E5B23B43CCB00C08AB5 /* Tests */,
+			);
+			sourceTree = "<group>";
+		};
+		DC612E2523B43B8000C08AB5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC612E3A23B43B8300C08AB5 /* GraffeineTests.xctest */,
+				DCF3C76A23C6993A00F5F92F /* libGraffeine.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC612E4923B43C1800C08AB5 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DC612E7723B4422600C08AB5 /* Graffeine */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		DC612E5B23B43CCB00C08AB5 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DC612E5C23B43CCB00C08AB5 /* GraffeineTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		DC612E5C23B43CCB00C08AB5 /* GraffeineTests */ = {
+			isa = PBXGroup;
+			children = (
+				DC612E5D23B43CCB00C08AB5 /* Info.plist */,
+				DC7F21B623C6BE0A009629DD /* DimensionalUnitTests.swift */,
+				DC7F21B423C6B490009629DD /* GraffeineBarLayerTests.swift */,
+				DC7F21BA23C6C162009629DD /* GraffeineLineLayerTests.swift */,
+				DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */,
+				DC612E8123B4495400C08AB5 /* GraffeineViewTests.swift */,
+				DC7F21B323C6B397009629DD /* Sample */,
+				DC612E7123B440D800C08AB5 /* testHelpers */,
+			);
+			path = GraffeineTests;
+			sourceTree = "<group>";
+		};
+		DC612E7123B440D800C08AB5 /* testHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				DC7F21B823C6BE4E009629DD /* Normalized.swift */,
+				DC612E7223B440F400C08AB5 /* StoryboardLoader.swift */,
+			);
+			path = testHelpers;
+			sourceTree = "<group>";
+		};
+		DC612E7723B4422600C08AB5 /* Graffeine */ = {
+			isa = PBXGroup;
+			children = (
+				DC612E7C23B4445100C08AB5 /* GraffeineView.swift */,
+				DC9A1FD223C5A837008338EB /* GraffeineViewConfig.swift */,
+				DC612E8923B477DB00C08AB5 /* Layer */,
+			);
+			path = Graffeine;
+			sourceTree = "<group>";
+		};
+		DC612E8923B477DB00C08AB5 /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				DC612E7E23B444A900C08AB5 /* GraffeineLayer.swift */,
+				DC612E8323B46FB800C08AB5 /* GraffeineLayer+Data.swift */,
+				DC612E8723B4774000C08AB5 /* GraffeineLayer+DimensionalUnit.swift */,
+				DC5E25E323BE84AA006562B6 /* Bar */,
+				DC9E5A1223C42D9F00050A0B /* Grid */,
+				DC9A1FCA23C59322008338EB /* Gutter */,
+				DC5E25E423BE84BD006562B6 /* Line */,
+			);
+			path = Layer;
+			sourceTree = "<group>";
+		};
+		DC7F21B323C6B397009629DD /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				DCF3C76423C6963800F5F92F /* SampleConfig.swift */,
+				DC7F21B123C6B36B009629DD /* SampleData.swift */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		DC9A1FCA23C59322008338EB /* Gutter */ = {
+			isa = PBXGroup;
+			children = (
+				DC59FB3523C4F68E00684E03 /* Horizontal */,
+				DC9A1FCB23C59330008338EB /* Vertical */,
+			);
+			path = Gutter;
+			sourceTree = "<group>";
+		};
+		DC9A1FCB23C59330008338EB /* Vertical */ = {
+			isa = PBXGroup;
+			children = (
+				DC9A1FCC23C59340008338EB /* GraffeineVerticalGutter.swift */,
+				DC9A1FCD23C59340008338EB /* GraffeineVerticalGutter+Label.swift */,
+			);
+			path = Vertical;
+			sourceTree = "<group>";
+		};
+		DC9E5A1223C42D9F00050A0B /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				DC9E5A1323C42DD100050A0B /* GraffeineGridLineLayer.swift */,
+				DC9E5A1423C42E5800050A0B /* GraffeineGridLineLayer+GridLine.swift */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
+		DCF3C78223C699B900F5F92F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC612E3923B43B8300C08AB5 /* GraffeineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC612E4623B43B8300C08AB5 /* Build configuration list for PBXNativeTarget "GraffeineTests" */;
+			buildPhases = (
+				DC612E3623B43B8300C08AB5 /* Sources */,
+				DC612E3723B43B8300C08AB5 /* Frameworks */,
+				DC612E3823B43B8300C08AB5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DCF3C78523C69AD900F5F92F /* PBXTargetDependency */,
+			);
+			name = GraffeineTests;
+			productName = GraffeineTests;
+			productReference = DC612E3A23B43B8300C08AB5 /* GraffeineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DCF3C76923C6993A00F5F92F /* Graffeine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCF3C76E23C6993A00F5F92F /* Build configuration list for PBXNativeTarget "Graffeine" */;
+			buildPhases = (
+				DCF3C76623C6993A00F5F92F /* Sources */,
+				DCF3C76723C6993A00F5F92F /* Frameworks */,
+				DCF3C76823C6993A00F5F92F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Graffeine;
+			productName = Graffeine;
+			productReference = DCF3C76A23C6993A00F5F92F /* libGraffeine.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DC612E1C23B43B8000C08AB5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "VML, Inc.";
+				TargetAttributes = {
+					DC612E3923B43B8300C08AB5 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+					DCF3C76923C6993A00F5F92F = {
+						CreatedOnToolsVersion = 11.3;
+					};
+				};
+			};
+			buildConfigurationList = DC612E1F23B43B8000C08AB5 /* Build configuration list for PBXProject "Graffeine" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DC612E1B23B43B8000C08AB5;
+			productRefGroup = DC612E2523B43B8000C08AB5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DCF3C76923C6993A00F5F92F /* Graffeine */,
+				DC612E3923B43B8300C08AB5 /* GraffeineTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DC612E3823B43B8300C08AB5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DC612E3623B43B8300C08AB5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC7F21B923C6BE4E009629DD /* Normalized.swift in Sources */,
+				DCF3C76523C6963800F5F92F /* SampleConfig.swift in Sources */,
+				DC7F21B723C6BE0A009629DD /* DimensionalUnitTests.swift in Sources */,
+				DC7F21B223C6B36B009629DD /* SampleData.swift in Sources */,
+				DC7F21B523C6B490009629DD /* GraffeineBarLayerTests.swift in Sources */,
+				DC612E8223B449A100C08AB5 /* GraffeineViewTests.swift in Sources */,
+				DC612E7423B4410400C08AB5 /* StoryboardLoader.swift in Sources */,
+				DC7F21BE23C6C360009629DD /* GraffeineGridLineLayerTests.swift in Sources */,
+				DC7F21BC23C6C1B0009629DD /* GraffeineLineLayerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCF3C76623C6993A00F5F92F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCF3C77E23C6997A00F5F92F /* GraffeineLineLayer.swift in Sources */,
+				DCF3C77123C6995900F5F92F /* GraffeineView.swift in Sources */,
+				DCF3C77223C6995900F5F92F /* GraffeineViewConfig.swift in Sources */,
+				DCF3C77D23C6997500F5F92F /* GraffeineVerticalGutter+Label.swift in Sources */,
+				DCF3C77C23C6997500F5F92F /* GraffeineVerticalGutter.swift in Sources */,
+				DCF3C77B23C6997000F5F92F /* GraffeineHorizontalGutter+Label.swift in Sources */,
+				DCF3C77F23C6997A00F5F92F /* GraffeineLineLayer+Line.swift in Sources */,
+				DCF3C77923C6996900F5F92F /* GraffeineGridLineLayer+GridLine.swift in Sources */,
+				DCF3C77523C6996000F5F92F /* GraffeineLayer+DimensionalUnit.swift in Sources */,
+				DCF3C77A23C6997000F5F92F /* GraffeineHorizontalGutter.swift in Sources */,
+				DCF3C77823C6996900F5F92F /* GraffeineGridLineLayer.swift in Sources */,
+				DCF3C77623C6996400F5F92F /* GraffeineBarLayer.swift in Sources */,
+				DCF3C77323C6996000F5F92F /* GraffeineLayer.swift in Sources */,
+				DCF3C77423C6996000F5F92F /* GraffeineLayer+Data.swift in Sources */,
+				DCF3C77723C6996400F5F92F /* GraffeineBarLayer+Bar.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DCF3C78523C69AD900F5F92F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCF3C76923C6993A00F5F92F /* Graffeine */;
+			targetProxy = DCF3C78423C69AD900F5F92F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DC612E4123B43B8300C08AB5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DC612E4223B43B8300C08AB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DC612E4723B43B8300C08AB5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VL6HBXSLT9;
+				INFOPLIST_FILE = Tests/GraffeineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.quickthyme.GraffeineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DC612E4823B43B8300C08AB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VL6HBXSLT9;
+				INFOPLIST_FILE = Tests/GraffeineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.quickthyme.GraffeineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DCF3C76F23C6993A00F5F92F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LZG4ZYJ62H;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_MODULE_NAME = Graffeine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DCF3C77023C6993A00F5F92F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LZG4ZYJ62H;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_MODULE_NAME = Graffeine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC612E1F23B43B8000C08AB5 /* Build configuration list for PBXProject "Graffeine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC612E4123B43B8300C08AB5 /* Debug */,
+				DC612E4223B43B8300C08AB5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC612E4623B43B8300C08AB5 /* Build configuration list for PBXNativeTarget "GraffeineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC612E4723B43B8300C08AB5 /* Debug */,
+				DC612E4823B43B8300C08AB5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCF3C76E23C6993A00F5F92F /* Build configuration list for PBXNativeTarget "Graffeine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCF3C76F23C6993A00F5F92F /* Debug */,
+				DCF3C77023C6993A00F5F92F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DC612E1C23B43B8000C08AB5 /* Project object */;
+}
