@@ -1,0 +1,5 @@
+language: swift
+osx_image: xcode11.3
+xcode_project: Graffeine.xcodeproj
+xcode_scheme: Graffeine
+xcode_destination: platform=iOS Simulator,name=iPhone 11
