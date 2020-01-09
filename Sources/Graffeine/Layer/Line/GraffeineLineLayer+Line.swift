@@ -52,10 +52,9 @@ extension GraffeineLineLayer {
                 let width = unitWidth.resolved(within: containerSize.width,
                                                numberOfUnits: data.values.count,
                                                unitMargin: unitMargin)
-                let halfWidth = width * 0.5
 
                 let yPos = containerSize.height - (containerSize.height * valPercent)
-                let xPos = (CGFloat(index) * (width + unitMargin)) + halfWidth
+                let xPos = (CGFloat(index) * (width + unitMargin))
                 let point = CGPoint(x: xPos, y: yPos)
 
                 if (lastValueWasNil) {

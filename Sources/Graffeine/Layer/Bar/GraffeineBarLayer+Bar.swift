@@ -7,6 +7,10 @@ extension GraffeineBarLayer {
         public struct Subdivision {
             public let index: Int
             public let width: GraffeineLayer.DimensionalUnit
+            public init(index: Int, width: GraffeineLayer.DimensionalUnit) {
+                self.index = index
+                self.width = width
+            }
         }
 
         open var subdivision: Subdivision? = nil
