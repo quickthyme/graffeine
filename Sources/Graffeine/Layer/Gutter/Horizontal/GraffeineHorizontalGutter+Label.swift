@@ -4,7 +4,8 @@ extension GraffeineHorizontalGutter {
 
     open class Label: CATextLayer {
 
-        var padding: CGFloat = 4.0
+        open var padding: CGFloat = 4.0
+        open var labelAlignmentMode: LabelAlignmentMode = .centerLeftRight
 
         open func reposition(for index: Int,
                              in labels: [String?],
@@ -30,13 +31,24 @@ extension GraffeineHorizontalGutter {
             let xPos = (CGFloat(index) * (width + columnMargin))
 
             self.string = labelValue
+            self.alignmentMode = textAlignment(for: index, in: labels)
             self.frame.size.height = containerSize.height
             self.frame.size.width = width
-            self.alignmentMode = textAlignment(for: index, in: labels)
             self.position = CGPoint(x: xPos, y: 2)
         }
 
+        private let textLabelAlignmentMap: [LabelAlignmentMode: CATextLayerAlignmentMode] = [
+            .left: .left,
+            .right: .right,
+            .center: .center
+        ]
+
         private func textAlignment(for index: Int, in labels: [String?]) -> CATextLayerAlignmentMode {
+            return textLabelAlignmentMap[labelAlignmentMode]
+                ?? centerLeftRightTextAlignment(for: index, in: labels)
+        }
+
+        private func centerLeftRightTextAlignment(for index: Int, in labels: [String?]) -> CATextLayerAlignmentMode {
             switch true {
             case (index == 0):
                 return .left
@@ -59,9 +71,11 @@ extension GraffeineHorizontalGutter {
             self.string = ""
         }
 
-        public convenience init(fontSize: CGFloat, padding: CGFloat = 4.0) {
+        public convenience init(fontSize: CGFloat, padding: CGFloat, labelAlignmentMode: LabelAlignmentMode) {
             self.init()
             self.fontSize = fontSize
+            self.padding = padding
+            self.labelAlignmentMode = labelAlignmentMode
         }
 
         required public init?(coder: NSCoder) {
@@ -70,6 +84,10 @@ extension GraffeineHorizontalGutter {
 
         override public init(layer: Any) {
             super.init(layer: layer)
+            if let layer = layer as? Self {
+                self.padding = layer.padding
+                self.labelAlignmentMode = layer.labelAlignmentMode
+            }
         }
     }
 }

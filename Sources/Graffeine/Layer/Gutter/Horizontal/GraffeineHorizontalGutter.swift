@@ -2,28 +2,39 @@ import UIKit
 
 open class GraffeineHorizontalGutter: GraffeineLayer {
 
+    public enum LabelAlignmentMode {
+        case left, right, center, centerLeftRight
+    }
+
     open var columnWidth: GraffeineLayer.DimensionalUnit = .relative
     open var columnMargin: CGFloat = 4.0
     open var fontSize: CGFloat = 10.0
     open var labelPadding: CGFloat = 4.0
+    open var labelAlignmentMode: LabelAlignmentMode = .centerLeftRight
 
     override open func generateSublayers() {
-        for _ in data.labels { addSublayer( Label(fontSize: fontSize, padding: labelPadding) ) }
+        for _ in data.labels {
+            addSublayer( Label(fontSize: fontSize,
+                               padding: labelPadding,
+                               labelAlignmentMode: labelAlignmentMode) )
+        }
     }
 
     override open func repositionSublayers() {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let numberOfUnits = data.labels.count
 
-        for (index, bar) in sublayers.enumerated() {
-            guard let bar = bar as? Label, index < numberOfUnits else { continue }
+        for (index, label) in sublayers.enumerated() {
+            guard let label = label as? Label, index < numberOfUnits else { continue }
 
-            bar.foregroundColor = safeIndexedColor(index)
-            bar.reposition(for: index,
-                           in: data.labels,
-                           columnWidth: columnWidth,
-                           columnMargin: columnMargin,
-                           containerSize: bounds.size)
+            label.foregroundColor = safeIndexedColor(index)
+            label.padding = labelPadding
+            label.labelAlignmentMode = labelAlignmentMode
+            label.reposition(for: index,
+                             in: data.labels,
+                             columnWidth: columnWidth,
+                             columnMargin: columnMargin,
+                             containerSize: bounds.size)
         }
     }
 
@@ -50,6 +61,7 @@ open class GraffeineHorizontalGutter: GraffeineLayer {
             self.columnMargin = layer.columnMargin
             self.fontSize = layer.fontSize
             self.labelPadding = layer.labelPadding
+            self.labelAlignmentMode = layer.labelAlignmentMode
         }
     }
 

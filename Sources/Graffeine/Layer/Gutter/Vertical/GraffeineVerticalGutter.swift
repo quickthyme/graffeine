@@ -16,15 +16,18 @@ open class GraffeineVerticalGutter: GraffeineLayer {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let numberOfUnits = data.labels.count
 
-        for (index, bar) in sublayers.enumerated() {
-            guard let bar = bar as? Label, index < numberOfUnits else { continue }
+        for (index, label) in sublayers.enumerated() {
+            guard let label = label as? Label, index < numberOfUnits else { continue }
 
-            bar.foregroundColor = safeIndexedColor(index)
-            bar.reposition(for: index,
-                           in: data.labels,
-                           rowHeight: rowHeight,
-                           rowMargin: rowMargin,
-                           containerSize: bounds.size)
+            label.foregroundColor = safeIndexedColor(index)
+            label.fontSize = fontSize
+            label.alignmentMode = labelAlignment
+            label.padding = labelPadding
+            label.reposition(for: index,
+                             in: data.labels,
+                             rowHeight: rowHeight,
+                             rowMargin: rowMargin,
+                             containerSize: bounds.size)
         }
     }
 
