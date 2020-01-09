@@ -4,10 +4,15 @@ open class GraffeineBarLayer: GraffeineLayer {
 
     public var barWidth: GraffeineLayer.DimensionalUnit = .relative
     public var barMargin: CGFloat = 4.0
+    public var barSubdivision: Bar.Subdivision? = nil
 
     override open func generateSublayers() {
         let baseline = self.bounds.size.height
-        for _ in data.valuesHi { addSublayer( Bar(yPos: baseline, flipXY: flipXY) ) }
+        for _ in data.valuesHi {
+            addSublayer( Bar(yPos: baseline,
+                             subdivision: barSubdivision,
+                             flipXY: flipXY) )
+        }
     }
 
     override open func repositionSublayers() {
@@ -17,6 +22,7 @@ open class GraffeineBarLayer: GraffeineLayer {
         for (index, bar) in sublayers.enumerated() {
             guard let bar = bar as? Bar, index < numberOfUnits else { continue }
             bar.backgroundColor = safeIndexedColor(index)
+            bar.subdivision = barSubdivision
             bar.reposition(for: index,
                            in: data,
                            barWidth: barWidth,
@@ -45,10 +51,12 @@ open class GraffeineBarLayer: GraffeineLayer {
         if let layer = layer as? Self {
             self.barWidth = layer.barWidth
             self.barMargin = layer.barMargin
+            self.barSubdivision = layer.barSubdivision
         }
     }
 
-    override open func additionalConfig(_ conf: (GraffeineBarLayer) -> ()) -> GraffeineBarLayer {
+    @discardableResult
+    override open func apply(_ conf: (GraffeineBarLayer) -> ()) -> GraffeineBarLayer {
         conf(self)
         return self
     }

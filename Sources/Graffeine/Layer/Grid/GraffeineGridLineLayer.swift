@@ -52,7 +52,8 @@ open class GraffeineGridLineLayer: GraffeineLayer {
         }
     }
 
-    override open func additionalConfig(_ conf: (GraffeineGridLineLayer) -> ()) -> GraffeineGridLineLayer {
+    @discardableResult
+    override open func apply(_ conf: (GraffeineGridLineLayer) -> ()) -> GraffeineGridLineLayer {
         conf(self)
         return self
     }

@@ -17,7 +17,7 @@ extension GraffeineLayer {
                 return (val < boundary) ? val : boundary
 
             case let .percentage(val):
-                return (val >= 0 && val < 1.0) ? floor(boundary * val) : 1.0
+                return (val >= 0 && val <= 1.0) ? floor( (boundary * val) * 100 ) / 100 : boundary
 
             case .relative:
                 let boundaryAdjustedForTrailingMargin = boundary + unitMargin

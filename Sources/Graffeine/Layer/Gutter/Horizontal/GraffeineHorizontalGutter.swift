@@ -65,7 +65,8 @@ open class GraffeineHorizontalGutter: GraffeineLayer {
         }
     }
 
-    override open func additionalConfig(_ conf: (GraffeineHorizontalGutter) -> ()) -> GraffeineHorizontalGutter {
+    @discardableResult
+    override open func apply(_ conf: (GraffeineHorizontalGutter) -> ()) -> GraffeineHorizontalGutter {
         conf(self)
         return self
     }

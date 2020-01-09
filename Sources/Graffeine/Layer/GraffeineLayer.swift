@@ -70,7 +70,8 @@ open class GraffeineLayer: CALayer {
         generateSublayers()
     }
 
-    open func additionalConfig(_ conf: (GraffeineLayer) -> ()) -> GraffeineLayer {
+    @discardableResult
+    open func apply(_ conf: (GraffeineLayer) -> ()) -> GraffeineLayer {
         conf(self)
         return self
     }

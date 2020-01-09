@@ -41,4 +41,21 @@ class GraffeineBarLayerTests: XCTestCase {
         XCTAssertEqual(normalized(subject.sublayers![ 9].frame), CGRect(x: 103.09, y: 150.10, width: 5.45, height:  7.90))
         XCTAssertEqual(normalized(subject.sublayers![10].frame), CGRect(x: 114.54, y: 158.00, width: 5.45, height:  0.00))
     }
+
+    func test_given_subdivision_present_then_it_has_sublayers_positioned_correctly() {
+        subject.barSubdivision = GraffeineBarLayer.Bar.Subdivision(index: 1, width: .percentage(0.33))
+        sampleData.applyDescendingBars(to: graffeineView)
+        graffeineView.layoutIfNeeded()
+        XCTAssertEqual(normalized(subject.sublayers![ 0].frame), CGRect(x:   1.80, y:  79.00, width: 1.80, height: 79.00))
+        XCTAssertEqual(normalized(subject.sublayers![ 1].frame), CGRect(x:  13.25, y:  86.90, width: 1.80, height: 71.10))
+        XCTAssertEqual(normalized(subject.sublayers![ 2].frame), CGRect(x:  24.70, y:  94.80, width: 1.80, height: 63.20))
+        XCTAssertEqual(normalized(subject.sublayers![ 3].frame), CGRect(x:  36.16, y: 102.70, width: 1.80, height: 55.30))
+        XCTAssertEqual(normalized(subject.sublayers![ 4].frame), CGRect(x:  47.61, y: 110.60, width: 1.80, height: 47.40))
+        XCTAssertEqual(normalized(subject.sublayers![ 5].frame), CGRect(x:  59.07, y: 118.50, width: 1.80, height: 39.50))
+        XCTAssertEqual(normalized(subject.sublayers![ 6].frame), CGRect(x:  70.52, y: 126.40, width: 1.80, height: 31.60))
+        XCTAssertEqual(normalized(subject.sublayers![ 7].frame), CGRect(x:   0.00, y:   0.00, width: 1.00, height:  0.00))
+        XCTAssertEqual(normalized(subject.sublayers![ 8].frame), CGRect(x:  93.43, y: 142.19, width: 1.80, height: 15.80))
+        XCTAssertEqual(normalized(subject.sublayers![ 9].frame), CGRect(x: 104.89, y: 150.10, width: 1.80, height:  7.90))
+        XCTAssertEqual(normalized(subject.sublayers![10].frame), CGRect(x: 116.34, y: 158.00, width: 1.80, height:  0.00))
+    }
 }

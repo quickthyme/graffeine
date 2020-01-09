@@ -4,6 +4,13 @@ extension GraffeineBarLayer {
 
     open class Bar: CALayer {
 
+        public struct Subdivision {
+            public let index: Int
+            public let width: GraffeineLayer.DimensionalUnit
+        }
+
+        open var subdivision: Subdivision? = nil
+
         open var flipXY: Bool = false
 
         open func reposition(for index: Int,
@@ -29,13 +36,18 @@ extension GraffeineBarLayer {
             let loPercentInverted: CGFloat = (shouldConsiderLo) ? ((1.0 - loPercent)) : 1.0
             let loPercentPositionMultiplier = (flipXY) ? loPercent : loPercentInverted
 
-            let width = barWidth.resolved(within: translatedContainerSize.width,
+            var width = barWidth.resolved(within: translatedContainerSize.width,
                                           numberOfUnits: data.valuesHi.count,
                                           unitMargin: barMargin)
             let height = translatedContainerSize.height * (hiPercent - loPercent)
 
-            let xPos = (CGFloat(index) * (width + barMargin))
+            var xPos = (CGFloat(index) * (width + barMargin))
             let yPos: CGFloat = translatedContainerSize.height * loPercentPositionMultiplier
+
+            if let subdivision = self.subdivision {
+                width = subdivision.width.resolved(within: width)
+                xPos += (CGFloat(subdivision.index) * width)
+            }
 
             self.anchorPoint = translatedAnchor(CGPoint(x: 0.0, y: 1.0))
             self.frame.size = translatedSize(CGSize(width: width, height: height))
@@ -68,7 +80,7 @@ extension GraffeineBarLayer {
             self.anchorPoint = CGPoint(x: 0.0, y: 1.0)
         }
 
-        public convenience init(yPos: CGFloat, flipXY: Bool = false) {
+        public convenience init(yPos: CGFloat, subdivision: Subdivision?, flipXY: Bool) {
             self.init()
             self.frame.origin.y = yPos
             self.flipXY = flipXY
@@ -81,6 +93,7 @@ extension GraffeineBarLayer {
         override public init(layer: Any) {
             super.init(layer: layer)
             if let layer = layer as? Self {
+                self.subdivision = layer.subdivision
                 self.flipXY = layer.flipXY
             }
         }
