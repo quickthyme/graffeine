@@ -18,8 +18,8 @@ class GraffeineHorizontalGutterTests: XCTestCase {
         XCTAssertNotNil(subject)
     }
 
-    func test_given_label_alignment_mode_left_when_text_layers_are_positioned_then_they_are_all_left_aligned() {
-        subject.labelAlignmentMode = .left
+    func test_given_horizontal_alignment_mode_left_when_text_layers_are_positioned_then_they_are_all_left_aligned() {
+        subject.labelHorizontalAlignmentMode = .left
         graffeineView.layoutIfNeeded()
         let labels = subject.sublayers!.compactMap { $0 as? GraffeineHorizontalGutter.Label }
         XCTAssertEqual(labels.count, 3)
@@ -29,7 +29,7 @@ class GraffeineHorizontalGutterTests: XCTestCase {
     }
 
     func test_given_label_alignment_mode_right_when_text_layers_are_positioned_then_they_are_all_right_aligned() {
-        subject.labelAlignmentMode = .right
+        subject.labelHorizontalAlignmentMode = .right
         graffeineView.layoutIfNeeded()
         let labels = subject.sublayers!.compactMap { $0 as? GraffeineHorizontalGutter.Label }
         XCTAssertEqual(labels.count, 3)
@@ -39,7 +39,7 @@ class GraffeineHorizontalGutterTests: XCTestCase {
     }
 
     func test_given_label_alignment_mode_center_when_text_layers_are_positioned_then_they_are_all_centered() {
-        subject.labelAlignmentMode = .center
+        subject.labelHorizontalAlignmentMode = .center
         graffeineView.layoutIfNeeded()
         let labels = subject.sublayers!.compactMap { $0 as? GraffeineHorizontalGutter.Label }
         XCTAssertEqual(labels.count, 3)
@@ -49,7 +49,7 @@ class GraffeineHorizontalGutterTests: XCTestCase {
     }
 
     func test_given_label_alignment_mode_centerLeftRight_when_text_layers_are_positioned_then_it_has_correct_label_alignments() {
-        subject.labelAlignmentMode = .centerLeftRight
+        subject.labelHorizontalAlignmentMode = .centerLeftRight
         graffeineView.layoutIfNeeded()
         let labels = subject.sublayers!.compactMap { $0 as? GraffeineHorizontalGutter.Label }
         XCTAssertEqual(labels.count, 3)

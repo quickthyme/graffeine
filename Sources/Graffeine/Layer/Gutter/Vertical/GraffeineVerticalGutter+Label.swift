@@ -4,7 +4,10 @@ extension GraffeineVerticalGutter {
 
     open class Label: CATextLayer {
 
-        var padding: CGFloat = 4.0
+        open var hPadding: CGFloat = 4.0
+        open var vPadding: CGFloat = 0.0
+        open var horizontalAlignmentMode: LabelAlignment.HorizontalMode = .right
+        open var verticalAlignmentMode: LabelAlignment.VerticalMode = .centerTopBottom
 
         open func reposition(for index: Int,
                              in labels: [String?],
@@ -27,13 +30,20 @@ extension GraffeineVerticalGutter {
             let height = rowHeight.resolved(within: containerSize.height,
                                             numberOfUnits: labels.count,
                                             unitMargin: rowMargin)
-            let yOffset = (height - self.fontSize - 1.0) * 0.5
-            let yPos = (CGFloat(index) * (height + rowMargin)) + yOffset
-            let xPos = (alignmentMode == .left) ? padding : 0.0
 
+            let yOffset = verticalAlignmentMode.calculateYOffset(for: index,
+                                                                 in: labels,
+                                                                 fontSize: fontSize,
+                                                                 padding: vPadding,
+                                                                 within: height)
+
+            let yPos = (CGFloat(index) * (height + rowMargin)) + yOffset
+            let xPos = (alignmentMode == .left) ? hPadding : 0.0
+
+            self.alignmentMode = horizontalAlignmentMode.textAlignment(for: index, in: labels)
             self.string = labelValue
             self.frame.size.height = height
-            self.frame.size.width = containerSize.width - padding
+            self.frame.size.width = containerSize.width - hPadding
             self.position = CGPoint(x: xPos, y: yPos)
         }
 
@@ -50,11 +60,17 @@ extension GraffeineVerticalGutter {
             self.string = ""
         }
 
-        public convenience init(fontSize: CGFloat, alignmentMode: CATextLayerAlignmentMode, padding: CGFloat = 4.0) {
+        public convenience init(fontSize: CGFloat,
+                                hPadding: CGFloat,
+                                vPadding: CGFloat,
+                                horizontalAlignmentMode: LabelAlignment.HorizontalMode,
+                                verticalAlignmentMode: LabelAlignment.VerticalMode) {
             self.init()
             self.fontSize = fontSize
-            self.alignmentMode = alignmentMode
-            self.padding = padding
+            self.hPadding = hPadding
+            self.vPadding = vPadding
+            self.horizontalAlignmentMode = horizontalAlignmentMode
+            self.verticalAlignmentMode = verticalAlignmentMode
         }
 
         required public init?(coder: NSCoder) {
@@ -63,6 +79,12 @@ extension GraffeineVerticalGutter {
 
         override public init(layer: Any) {
             super.init(layer: layer)
+            if let layer = layer as? Self {
+                self.hPadding = layer.hPadding
+                self.vPadding = layer.vPadding
+                self.horizontalAlignmentMode = layer.horizontalAlignmentMode
+                self.verticalAlignmentMode = layer.verticalAlignmentMode
+            }
         }
     }
 }

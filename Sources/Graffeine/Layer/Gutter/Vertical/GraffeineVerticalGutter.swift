@@ -5,11 +5,19 @@ open class GraffeineVerticalGutter: GraffeineLayer {
     open var rowHeight: GraffeineLayer.DimensionalUnit = .relative
     open var rowMargin: CGFloat = 4.0
     open var fontSize: CGFloat = 10.0
-    open var labelAlignment: CATextLayerAlignmentMode = .right
-    open var labelPadding: CGFloat = 4.0
+    open var labelHPadding: CGFloat = 4.0
+    open var labelVPadding: CGFloat = 0.0
+    open var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .right
+    open var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .centerTopBottom
 
     override open func generateSublayers() {
-        for _ in data.labels { addSublayer( Label(fontSize: fontSize, alignmentMode: labelAlignment, padding: labelPadding) ) }
+        for _ in data.labels {
+            addSublayer( Label(fontSize: fontSize,
+                               hPadding: labelHPadding,
+                               vPadding: labelVPadding,
+                               horizontalAlignmentMode: labelHorizontalAlignmentMode,
+                               verticalAlignmentMode: labelVerticalAlignmentMode) )
+        }
     }
 
     override open func repositionSublayers() {
@@ -21,8 +29,9 @@ open class GraffeineVerticalGutter: GraffeineLayer {
 
             label.foregroundColor = safeIndexedColor(index)
             label.fontSize = fontSize
-            label.alignmentMode = labelAlignment
-            label.padding = labelPadding
+            label.verticalAlignmentMode = labelVerticalAlignmentMode
+            label.hPadding = labelHPadding
+            label.vPadding = labelVPadding
             label.reposition(for: index,
                              in: data.labels,
                              rowHeight: rowHeight,
@@ -53,8 +62,10 @@ open class GraffeineVerticalGutter: GraffeineLayer {
             self.rowHeight = layer.rowHeight
             self.rowMargin = layer.rowMargin
             self.fontSize = layer.fontSize
-            self.labelAlignment = layer.labelAlignment
-            self.labelPadding = layer.labelPadding
+            self.labelHPadding = layer.labelHPadding
+            self.labelVPadding = layer.labelVPadding
+            self.labelHorizontalAlignmentMode = layer.labelHorizontalAlignmentMode
+            self.labelVerticalAlignmentMode = layer.labelVerticalAlignmentMode
         }
     }
 

@@ -4,8 +4,10 @@ extension GraffeineHorizontalGutter {
 
     open class Label: CATextLayer {
 
-        open var padding: CGFloat = 4.0
-        open var labelAlignmentMode: LabelAlignmentMode = .centerLeftRight
+        open var hPadding: CGFloat = 4.0
+        open var vPadding: CGFloat = 0.0
+        open var horizontalAlignmentMode: LabelAlignment.HorizontalMode = .centerLeftRight
+        open var verticalAlignmentMode: LabelAlignment.VerticalMode = .center
 
         open func reposition(for index: Int,
                              in labels: [String?],
@@ -28,34 +30,26 @@ extension GraffeineHorizontalGutter {
             let width = columnWidth.resolved(within: containerSize.width,
                                              numberOfUnits: labels.count,
                                              unitMargin: columnMargin)
-            let xPos = (CGFloat(index) * (width + columnMargin))
+
+            let xPos = (CGFloat(index) * (width + columnMargin)) + calculateXPaddingOffset()
+            let yPos = verticalAlignmentMode.calculateYOffset(for: index,
+                                                              in: labels,
+                                                              fontSize: fontSize,
+                                                              padding: vPadding,
+                                                              within: containerSize.height)
 
             self.string = labelValue
-            self.alignmentMode = textAlignment(for: index, in: labels)
+            self.alignmentMode = horizontalAlignmentMode.textAlignment(for: index, in: labels)
             self.frame.size.height = containerSize.height
             self.frame.size.width = width
-            self.position = CGPoint(x: xPos, y: 2)
+            self.position = CGPoint(x: xPos, y: yPos)
         }
 
-        private let textLabelAlignmentMap: [LabelAlignmentMode: CATextLayerAlignmentMode] = [
-            .left: .left,
-            .right: .right,
-            .center: .center
-        ]
-
-        private func textAlignment(for index: Int, in labels: [String?]) -> CATextLayerAlignmentMode {
-            return textLabelAlignmentMap[labelAlignmentMode]
-                ?? centerLeftRightTextAlignment(for: index, in: labels)
-        }
-
-        private func centerLeftRightTextAlignment(for index: Int, in labels: [String?]) -> CATextLayerAlignmentMode {
-            switch true {
-            case (index == 0):
-                return .left
-            case (index == labels.count - 1):
-                return .right
-            default:
-                return .center
+        func calculateXPaddingOffset() -> CGFloat {
+            switch horizontalAlignmentMode {
+            case .left:     return hPadding
+            case .right:    return -hPadding
+            default:        return 0.0
             }
         }
 
@@ -71,11 +65,17 @@ extension GraffeineHorizontalGutter {
             self.string = ""
         }
 
-        public convenience init(fontSize: CGFloat, padding: CGFloat, labelAlignmentMode: LabelAlignmentMode) {
+        public convenience init(fontSize: CGFloat,
+                                hPadding: CGFloat,
+                                vPadding: CGFloat,
+                                horizontalAlignmentMode: LabelAlignment.HorizontalMode,
+                                verticalAlignmentMode: LabelAlignment.VerticalMode) {
             self.init()
             self.fontSize = fontSize
-            self.padding = padding
-            self.labelAlignmentMode = labelAlignmentMode
+            self.hPadding = hPadding
+            self.vPadding = vPadding
+            self.horizontalAlignmentMode = horizontalAlignmentMode
+            self.verticalAlignmentMode = verticalAlignmentMode
         }
 
         required public init?(coder: NSCoder) {
@@ -85,8 +85,10 @@ extension GraffeineHorizontalGutter {
         override public init(layer: Any) {
             super.init(layer: layer)
             if let layer = layer as? Self {
-                self.padding = layer.padding
-                self.labelAlignmentMode = layer.labelAlignmentMode
+                self.hPadding = layer.hPadding
+                self.vPadding = layer.vPadding
+                self.horizontalAlignmentMode = layer.horizontalAlignmentMode
+                self.verticalAlignmentMode = layer.verticalAlignmentMode
             }
         }
     }

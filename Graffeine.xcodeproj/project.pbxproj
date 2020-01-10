@@ -16,6 +16,7 @@
 		DC7F21BC23C6C1B0009629DD /* GraffeineLineLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21BA23C6C162009629DD /* GraffeineLineLayerTests.swift */; };
 		DC7F21BE23C6C360009629DD /* GraffeineGridLineLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */; };
 		DC7F220623C711FF009629DD /* GraffeineHorizontalGutterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F220423C711EC009629DD /* GraffeineHorizontalGutterTests.swift */; };
+		DC7F222023C83F94009629DD /* GraffeineLayer+LabelAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F221F23C83F94009629DD /* GraffeineLayer+LabelAlignment.swift */; };
 		DCF3C76523C6963800F5F92F /* SampleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF3C76423C6963800F5F92F /* SampleConfig.swift */; };
 		DCF3C77123C6995900F5F92F /* GraffeineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC612E7C23B4445100C08AB5 /* GraffeineView.swift */; };
 		DCF3C77223C6995900F5F92F /* GraffeineViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FD223C5A837008338EB /* GraffeineViewConfig.swift */; };
@@ -75,6 +76,7 @@
 		DC7F21BA23C6C162009629DD /* GraffeineLineLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineLineLayerTests.swift; sourceTree = "<group>"; };
 		DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineGridLineLayerTests.swift; sourceTree = "<group>"; };
 		DC7F220423C711EC009629DD /* GraffeineHorizontalGutterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineHorizontalGutterTests.swift; sourceTree = "<group>"; };
+		DC7F221F23C83F94009629DD /* GraffeineLayer+LabelAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLayer+LabelAlignment.swift"; sourceTree = "<group>"; };
 		DC87B6A223C5069200C4C334 /* GraffeineHorizontalGutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineHorizontalGutter.swift; sourceTree = "<group>"; };
 		DC87B6A323C5069200C4C334 /* GraffeineHorizontalGutter+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineHorizontalGutter+Label.swift"; sourceTree = "<group>"; };
 		DC9A1FCC23C59340008338EB /* GraffeineVerticalGutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineVerticalGutter.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				DC612E7E23B444A900C08AB5 /* GraffeineLayer.swift */,
 				DC612E8323B46FB800C08AB5 /* GraffeineLayer+Data.swift */,
 				DC612E8723B4774000C08AB5 /* GraffeineLayer+DimensionalUnit.swift */,
+				DC7F221F23C83F94009629DD /* GraffeineLayer+LabelAlignment.swift */,
 				DC5E25E323BE84AA006562B6 /* Bar */,
 				DC9E5A1223C42D9F00050A0B /* Grid */,
 				DC9A1FCA23C59322008338EB /* Gutter */,
@@ -369,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCF3C77E23C6997A00F5F92F /* GraffeineLineLayer.swift in Sources */,
+				DC7F222023C83F94009629DD /* GraffeineLayer+LabelAlignment.swift in Sources */,
 				DCF3C77123C6995900F5F92F /* GraffeineView.swift in Sources */,
 				DCF3C77223C6995900F5F92F /* GraffeineViewConfig.swift in Sources */,
 				DCF3C77D23C6997500F5F92F /* GraffeineVerticalGutter+Label.swift in Sources */,
