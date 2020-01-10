@@ -22,7 +22,7 @@ extension GraffeineLayer {
             case .relative:
                 let boundaryAdjustedForTrailingMargin = boundary + unitMargin
                 return (numberOfUnits > 1)
-                    ? ( boundaryAdjustedForTrailingMargin / CGFloat(numberOfUnits)) - unitMargin
+                    ? (boundaryAdjustedForTrailingMargin / CGFloat(numberOfUnits)) - unitMargin
                     : boundary
             }
         }

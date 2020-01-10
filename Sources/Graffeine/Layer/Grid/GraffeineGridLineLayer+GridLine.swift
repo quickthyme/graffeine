@@ -84,10 +84,10 @@ extension GraffeineGridLineLayer {
         override public init() {
             super.init()
             self.contentsScale = UIScreen.main.scale
-            self.anchorPoint     = CGPoint(x: 0, y: 0)
-            self.frame           = CGRect(x: 0, y: 0, width: 1, height: 0)
-            self.fillColor       = nil
-            self.path            = pathForLine().cgPath
+            self.anchorPoint   = CGPoint(x: 0, y: 0)
+            self.frame         = CGRect(x: 0, y: 0, width: 1, height: 0)
+            self.fillColor     = nil
+            self.path          = pathForLine().cgPath
         }
 
         public convenience init(yPos: CGFloat, flipXY: Bool = false) {

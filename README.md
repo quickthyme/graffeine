@@ -6,19 +6,30 @@
 
 **Graffeine** /'gra•feen/ - *n* - Simple, declarative graphs for iOS.
 
+## Introduction
 
-## [Demo App](https://github.com/quickthyme/graffeine-demo)
+![sample_1](docs/sample_1.png)
 
-The example app, *[graffeine-demo](https://github.com/quickthyme/graffeine-demo)*,
-demonstrates how to quickly put together all sorts of graphs.
+<br />
 
+It's like, graphing... with caffeine.
+
+Use `GraffeineView` to easily render dynamic data graphs that are as beautiful as they are accurate.
+
+Documentation coming soon...
+
+D:
+
+<br />
+
+...meanwhile, there is an iOS app, *[graffeine-demo](https://github.com/quickthyme/graffeine-demo)*,
+which demonstrates how to quickly go about generating different types of graphs.
  
  <br />
  
 ---
 
-Enjoying Graffeine? You might check out QLoop
-*[QLoop](https://github.com/quickthyme/qloop)*,
-a library providing declarative, asynchronous composition.
+Enjoying Graffeine? You might also check out *[QLoop](https://github.com/quickthyme/qloop)*,
+a library to support declarative composition for asynchronous operations.
 
 :)

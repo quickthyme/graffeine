@@ -49,8 +49,10 @@ extension GraffeineLineLayer {
 
                 let valPercent: CGFloat = getPercent(of: value, in: maxValue)
 
+                let numberOfUnitsAdjustedForLineOffset = data.values.count - 1
+
                 let width = unitWidth.resolved(within: containerSize.width,
-                                               numberOfUnits: data.values.count,
+                                               numberOfUnits: numberOfUnitsAdjustedForLineOffset,
                                                unitMargin: unitMargin)
 
                 let yPos = containerSize.height - (containerSize.height * valPercent)
