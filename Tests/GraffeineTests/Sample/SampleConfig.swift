@@ -5,7 +5,7 @@ class SampleConfig: GraffeineViewConfig {
 
     enum ID: Hashable {
         case topGutter, rightGutter, bottomGutter, leftGutter
-        case bgGrid, fgGrid, colorBars, descendingBars, rgbaBars, redLine, greenLine
+        case bgGrid, fgGrid, colorBars, descendingBars, rgbaBars, redLine, greenLine, vectorPlots
     }
 
     static let colorValues: [UIColor] = [.black, .brown, .red, .orange, .yellow, .green,
@@ -75,12 +75,21 @@ class SampleConfig: GraffeineViewConfig {
                     $0.lineJoin = .round
                 }),
 
-            GraffeineGridLineLayer(id: ID.fgGrid)
+            GraffeinePlotLayer(id: ID.vectorPlots)
                 .apply ({
-                    $0.colors = [.darkGray]
-                    $0.thickness = 1.0
-                    $0.data = GraffeineLayer.Data(valueMax: 20, values: [0, 10, 20])
-                })
+                    $0.colors = [.black]
+                    $0.unitMargin = unitMargin
+                    $0.plotDiameter = 8.0
+                    $0.plotBorderThickness = 2.0
+                    $0.plotBorderColors = [.brown]
+                }),
+
+        GraffeineGridLineLayer(id: ID.fgGrid)
+            .apply ({
+                $0.colors = [.darkGray]
+                $0.thickness = 1.0
+                $0.data = GraffeineLayer.Data(valueMax: 20, values: [0, 10, 20])
+            })
         ]
     }
 }

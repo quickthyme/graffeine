@@ -32,4 +32,10 @@ class SampleData {
                                              values: [15, 16, 12, 14, 15, nil, 0, 7, 6, 8, 7])
         }
     }
+
+    func applyVectorPlots(to graffeineView: GraffeineView) {
+        if let layer = graffeineView.layer(id: SampleConfig.ID.vectorPlots) {
+            layer.data = GraffeineLayer.Data(valueMax: 20, values: [0, 1, 3, 4, 10, 15, 20])
+        }
+    }
 }
