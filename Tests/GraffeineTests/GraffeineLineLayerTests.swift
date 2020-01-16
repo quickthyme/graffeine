@@ -25,4 +25,23 @@ class GraffeineLineLayerTests: XCTestCase {
         graffeineView.layoutIfNeeded()
         XCTAssertEqual(subject.sublayers!.count, 1)
     }
+
+    func test_line_properties_pass_through_to_line_shape_layer() {
+        sampleData.applyGreenLine(to: graffeineView)
+        subject.apply {
+            $0.thickness = 10
+            $0.dashPattern = [2, 4]
+            $0.dashPhase = 2
+            $0.lineJoin = .round
+            $0.lineCap = .square
+        }
+        graffeineView.layoutIfNeeded()
+        let lineShape = subject.sublayers!.first as! GraffeineLineLayer.Line
+        XCTAssertEqual(lineShape.lineWidth, 10)
+        XCTAssertEqual(lineShape.lineDashPattern, [2, 4])
+        XCTAssertEqual(lineShape.lineDashPhase,  2)
+        XCTAssertEqual(lineShape.lineJoin, .round)
+        XCTAssertEqual(lineShape.lineCap, .square)
+    }
+
 }

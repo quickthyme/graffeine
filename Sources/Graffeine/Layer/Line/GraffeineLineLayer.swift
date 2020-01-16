@@ -9,6 +9,7 @@ open class GraffeineLineLayer: GraffeineLayer {
     public var dashPattern: [NSNumber]? = nil
     public var dashPhase: CGFloat = 0
     public var lineJoin: CAShapeLayerLineJoin = .bevel
+    public var lineCap: CAShapeLayerLineCap = .butt
 
     override open func generateSublayers() {
         addSublayer( Line() )
@@ -22,6 +23,7 @@ open class GraffeineLineLayer: GraffeineLayer {
         line.lineDashPattern = dashPattern
         line.lineDashPhase = dashPhase
         line.lineJoin = lineJoin
+        line.lineCap = lineCap
         line.reposition(data: data,
                         unitWidth: unitWidth,
                         unitMargin: unitMargin,
@@ -52,6 +54,7 @@ open class GraffeineLineLayer: GraffeineLayer {
             self.dashPattern = layer.dashPattern
             self.dashPhase = layer.dashPhase
             self.lineJoin = layer.lineJoin
+            self.lineCap = layer.lineCap
         }
     }
 
