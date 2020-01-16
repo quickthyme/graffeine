@@ -8,6 +8,8 @@ open class GraffeineLayer: CALayer {
 
     open var region: Region = .main
 
+    open var insets: UIEdgeInsets = .zero
+
     open var id: AnyHashable = Int(0)
 
     open var flipXY: Bool = false {
@@ -50,6 +52,7 @@ open class GraffeineLayer: CALayer {
         super.init(layer: layer)
         if let layer = layer as? GraffeineLayer {
             self.region = layer.region
+            self.insets = layer.insets
             self.id = layer.id
             self.flipXY = layer.flipXY
             self.data = layer.data

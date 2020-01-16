@@ -83,11 +83,27 @@ class GraffeineViewTests: XCTestCase {
             GraffeineVerticalGutter(id: "leftGutter", width: 20, region: .leftGutter),
             GraffeineLineLayer(id: "mainRegion")
         ]
-        XCTAssertEqual(subject.layer(id: "topGutter")?.frame,    CGRect(x: 20,  y: 0,   width: 260, height: 20))
-        XCTAssertEqual(subject.layer(id: "rightGutter")?.frame,  CGRect(x: 280, y: 20,  width: 20,  height: 160))
-        XCTAssertEqual(subject.layer(id: "bottomGutter")?.frame, CGRect(x: 20,  y: 180, width: 260, height: 20))
-        XCTAssertEqual(subject.layer(id: "leftGutter")?.frame,   CGRect(x: 0,   y: 20,  width: 20,  height: 160))
-        XCTAssertEqual(subject.layer(id: "mainRegion")?.frame,   CGRect(x: 20,  y: 20,  width: 260, height: 160))
+        XCTAssertEqual(subject.layer(id: "topGutter")?.frame,    CGRect(x:  20, y:   0, width: 260, height:  20))
+        XCTAssertEqual(subject.layer(id: "rightGutter")?.frame,  CGRect(x: 280, y:  20, width:  20, height: 160))
+        XCTAssertEqual(subject.layer(id: "bottomGutter")?.frame, CGRect(x:  20, y: 180, width: 260, height:  20))
+        XCTAssertEqual(subject.layer(id: "leftGutter")?.frame,   CGRect(x:   0, y:  20, width:  20, height: 160))
+        XCTAssertEqual(subject.layer(id: "mainRegion")?.frame,   CGRect(x:  20, y:  20, width: 260, height: 160))
+    }
+
+    func test_when_layers_are_set_that_include_insets_then_all_region_frames_should_be_properly_positioned() {
+        let insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        subject.layers = [
+            GraffeineHorizontalGutter(id: "topGutter", height: 20, region: .topGutter).apply { $0.insets = insets },
+            GraffeineVerticalGutter(id: "rightGutter", width: 20, region: .rightGutter).apply { $0.insets = insets },
+            GraffeineHorizontalGutter(id: "bottomGutter", height: 20, region: .bottomGutter).apply { $0.insets = insets },
+            GraffeineVerticalGutter(id: "leftGutter", width: 20, region: .leftGutter).apply { $0.insets = insets },
+            GraffeineLineLayer(id: "mainRegion").apply { $0.insets = insets }
+        ]
+        XCTAssertEqual(subject.layer(id: "topGutter")?.frame,    CGRect(x:  25, y:   5, width: 250, height:  10))
+        XCTAssertEqual(subject.layer(id: "rightGutter")?.frame,  CGRect(x: 285, y:  25, width:  10, height: 150))
+        XCTAssertEqual(subject.layer(id: "bottomGutter")?.frame, CGRect(x:  25, y: 185, width: 250, height:  10))
+        XCTAssertEqual(subject.layer(id: "leftGutter")?.frame,   CGRect(x:   5, y:  25, width:  10, height: 150))
+        XCTAssertEqual(subject.layer(id: "mainRegion")?.frame,   CGRect(x:  25, y:  25, width: 250, height: 150))
     }
 
     func test_auto_load_config_from_class_name_set_in_IB() {

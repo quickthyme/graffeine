@@ -82,35 +82,41 @@ open class GraffeineView: UIView {
 
     public func calculateRegionFrame(_ layer: GraffeineLayer, precomputedMainRegionFrame mainFrame: CGRect) -> CGRect {
         let layerFrame = layer.frame
+        let insets = layer.insets
+        let insetSize = CGSize(width: insets.left + insets.right,
+                               height: insets.top + insets.bottom)
 
         switch layer.region {
 
         case .topGutter:
-            return CGRect(x: mainFrame.origin.x,
-                          y: 0.0,
-                          width: mainFrame.size.width,
-                          height: layerFrame.height)
+            return CGRect(x: mainFrame.origin.x + insets.left,
+                          y: 0.0 + insets.top,
+                          width: mainFrame.size.width - insetSize.width,
+                          height: layerFrame.height - insetSize.height)
 
         case .rightGutter:
-            return CGRect(x: mainFrame.origin.x + mainFrame.size.width,
-                          y: mainFrame.origin.y,
-                          width: layerFrame.size.width,
-                          height: mainFrame.size.height)
+            return CGRect(x: mainFrame.origin.x + mainFrame.size.width + insets.left,
+                          y: mainFrame.origin.y + insets.top,
+                          width: layerFrame.size.width - insetSize.width,
+                          height: mainFrame.size.height - insetSize.height)
 
         case .bottomGutter:
-            return CGRect(x: mainFrame.origin.x,
-                          y: mainFrame.origin.y + mainFrame.size.height,
-                          width: mainFrame.size.width,
-                          height: layerFrame.size.height)
+            return CGRect(x: mainFrame.origin.x + insets.left,
+                          y: mainFrame.origin.y + mainFrame.size.height + insets.top,
+                          width: mainFrame.size.width - insetSize.width,
+                          height: layerFrame.size.height - insetSize.height)
 
         case .leftGutter:
-            return CGRect(x: 0.0,
-                          y: mainFrame.origin.y,
-                          width: layerFrame.size.width,
-                          height: mainFrame.size.height)
+            return CGRect(x: 0.0 + insets.left,
+                          y: mainFrame.origin.y + insets.top,
+                          width: layerFrame.size.width - insetSize.width,
+                          height: mainFrame.size.height - insetSize.height)
 
         case .main:
-            return mainFrame
+            return CGRect(x: mainFrame.origin.x + insets.left,
+                          y: mainFrame.origin.y + insets.top,
+                          width: mainFrame.size.width - insetSize.width,
+                          height: mainFrame.size.height - insetSize.height)
         }
     }
 
