@@ -34,7 +34,7 @@ open class GraffeinePlotLayer: GraffeineLayer {
     }
 
     open func safeIndexedBorderColor(_ idx: Int) -> CGColor {
-        return ( (idx < plotBorderColors.count) ? plotBorderColors[idx] : plotBorderColors.last ?? .black ).cgColor
+        return safeIndexedColor(idx, colors: self.plotBorderColors)
     }
 
     override public init() {

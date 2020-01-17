@@ -37,7 +37,12 @@ open class GraffeineLayer: CALayer {
     }
 
     open func safeIndexedColor(_ idx: Int) -> CGColor {
-        return ( (idx < colors.count) ? colors[idx] : colors.last ?? .black ).cgColor
+        return safeIndexedColor(idx, colors: self.colors)
+    }
+
+    internal func safeIndexedColor(_ idx: Int, colors: [UIColor]) -> CGColor {
+        guard (!colors.isEmpty) else { return UIColor.black.cgColor }
+        return colors[(idx % colors.count)].cgColor
     }
 
     override public init() {

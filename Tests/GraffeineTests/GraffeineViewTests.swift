@@ -109,7 +109,7 @@ class GraffeineViewTests: XCTestCase {
     func test_auto_load_config_from_class_name_set_in_IB() {
         subject.configClass = "SampleConfig"
         subject.awakeFromNib()
-        XCTAssertEqual(subject.layers.count, 11)
+        XCTAssertEqual(subject.layers.count, 12)
         XCTAssert(subject.layers[ 0] is GraffeineHorizontalGutter)
         XCTAssert(subject.layers[ 1] is GraffeineVerticalGutter)
         XCTAssert(subject.layers[ 2] is GraffeineHorizontalGutter)
@@ -120,6 +120,7 @@ class GraffeineViewTests: XCTestCase {
         XCTAssert(subject.layers[ 7] is GraffeineLineLayer)
         XCTAssert(subject.layers[ 8] is GraffeineLineLayer)
         XCTAssert(subject.layers[ 9] is GraffeinePlotLayer)
-        XCTAssert(subject.layers[10] is GraffeineGridLineLayer)
+        XCTAssert(subject.layers[10] is GraffeinePieLayer)
+        XCTAssert(subject.layers[11] is GraffeineGridLineLayer)
     }
 }
