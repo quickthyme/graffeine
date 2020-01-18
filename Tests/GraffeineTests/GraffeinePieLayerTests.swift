@@ -54,14 +54,14 @@ class GraffeinePieLayerTests: XCTestCase {
         graffeineView.layoutIfNeeded()
         let slices = subject.sublayers as! [GraffeinePieLayer.PieSlice]
         XCTAssertEqual(slices.count, 3)
-        XCTAssertEqual(radToDeg(slices[0].startAngle),   0.0)
-        XCTAssertEqual(radToDeg(slices[0].endAngle),    72.0)
+        XCTAssertEqual(radToDeg(slices[0].angles.start),   0.0)
+        XCTAssertEqual(radToDeg(slices[0].angles.end),    72.0)
 
-        XCTAssertEqual(radToDeg(slices[1].startAngle),  72.0)
-        XCTAssertEqual(radToDeg(slices[1].endAngle),   180.0)
+        XCTAssertEqual(radToDeg(slices[1].angles.start),  72.0)
+        XCTAssertEqual(radToDeg(slices[1].angles.end),   180.0)
 
-        XCTAssertEqual(radToDeg(slices[2].startAngle), 180.0)
-        XCTAssertEqual(radToDeg(slices[2].endAngle),   360.0)
+        XCTAssertEqual(radToDeg(slices[2].angles.start), 180.0)
+        XCTAssertEqual(radToDeg(slices[2].angles.end),   360.0)
     }
 
     func test_given_data_with_3_values_and_explicit_max_value_then_it_has_sublayers_positioned_correctly() {
@@ -70,13 +70,13 @@ class GraffeinePieLayerTests: XCTestCase {
         graffeineView.layoutIfNeeded()
         let slices = subject.sublayers as! [GraffeinePieLayer.PieSlice]
         XCTAssertEqual(slices.count, 3)
-        XCTAssertEqual(radToDeg(slices[0].startAngle),   0.0)
-        XCTAssertEqual(radToDeg(slices[0].endAngle),    36.0)
+        XCTAssertEqual(radToDeg(slices[0].angles.start),   0.0)
+        XCTAssertEqual(radToDeg(slices[0].angles.end),    36.0)
 
-        XCTAssertEqual(radToDeg(slices[1].startAngle),  36.0)
-        XCTAssertEqual(radToDeg(slices[1].endAngle),    90.0)
+        XCTAssertEqual(radToDeg(slices[1].angles.start),  36.0)
+        XCTAssertEqual(radToDeg(slices[1].angles.end),    90.0)
 
-        XCTAssertEqual(radToDeg(slices[2].startAngle),  90.0)
-        XCTAssertEqual(radToDeg(slices[2].endAngle),   180.0)
+        XCTAssertEqual(radToDeg(slices[2].angles.start),  90.0)
+        XCTAssertEqual(radToDeg(slices[2].angles.end),   180.0)
     }
 }

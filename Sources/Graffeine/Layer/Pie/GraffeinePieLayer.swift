@@ -5,6 +5,7 @@ open class GraffeinePieLayer: GraffeineLayer {
     public var clockwise: Bool = true
     public var rotation: UInt = 0
     public var diameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
+    public var holeDiameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
     public var shouldUseDataValueMax: Bool = false
 
     public var borderColors: [UIColor] = []
@@ -24,15 +25,15 @@ open class GraffeinePieLayer: GraffeineLayer {
         let numberOfSlices = data.values.count
         let total = (shouldUseDataValueMax) ? data.valueMax : sum(data.values)
         let percentages = data.values.map { CGFloat( ($0 ?? 0) / total ) }
-
-        let diameterBounds = min(bounds.size.width, bounds.size.height)
-        let realDiameter = diameter.resolved(within: diameterBounds)
-        let radius = (realDiameter / 2)
+        let radius = resolveRadius(diameter)
+        let holeRadius = resolveRadius(holeDiameter)
 
         for (index, slice) in sublayers.enumerated() {
             guard let slice = slice as? PieSlice, index < numberOfSlices else { continue }
             slice.clockwise = clockwise
             slice.rotation = rotation
+            slice.radius = radius
+            slice.holeRadius = holeRadius
             slice.frame = self.bounds
             slice.fillColor = safeIndexedColor(index)
             slice.strokeColor = safeIndexedBorderColor(index)
@@ -41,12 +42,17 @@ open class GraffeinePieLayer: GraffeineLayer {
             slice.lineDashPhase = borderDashPhase
             slice.reposition(for: index,
                              in: percentages,
-                             radius: radius,
                              centerPoint: centerPoint,
                              animated: animated,
                              duration: duration,
                              timing: timing)
         }
+    }
+
+    private func resolveRadius(_ diameter: GraffeineLayer.DimensionalUnit) -> CGFloat {
+        let diameterBounds = min(bounds.size.width, bounds.size.height)
+        let realDiameter = diameter.resolved(within: diameterBounds)
+        return (realDiameter / 2)
     }
 
     private func sum(_ values: [Double?]) -> Double {
@@ -78,6 +84,7 @@ open class GraffeinePieLayer: GraffeineLayer {
             self.clockwise = layer.clockwise
             self.rotation = layer.rotation
             self.diameter = layer.diameter
+            self.holeDiameter = layer.holeDiameter
             self.shouldUseDataValueMax = layer.shouldUseDataValueMax
             self.borderColors = layer.borderColors
             self.borderThickness = layer.borderThickness
