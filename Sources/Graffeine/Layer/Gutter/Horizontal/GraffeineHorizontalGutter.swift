@@ -10,32 +10,37 @@ open class GraffeineHorizontalGutter: GraffeineLayer {
     open var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .centerLeftRight
     open var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .center
 
-    override open func generateSublayers() {
-        for _ in data.labels {
-            addSublayer( Label(fontSize: fontSize,
-                               hPadding: labelHPadding,
-                               vPadding: labelVPadding,
-                               horizontalAlignmentMode: labelHorizontalAlignmentMode,
-                               verticalAlignmentMode: labelVerticalAlignmentMode) )
-        }
+    override open var expectedNumberOfSublayers: Int {
+        return self.data.labels.count
     }
 
-    override open func repositionSublayers() {
+    override open func generateSublayer() -> CALayer {
+        return Label()
+    }
+
+    override open func repositionSublayers(animated: Bool,
+                                           duration: TimeInterval,
+                                           timing: CAMediaTimingFunctionName) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let numberOfUnits = data.labels.count
 
         for (index, label) in sublayers.enumerated() {
             guard let label = label as? Label, index < numberOfUnits else { continue }
 
+            label.fontSize = fontSize
             label.foregroundColor = safeIndexedColor(index)
             label.hPadding = labelHPadding
             label.vPadding = labelVPadding
             label.horizontalAlignmentMode = labelHorizontalAlignmentMode
+            label.verticalAlignmentMode = labelVerticalAlignmentMode
             label.reposition(for: index,
                              in: data.labels,
                              columnWidth: columnWidth,
                              columnMargin: columnMargin,
-                             containerSize: bounds.size)
+                             containerSize: bounds.size,
+                             animated: animated,
+                             duration: duration,
+                             timing: timing)
         }
     }
 

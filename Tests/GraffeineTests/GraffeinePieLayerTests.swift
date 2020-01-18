@@ -9,6 +9,13 @@ class GraffeinePieLayerTests: XCTestCase {
 
     let graffeineViewFrame = CGRect(x: 0, y: 0, width: 200, height: 200)
 
+    private func degToRad(_ deg: CGFloat) -> CGFloat {
+        return deg * (CGFloat.pi / 180)
+    }
+    private func radToDeg(_ rad: CGFloat) -> CGFloat {
+        return rad * 180 / .pi
+    }
+
     override func setUp() {
         graffeineView = GraffeineView(frame: graffeineViewFrame)
         let _ = SampleConfig(graffeineView)
@@ -20,9 +27,56 @@ class GraffeinePieLayerTests: XCTestCase {
         XCTAssertNotNil(subject)
     }
 
+    func test_given_explicit_diameter_then_it_should_have_correct_radius() {
+        subject.diameter = .explicit(100)
+        sampleData.applyPieSlices(to: graffeineView)
+        graffeineView.layoutIfNeeded()
+        let slice = subject.sublayers!.first as! GraffeinePieLayer.PieSlice
+        XCTAssertEqual(slice.radius, 50)
+    }
+
+    func test_given_percent_diameter_then_it_should_have_correct_radius() {
+        subject.diameter = .percentage(0.5)
+        sampleData.applyPieSlices(to: graffeineView)
+        graffeineView.layoutIfNeeded()
+        let slice = subject.sublayers!.first as! GraffeinePieLayer.PieSlice
+        XCTAssertEqual(slice.radius, 30)
+    }
+
     func test_given_data_with_3_values_then_it_should_have_3_sublayer_slices() {
         sampleData.applyPieSlices(to: graffeineView)
         graffeineView.layoutIfNeeded()
         XCTAssertEqual(subject.sublayers!.count, 3)
+    }
+
+    func test_given_data_with_3_values_then_it_has_sublayers_positioned_correctly() {
+        sampleData.applyPieSlices(to: graffeineView)
+        graffeineView.layoutIfNeeded()
+        let slices = subject.sublayers as! [GraffeinePieLayer.PieSlice]
+        XCTAssertEqual(slices.count, 3)
+        XCTAssertEqual(radToDeg(slices[0].startAngle),   0.0)
+        XCTAssertEqual(radToDeg(slices[0].endAngle),    72.0)
+
+        XCTAssertEqual(radToDeg(slices[1].startAngle),  72.0)
+        XCTAssertEqual(radToDeg(slices[1].endAngle),   180.0)
+
+        XCTAssertEqual(radToDeg(slices[2].startAngle), 180.0)
+        XCTAssertEqual(radToDeg(slices[2].endAngle),   360.0)
+    }
+
+    func test_given_data_with_3_values_and_explicit_max_value_then_it_has_sublayers_positioned_correctly() {
+        subject.shouldUseDataValueMax = true
+        sampleData.applyPieSlices(to: graffeineView)
+        graffeineView.layoutIfNeeded()
+        let slices = subject.sublayers as! [GraffeinePieLayer.PieSlice]
+        XCTAssertEqual(slices.count, 3)
+        XCTAssertEqual(radToDeg(slices[0].startAngle),   0.0)
+        XCTAssertEqual(radToDeg(slices[0].endAngle),    36.0)
+
+        XCTAssertEqual(radToDeg(slices[1].startAngle),  36.0)
+        XCTAssertEqual(radToDeg(slices[1].endAngle),    90.0)
+
+        XCTAssertEqual(radToDeg(slices[2].startAngle),  90.0)
+        XCTAssertEqual(radToDeg(slices[2].endAngle),   180.0)
     }
 }

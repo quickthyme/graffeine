@@ -6,25 +6,28 @@ open class GraffeineGridLineLayer: GraffeineLayer {
     public var dashPattern: [NSNumber]? = nil
     public var dashPhase: CGFloat = 0
 
-    override open func generateSublayers() {
-        let baseline = self.bounds.size.height
-        for _ in data.values {
-            let layer = GridLine(yPos: baseline, flipXY: flipXY)
-            addSublayer(layer)
-        }
+    override open func generateSublayer() -> CALayer {
+        return GridLine()
     }
 
-    override open func repositionSublayers() {
+    override open func repositionSublayers(animated: Bool,
+                                           duration: TimeInterval,
+                                           timing: CAMediaTimingFunctionName) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
 
         for (index, line) in sublayers.enumerated() {
             guard let line = line as? GridLine else { continue }
-
+            line.flipXY = flipXY
             line.strokeColor = safeIndexedColor(index)
             line.lineWidth = thickness
             line.lineDashPattern = dashPattern
             line.lineDashPhase = dashPhase
-            line.reposition(for: index, in: data, containerSize: bounds.size)
+            line.reposition(for: index,
+                            in: data,
+                            containerSize: bounds.size,
+                            animated: animated,
+                            duration: duration,
+                            timing: timing)
         }
     }
 

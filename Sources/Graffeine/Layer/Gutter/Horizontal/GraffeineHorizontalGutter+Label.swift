@@ -13,7 +13,10 @@ extension GraffeineHorizontalGutter {
                              in labels: [String?],
                              columnWidth: GraffeineLayer.DimensionalUnit,
                              columnMargin: CGFloat,
-                             containerSize: CGSize) {
+                             containerSize: CGSize,
+                             animated: Bool,
+                             duration: TimeInterval,
+                             timing: CAMediaTimingFunctionName) {
 
             let labelsCount = labels.count
 
@@ -63,19 +66,6 @@ extension GraffeineHorizontalGutter {
             self.fontSize = 12
             self.alignmentMode = .left
             self.string = ""
-        }
-
-        public convenience init(fontSize: CGFloat,
-                                hPadding: CGFloat,
-                                vPadding: CGFloat,
-                                horizontalAlignmentMode: LabelAlignment.HorizontalMode,
-                                verticalAlignmentMode: LabelAlignment.VerticalMode) {
-            self.init()
-            self.fontSize = fontSize
-            self.hPadding = hPadding
-            self.vPadding = vPadding
-            self.horizontalAlignmentMode = horizontalAlignmentMode
-            self.verticalAlignmentMode = verticalAlignmentMode
         }
 
         required public init?(coder: NSCoder) {

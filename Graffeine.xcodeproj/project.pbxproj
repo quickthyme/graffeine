@@ -20,6 +20,7 @@
 		DC7F21BE23C6C360009629DD /* GraffeineGridLineLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */; };
 		DC7F220623C711FF009629DD /* GraffeineHorizontalGutterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F220423C711EC009629DD /* GraffeineHorizontalGutterTests.swift */; };
 		DC7F222023C83F94009629DD /* GraffeineLayer+LabelAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F221F23C83F94009629DD /* GraffeineLayer+LabelAlignment.swift */; };
+		DCCC5FE523D2BEA600DA8839 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCC5FE423D2BEA600DA8839 /* Util.swift */; };
 		DCF0C99723D1A1CD00EDD4E4 /* GraffeinePieLayer+PieSlice.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF0C99523D1A1A100EDD4E4 /* GraffeinePieLayer+PieSlice.swift */; };
 		DCF0C99823D1A1D000EDD4E4 /* GraffeinePieLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF0C99623D1A1A100EDD4E4 /* GraffeinePieLayer.swift */; };
 		DCF0C99A23D1A1DD00EDD4E4 /* GraffeinePieLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF0C99923D1A1DD00EDD4E4 /* GraffeinePieLayerTests.swift */; };
@@ -97,6 +98,7 @@
 		DC9A1FD523C5B590008338EB /* GraffeineLineLayer+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLineLayer+Line.swift"; sourceTree = "<group>"; };
 		DC9E5A1323C42DD100050A0B /* GraffeineGridLineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineGridLineLayer.swift; sourceTree = "<group>"; };
 		DC9E5A1423C42E5800050A0B /* GraffeineGridLineLayer+GridLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineGridLineLayer+GridLine.swift"; sourceTree = "<group>"; };
+		DCCC5FE423D2BEA600DA8839 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		DCF0C99523D1A1A100EDD4E4 /* GraffeinePieLayer+PieSlice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeinePieLayer+PieSlice.swift"; sourceTree = "<group>"; };
 		DCF0C99623D1A1A100EDD4E4 /* GraffeinePieLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeinePieLayer.swift; sourceTree = "<group>"; };
 		DCF0C99923D1A1DD00EDD4E4 /* GraffeinePieLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeinePieLayerTests.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				DC612E8323B46FB800C08AB5 /* GraffeineLayer+Data.swift */,
 				DC612E8723B4774000C08AB5 /* GraffeineLayer+DimensionalUnit.swift */,
 				DC7F221F23C83F94009629DD /* GraffeineLayer+LabelAlignment.swift */,
+				DCCC5FE423D2BEA600DA8839 /* Util.swift */,
 				DC5E25E323BE84AA006562B6 /* Bar */,
 				DC9E5A1223C42D9F00050A0B /* Grid */,
 				DC9A1FCA23C59322008338EB /* Gutter */,
@@ -421,6 +424,7 @@
 				DCF3C77B23C6997000F5F92F /* GraffeineHorizontalGutter+Label.swift in Sources */,
 				DCF0C99823D1A1D000EDD4E4 /* GraffeinePieLayer.swift in Sources */,
 				DCF3C77F23C6997A00F5F92F /* GraffeineLineLayer+Line.swift in Sources */,
+				DCCC5FE523D2BEA600DA8839 /* Util.swift in Sources */,
 				DCF3C77923C6996900F5F92F /* GraffeineGridLineLayer+GridLine.swift in Sources */,
 				DCF3C77523C6996000F5F92F /* GraffeineLayer+DimensionalUnit.swift in Sources */,
 				DCF3C77A23C6997000F5F92F /* GraffeineHorizontalGutter.swift in Sources */,

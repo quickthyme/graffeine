@@ -12,13 +12,13 @@ open class GraffeinePieLayer: GraffeineLayer {
     public var borderDashPattern: [NSNumber]? = nil
     public var borderDashPhase: CGFloat = 0
 
-    override open func generateSublayers() {
-        for _ in data.valuesHi {
-            addSublayer( PieSlice() )
-        }
+    override open func generateSublayer() -> CALayer {
+        return PieSlice()
     }
 
-    override open func repositionSublayers() {
+    override open func repositionSublayers(animated: Bool,
+                                           duration: TimeInterval,
+                                           timing: CAMediaTimingFunctionName) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let centerPoint = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
         let numberOfSlices = data.values.count
@@ -42,7 +42,10 @@ open class GraffeinePieLayer: GraffeineLayer {
             slice.reposition(for: index,
                              in: percentages,
                              radius: radius,
-                             centerPoint: centerPoint)
+                             centerPoint: centerPoint,
+                             animated: animated,
+                             duration: duration,
+                             timing: timing)
         }
     }
 

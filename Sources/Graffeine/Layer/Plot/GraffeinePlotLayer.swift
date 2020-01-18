@@ -9,13 +9,15 @@ open class GraffeinePlotLayer: GraffeineLayer {
     public var plotBorderColors: [UIColor] = []
     public var plotBorderThickness: CGFloat = 0.0
 
-    override open func generateSublayers() {
-        for _ in data.values {
-            addSublayer( Plot() )
-        }
+    public var animationDurationPercentDelay: Double = 0.0
+
+    override open func generateSublayer() -> CALayer {
+        return Plot()
     }
 
-    override open func repositionSublayers() {
+    override open func repositionSublayers(animated: Bool,
+                                           duration: TimeInterval,
+                                           timing: CAMediaTimingFunctionName) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let numberOfUnits = data.values.count
 
@@ -29,7 +31,11 @@ open class GraffeinePlotLayer: GraffeineLayer {
                             in: data,
                             unitWidth: unitWidth,
                             unitMargin: unitMargin,
-                            containerSize: bounds.size)
+                            containerSize: bounds.size,
+                            animated: animated,
+                            duration: duration,
+                            animationDurationPercentDelay: animationDurationPercentDelay,
+                            timing: timing)
         }
     }
 
@@ -60,6 +66,7 @@ open class GraffeinePlotLayer: GraffeineLayer {
             self.plotDiameter = layer.plotDiameter
             self.plotBorderColors = layer.plotBorderColors
             self.plotBorderThickness = layer.plotBorderThickness
+            self.animationDurationPercentDelay = layer.animationDurationPercentDelay
         }
     }
 

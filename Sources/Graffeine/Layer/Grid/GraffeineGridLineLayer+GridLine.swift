@@ -8,7 +8,10 @@ extension GraffeineGridLineLayer {
 
         open func reposition(for index: Int,
                              in data: Data,
-                             containerSize: CGSize) {
+                             containerSize: CGSize,
+                             animated: Bool,
+                             duration: TimeInterval,
+                             timing: CAMediaTimingFunctionName) {
 
             guard let value = data.values[index] else {
                 self.frame.size.width = 1.0
@@ -88,12 +91,6 @@ extension GraffeineGridLineLayer {
             self.frame         = CGRect(x: 0, y: 0, width: 1, height: 0)
             self.fillColor     = nil
             self.path          = pathForLine().cgPath
-        }
-
-        public convenience init(yPos: CGFloat, flipXY: Bool = false) {
-            self.init()
-            self.frame.origin.y = yPos
-            self.flipXY = flipXY
         }
 
         required public init?(coder: NSCoder) {

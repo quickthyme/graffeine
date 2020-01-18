@@ -7,23 +7,50 @@ extension GraffeinePieLayer {
         open var clockwise: Bool = true
         open var rotation: UInt = 0
 
+        private var _startAngle: CGFloat = 0
+        public var startAngle: CGFloat { return _startAngle }
+
+        private var _endAngle: CGFloat = 0
+        public var endAngle: CGFloat { return _endAngle }
+
+        private var _radius: CGFloat = 0
+        public var radius: CGFloat { return _radius }
+
+        private let oneDegreeRad = (CGFloat.pi / 180)
+
         open func reposition(for index: Int,
                              in percentages: [CGFloat],
                              radius: CGFloat,
-                             centerPoint: CGPoint) {
+                             centerPoint: CGPoint,
+                             animated: Bool,
+                             duration: TimeInterval,
+                             timing: CAMediaTimingFunctionName) {
             let rotAngle = rotationAngle()
             let pctAngle = percentAngle(percentages[index])
             let startAngle = startingAngle(for: index, in: percentages) + rotAngle
             let endAngle = startAngle + pctAngle
 
+            if (animated /*&& (_startAngle != _endAngle)*/) {
+                let animation = CAKeyframeAnimation(keyPath: "path")
+                animation.timingFunction  = CAMediaTimingFunction(name: timing)
+                animation.duration = duration
+                animation.values = interpolatePaths(centerPoint: centerPoint,
+                                                    radius: radius,
+                                                    startAngle: startAngle,
+                                                    endAngle: endAngle)
+                self.add(animation, forKey: "reposition")
+            }
             self.path = pathForSlice(centerPoint: centerPoint,
                                      radius: radius,
                                      startAngle: startAngle,
                                      endAngle: endAngle)
+            _startAngle = startAngle
+            _endAngle = endAngle
+            _radius = radius
         }
 
         private func degToRad(_ deg: CGFloat) -> CGFloat {
-            return (deg * CGFloat.pi / 180)
+            return deg * oneDegreeRad
         }
 
         private func rotationAngle() -> CGFloat {
@@ -41,7 +68,10 @@ extension GraffeinePieLayer {
             return ((clockwise) ? angle : (0 - angle))
         }
 
-        private func pathForSlice(centerPoint: CGPoint, radius: CGFloat, startAngle: CGFloat, endAngle: CGFloat) -> CGPath? {
+        private func pathForSlice(centerPoint: CGPoint,
+                                  radius: CGFloat,
+                                  startAngle: CGFloat,
+                                  endAngle: CGFloat) -> CGPath {
             let path = UIBezierPath(arcCenter: centerPoint,
                                     radius: radius,
                                     startAngle: startAngle,
@@ -50,6 +80,39 @@ extension GraffeinePieLayer {
             path.addLine(to: centerPoint)
             path.close()
             return path.cgPath
+        }
+
+        private func interpolatePaths(centerPoint: CGPoint,
+                                      radius: CGFloat,
+                                      startAngle: CGFloat,
+                                      endAngle: CGFloat) -> [CGPath] {
+            let origStartAngle = self.startAngle
+            let origEndAngle = self.endAngle
+            let startStep: CGFloat = (origStartAngle < startAngle) ? oneDegreeRad : -oneDegreeRad
+            let endStep: CGFloat = (origEndAngle < endAngle) ? oneDegreeRad : -oneDegreeRad
+            let angles = equalizeAngles(
+                [origStartAngle] + Array<CGFloat>(stride(from: origStartAngle, to: startAngle, by: startStep)) + [startAngle],
+                [origEndAngle] + Array<CGFloat>(stride(from: origEndAngle, to: endAngle, by: endStep)) + [endAngle]
+            )
+
+            return zip(angles.start, angles.end).map {
+                return pathForSlice(centerPoint: centerPoint,
+                                    radius: radius,
+                                    startAngle: $0.0,
+                                    endAngle: $0.1)
+            }
+        }
+
+        func equalizeAngles(_ startAngles: [CGFloat], _ endAngles: [CGFloat]) -> (start: [CGFloat], end: [CGFloat]) {
+            var startAngles = startAngles
+            var endAngles = endAngles
+            while startAngles.count < endAngles.count {
+                startAngles.append(startAngles.last ?? 0)
+            }
+            while endAngles.count < startAngles.count {
+                endAngles.append(endAngles.last ?? 0)
+            }
+            return (start: startAngles, end: endAngles)
         }
 
         override public init() {
@@ -70,6 +133,8 @@ extension GraffeinePieLayer {
             if let layer = layer as? Self {
                 self.clockwise = layer.clockwise
                 self.rotation = layer.rotation
+                self._startAngle = layer.startAngle
+                self._endAngle = layer.endAngle
             }
         }
     }

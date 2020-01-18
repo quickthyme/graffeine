@@ -10,17 +10,17 @@ open class GraffeineVerticalGutter: GraffeineLayer {
     open var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .right
     open var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .centerTopBottom
 
-    override open func generateSublayers() {
-        for _ in data.labels {
-            addSublayer( Label(fontSize: fontSize,
-                               hPadding: labelHPadding,
-                               vPadding: labelVPadding,
-                               horizontalAlignmentMode: labelHorizontalAlignmentMode,
-                               verticalAlignmentMode: labelVerticalAlignmentMode) )
-        }
+    override open var expectedNumberOfSublayers: Int {
+        return self.data.labels.count
     }
 
-    override open func repositionSublayers() {
+    override open func generateSublayer() -> CALayer {
+        return Label()
+    }
+
+    override open func repositionSublayers(animated: Bool,
+                                           duration: TimeInterval,
+                                           timing: CAMediaTimingFunctionName) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let numberOfUnits = data.labels.count
 
@@ -29,14 +29,18 @@ open class GraffeineVerticalGutter: GraffeineLayer {
 
             label.foregroundColor = safeIndexedColor(index)
             label.fontSize = fontSize
-            label.verticalAlignmentMode = labelVerticalAlignmentMode
             label.hPadding = labelHPadding
             label.vPadding = labelVPadding
+            label.horizontalAlignmentMode = labelHorizontalAlignmentMode
+            label.verticalAlignmentMode = labelVerticalAlignmentMode
             label.reposition(for: index,
                              in: data.labels,
                              rowHeight: rowHeight,
                              rowMargin: rowMargin,
-                             containerSize: bounds.size)
+                             containerSize: bounds.size,
+                             animated: animated,
+                             duration: duration,
+                             timing: timing)
         }
     }
 

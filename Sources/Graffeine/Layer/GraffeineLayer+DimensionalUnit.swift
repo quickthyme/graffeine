@@ -14,10 +14,10 @@ extension GraffeineLayer {
             switch self {
 
             case let .explicit(val):
-                return (val < boundary) ? val : boundary
+                return min(val, boundary)
 
             case let .percentage(val):
-                return (val >= 0 && val <= 1.0) ? floor( (boundary * val) * 100 ) / 100 : boundary
+                return (0.0...1.0 ~= val) ? floor( (boundary * val) * 100 ) / 100 : boundary
 
             case .relative:
                 let boundaryAdjustedForTrailingMargin = boundary + unitMargin

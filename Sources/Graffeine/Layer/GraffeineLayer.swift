@@ -13,28 +13,30 @@ open class GraffeineLayer: CALayer {
     open var id: AnyHashable = Int(0)
 
     open var flipXY: Bool = false {
-        didSet { self.reset() }
+        didSet { self.addOrRemoveSublayers() }
     }
 
-    public var data: GraffeineLayer.Data = GraffeineLayer.Data() {
-        didSet { self.reset() }
+    private var _data: GraffeineLayer.Data = GraffeineLayer.Data()
+
+    public var data: GraffeineLayer.Data {
+        get { return _data }
+        set { setData(newValue, animated: false) }
     }
 
-    public var colors: [UIColor] = []
-
-    open func removeAllSublayers() {
-        for layer in sublayers ?? [] {
-            layer.removeFromSuperlayer()
+    open func setData(_ data: Data,
+                      animated: Bool,
+                      duration: TimeInterval = 0.8,
+                      timing: CAMediaTimingFunctionName = .default) {
+        _data = data
+        addOrRemoveSublayers()
+        if (animated) {
+            repositionSublayers(animated: animated, duration: duration, timing: timing)
+        } else {
+            setNeedsLayout()
         }
     }
 
-    open func generateSublayers() {
-        /* */
-    }
-
-    open func repositionSublayers() {
-        /* */
-    }
+    public var colors: [UIColor] = []
 
     open func safeIndexedColor(_ idx: Int) -> CGColor {
         return safeIndexedColor(idx, colors: self.colors)
@@ -70,9 +72,43 @@ open class GraffeineLayer: CALayer {
         repositionSublayers()
     }
 
-    open func reset() {
-        removeAllSublayers()
-        generateSublayers()
+    open var expectedNumberOfSublayers: Int {
+        return self.data.values.count
+    }
+
+    open func generateSublayer() -> CALayer {
+        return CALayer()
+    }
+
+    open func repositionSublayers(animated: Bool = false,
+                                  duration: TimeInterval = 0.8,
+                                  timing: CAMediaTimingFunctionName = .default) {
+        /* */
+    }
+
+    open func addOrRemoveSublayers() {
+        let targetCount = expectedNumberOfSublayers
+        let currentCount = (sublayers?.count ?? 0)
+        if (currentCount < targetCount) {
+            addSublayersToEnd(targetCount - currentCount)
+        } else if (currentCount > targetCount) {
+            removeSublayersFromEnd(currentCount - targetCount)
+        }
+    }
+
+    open func removeSublayersFromEnd(_ n: Int) {
+        guard (self.sublayers != nil) else { return }
+        let targetCount = max(sublayers!.count - n, 0)
+        while (sublayers!.count > targetCount) {
+            sublayers!.last!.removeFromSuperlayer()
+        }
+    }
+
+    open func addSublayersToEnd(_ n: Int) {
+        let targetCount = (sublayers?.count ?? 0) + n
+        while ((sublayers?.count ?? 0) < targetCount) {
+            addSublayer( generateSublayer() )
+        }
     }
 
     @discardableResult

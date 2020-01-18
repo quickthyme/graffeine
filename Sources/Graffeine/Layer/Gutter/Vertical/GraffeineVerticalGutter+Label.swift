@@ -13,7 +13,10 @@ extension GraffeineVerticalGutter {
                              in labels: [String?],
                              rowHeight: GraffeineLayer.DimensionalUnit,
                              rowMargin: CGFloat,
-                             containerSize: CGSize) {
+                             containerSize: CGSize,
+                             animated: Bool,
+                             duration: TimeInterval,
+                             timing: CAMediaTimingFunctionName) {
 
             let labelsCount = labels.count
 

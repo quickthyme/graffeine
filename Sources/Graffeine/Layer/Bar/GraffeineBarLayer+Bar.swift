@@ -21,7 +21,10 @@ extension GraffeineBarLayer {
                              in data: Data,
                              barWidth: GraffeineLayer.DimensionalUnit,
                              barMargin: CGFloat,
-                             containerSize: CGSize) {
+                             containerSize: CGSize,
+                             animated: Bool,
+                             duration: TimeInterval,
+                             timing: CAMediaTimingFunctionName) {
 
             guard let valueHi = data.valuesHi[index] else {
                 self.frame.size.width = 1.0

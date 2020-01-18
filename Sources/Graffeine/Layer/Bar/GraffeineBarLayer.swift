@@ -6,16 +6,13 @@ open class GraffeineBarLayer: GraffeineLayer {
     public var barMargin: CGFloat = 4.0
     public var barSubdivision: Bar.Subdivision? = nil
 
-    override open func generateSublayers() {
-        let baseline = self.bounds.size.height
-        for _ in data.valuesHi {
-            addSublayer( Bar(yPos: baseline,
-                             subdivision: barSubdivision,
-                             flipXY: flipXY) )
-        }
+    override open func generateSublayer() -> CALayer {
+        return Bar()
     }
 
-    override open func repositionSublayers() {
+    override open func repositionSublayers(animated: Bool,
+                                           duration: TimeInterval,
+                                           timing: CAMediaTimingFunctionName) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let numberOfUnits = data.valuesHi.count
 
@@ -23,11 +20,15 @@ open class GraffeineBarLayer: GraffeineLayer {
             guard let bar = bar as? Bar, index < numberOfUnits else { continue }
             bar.backgroundColor = safeIndexedColor(index)
             bar.subdivision = barSubdivision
+            bar.flipXY = flipXY
             bar.reposition(for: index,
                            in: data,
                            barWidth: barWidth,
                            barMargin: barMargin,
-                           containerSize: bounds.size)
+                           containerSize: bounds.size,
+                           animated: animated,
+                           duration: duration,
+                           timing: timing)
         }
     }
 

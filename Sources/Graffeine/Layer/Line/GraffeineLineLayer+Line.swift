@@ -7,23 +7,26 @@ extension GraffeineLineLayer {
         open func reposition(data: Data,
                              unitWidth: GraffeineLayer.DimensionalUnit,
                              unitMargin: CGFloat,
-                             containerSize: CGSize) {
-
-            guard
-                let path = pathForLine(data: data,
-                                       unitWidth: unitWidth,
-                                       unitMargin: unitMargin,
-                                       containerSize: containerSize)
-                else {
-                    self.path = nil
-                    self.position = CGPoint(x: 0, y: 0)
-                    return
-            }
-
+                             containerSize: CGSize,
+                             animated: Bool,
+                             duration: TimeInterval,
+                             timing: CAMediaTimingFunctionName) {
             self.frame.size = containerSize
-            self.path = path.cgPath
-        }
 
+            let newPath = pathForLine(data: data,
+                                      unitWidth: unitWidth,
+                                      unitMargin: unitMargin,
+                                      containerSize: containerSize)
+            if (animated && self.path != nil) {
+                let animation = CABasicAnimation(keyPath: "path")
+                animation.timingFunction  = CAMediaTimingFunction(name: timing)
+                animation.duration = duration
+                animation.fromValue = path
+                animation.toValue = newPath
+                self.add(animation, forKey: "reposition")
+            }
+            self.path = newPath
+        }
 
         func getPercent(of value: Double, in maxValue: Double) -> CGFloat {
             return (value < maxValue) ? CGFloat(value / maxValue) : 1.0
@@ -32,8 +35,8 @@ extension GraffeineLineLayer {
         func pathForLine(data: Data,
                          unitWidth: GraffeineLayer.DimensionalUnit,
                          unitMargin: CGFloat,
-                         containerSize: CGSize) -> UIBezierPath? {
-            guard (!data.values.isEmpty) else { return nil }
+                         containerSize: CGSize) -> CGPath {
+            guard (!data.values.isEmpty) else { return CGPath(rect: .zero, transform: nil) }
 
             let maxValue = data.valueMax
 
@@ -67,7 +70,7 @@ extension GraffeineLineLayer {
                 }
             }
 
-            return path
+            return path.cgPath
         }
 
         override public init() {

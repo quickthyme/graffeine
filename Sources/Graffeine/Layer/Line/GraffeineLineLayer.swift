@@ -11,11 +11,17 @@ open class GraffeineLineLayer: GraffeineLayer {
     public var lineJoin: CAShapeLayerLineJoin = .bevel
     public var lineCap: CAShapeLayerLineCap = .butt
 
-    override open func generateSublayers() {
-        addSublayer( Line() )
+    override open var expectedNumberOfSublayers: Int {
+        return 1
     }
 
-    override open func repositionSublayers() {
+    override open func generateSublayer() -> CALayer {
+        return Line()
+    }
+
+    override open func repositionSublayers(animated: Bool,
+                                           duration: TimeInterval,
+                                           timing: CAMediaTimingFunctionName) {
         guard let line = self.sublayers?.first(where: { $0 is Line }) as? Line
             else { return }
         line.strokeColor = safeIndexedColor(0)
@@ -27,7 +33,10 @@ open class GraffeineLineLayer: GraffeineLayer {
         line.reposition(data: data,
                         unitWidth: unitWidth,
                         unitMargin: unitMargin,
-                        containerSize: bounds.size)
+                        containerSize: bounds.size,
+                        animated: animated,
+                        duration: duration,
+                        timing: timing)
     }
 
     override public init() {
