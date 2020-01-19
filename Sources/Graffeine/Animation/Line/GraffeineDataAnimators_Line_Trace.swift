@@ -8,6 +8,10 @@ extension GraffeineDataAnimators.Line {
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
 
+        public let animationKey: String = "GraffeineDataAnimators.Line.Trace"
+
+        internal var animationDelegate: AnimationDelegate = AnimationDelegate()
+
         public init(delay: TimeInterval = 0.0,
                     duration: TimeInterval = 0.8,
                     timing: CAMediaTimingFunctionName = .linear) {
@@ -30,15 +34,21 @@ extension GraffeineDataAnimators.Line {
             animation.duration = duration
             animation.fromValue = 0.0
             animation.toValue = 1.0
+            animation.fillMode = .forwards
+            animation.isRemovedOnCompletion = false
+            animation.delegate = animationDelegate
+            animationDelegate.lineBeingAnimated = line
+            animationDelegate.animationKey = animationKey
+            line.add(animation, forKey: animationKey)
+        }
 
-            if (delay > 0) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    line.strokeEnd = 1.0
-                }
-            } else {
-                line.strokeEnd = 1.0
+        internal class AnimationDelegate: NSObject, CAAnimationDelegate {
+            var lineBeingAnimated: GraffeineLineLayer.Line? = nil
+            var animationKey: String = ""
+            func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+                lineBeingAnimated?.strokeEnd = 1.0
+                lineBeingAnimated?.removeAnimation(forKey: animationKey)
             }
-            line.add(animation, forKey: "GraffeineDataAnimators.Line.Trace")
         }
     }
 }
