@@ -20,17 +20,14 @@ open class GraffeineLayer: CALayer {
 
     public var data: GraffeineLayer.Data {
         get { return _data }
-        set { setData(newValue, animated: false) }
+        set { setData(newValue, animator: nil) }
     }
 
-    open func setData(_ data: Data,
-                      animated: Bool,
-                      duration: TimeInterval = 0.8,
-                      timing: CAMediaTimingFunctionName = .default) {
+    open func setData(_ data: Data, animator: GraffeineDataAnimating?) {
         _data = data
         addOrRemoveSublayers()
-        if (animated) {
-            repositionSublayers(animated: animated, duration: duration, timing: timing)
+        if let animator = animator {
+            repositionSublayers(animator: animator)
         } else {
             setNeedsLayout()
         }
@@ -80,9 +77,7 @@ open class GraffeineLayer: CALayer {
         return CALayer()
     }
 
-    open func repositionSublayers(animated: Bool = false,
-                                  duration: TimeInterval = 0.8,
-                                  timing: CAMediaTimingFunctionName = .default) {
+    open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         /* */
     }
 

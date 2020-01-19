@@ -4,35 +4,18 @@ extension GraffeineBarLayer {
 
     open class Bar: CALayer {
 
-        public struct Subdivision {
-            public let index: Int
-            public let width: GraffeineLayer.DimensionalUnit
-            public init(index: Int, width: GraffeineLayer.DimensionalUnit) {
-                self.index = index
-                self.width = width
-            }
-        }
-
-        open var subdivision: Subdivision? = nil
+        open var subdivision: UnitSubdivision? = nil
 
         open var flipXY: Bool = false
 
         open func reposition(for index: Int,
                              in data: Data,
-                             barWidth: GraffeineLayer.DimensionalUnit,
-                             barMargin: CGFloat,
+                             unitWidth: GraffeineLayer.DimensionalUnit,
+                             unitMargin: CGFloat,
                              containerSize: CGSize,
-                             animated: Bool,
-                             duration: TimeInterval,
-                             timing: CAMediaTimingFunctionName) {
+                             animator: GraffeineBarDataAnimating?) {
 
-            guard let valueHi = data.valuesHi[index] else {
-                self.frame.size.width = 1.0
-                self.frame.size.height = 0.0
-                self.position = CGPoint(x: 0, y: 0)
-                return
-            }
-
+            let valueHi = data.valuesHi[index] ?? 0
             let valueLo = data.loValueOrZero(index)
             let maxValue = data.valueMax
             let translatedContainerSize = translatedSize(containerSize)
@@ -43,12 +26,12 @@ extension GraffeineBarLayer {
             let loPercentInverted: CGFloat = (shouldConsiderLo) ? ((1.0 - loPercent)) : 1.0
             let loPercentPositionMultiplier = (flipXY) ? loPercent : loPercentInverted
 
-            var width = barWidth.resolved(within: translatedContainerSize.width,
-                                          numberOfUnits: data.valuesHi.count,
-                                          unitMargin: barMargin)
+            var width = unitWidth.resolved(within: translatedContainerSize.width,
+                                           numberOfUnits: data.valuesHi.count,
+                                           unitMargin: unitMargin)
             let height = translatedContainerSize.height * (hiPercent - loPercent)
 
-            var xPos = (CGFloat(index) * (width + barMargin))
+            var xPos = (CGFloat(index) * (width + unitMargin))
             let yPos: CGFloat = translatedContainerSize.height * loPercentPositionMultiplier
 
             if let subdivision = self.subdivision {
@@ -57,8 +40,23 @@ extension GraffeineBarLayer {
             }
 
             self.anchorPoint = translatedAnchor(CGPoint(x: 0.0, y: 1.0))
-            self.frame.size = translatedSize(CGSize(width: width, height: height))
-            self.position = translatedPosition(CGPoint(x: xPos, y: yPos))
+            let oldPosition = self.position
+            let newPosition = translatedPosition(CGPoint(x: xPos, y: yPos))
+            let oldSize = self.frame.size
+            let newSize = translatedSize(CGSize(width: width, height: height))
+
+            if let animator = animator {
+                animator.animate(bar: self,
+                                 fromPosition: oldPosition,
+                                 toPosition: newPosition,
+                                 fromSize: oldSize,
+                                 toSize: newSize)
+            } else {
+                performWithoutAnimation {
+                    self.position = newPosition
+                    self.frame.size = newSize
+                }
+            }
         }
 
         private func translatedSize(_ size: CGSize) -> CGSize {
@@ -85,12 +83,6 @@ extension GraffeineBarLayer {
             self.backgroundColor = UIColor.black.cgColor
             self.frame = CGRect(x: 0, y: 0, width: 10.0, height: 10.0)
             self.anchorPoint = CGPoint(x: 0.0, y: 1.0)
-        }
-
-        public convenience init(yPos: CGFloat, subdivision: Subdivision?, flipXY: Bool) {
-            self.init()
-            self.frame.origin.y = yPos
-            self.flipXY = flipXY
         }
 
         required public init?(coder: NSCoder) {

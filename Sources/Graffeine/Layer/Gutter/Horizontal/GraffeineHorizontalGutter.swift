@@ -18,9 +18,7 @@ open class GraffeineHorizontalGutter: GraffeineLayer {
         return Label()
     }
 
-    override open func repositionSublayers(animated: Bool,
-                                           duration: TimeInterval,
-                                           timing: CAMediaTimingFunctionName) {
+    override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let numberOfUnits = data.labels.count
 
@@ -37,10 +35,7 @@ open class GraffeineHorizontalGutter: GraffeineLayer {
                              in: data.labels,
                              columnWidth: columnWidth,
                              columnMargin: columnMargin,
-                             containerSize: bounds.size,
-                             animated: animated,
-                             duration: duration,
-                             timing: timing)
+                             containerSize: bounds.size)
         }
     }
 

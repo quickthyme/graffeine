@@ -13,10 +13,7 @@ extension GraffeineVerticalGutter {
                              in labels: [String?],
                              rowHeight: GraffeineLayer.DimensionalUnit,
                              rowMargin: CGFloat,
-                             containerSize: CGSize,
-                             animated: Bool,
-                             duration: TimeInterval,
-                             timing: CAMediaTimingFunctionName) {
+                             containerSize: CGSize) {
 
             let labelsCount = labels.count
 
@@ -24,9 +21,11 @@ extension GraffeineVerticalGutter {
                 (index < labelsCount),
                 let labelValue = labels[index]
                 else {
-                    self.frame.size.width = 1.0
-                    self.frame.size.height = 0.0
-                    self.position = CGPoint(x: 0, y: 0)
+                    performWithoutAnimation {
+                        self.frame.size.width = 1.0
+                        self.frame.size.height = 0.0
+                        self.position = CGPoint(x: 0, y: 0)
+                    }
                     return
             }
 
@@ -43,11 +42,13 @@ extension GraffeineVerticalGutter {
             let yPos = (CGFloat(index) * (height + rowMargin)) + yOffset
             let xPos = (alignmentMode == .left) ? hPadding : 0.0
 
-            self.alignmentMode = horizontalAlignmentMode.textAlignment(for: index, in: labels)
-            self.string = labelValue
-            self.frame.size.height = height
-            self.frame.size.width = containerSize.width - hPadding
-            self.position = CGPoint(x: xPos, y: yPos)
+            performWithoutAnimation {
+                self.alignmentMode = horizontalAlignmentMode.textAlignment(for: index, in: labels)
+                self.string = labelValue
+                self.frame.size.height = height
+                self.frame.size.width = containerSize.width - hPadding
+                self.position = CGPoint(x: xPos, y: yPos)
+            }
         }
 
         override public init() {
@@ -61,19 +62,6 @@ extension GraffeineVerticalGutter {
             self.fontSize = 12
             self.alignmentMode = .right
             self.string = ""
-        }
-
-        public convenience init(fontSize: CGFloat,
-                                hPadding: CGFloat,
-                                vPadding: CGFloat,
-                                horizontalAlignmentMode: LabelAlignment.HorizontalMode,
-                                verticalAlignmentMode: LabelAlignment.VerticalMode) {
-            self.init()
-            self.fontSize = fontSize
-            self.hPadding = hPadding
-            self.vPadding = vPadding
-            self.horizontalAlignmentMode = horizontalAlignmentMode
-            self.verticalAlignmentMode = verticalAlignmentMode
         }
 
         required public init?(coder: NSCoder) {

@@ -50,12 +50,12 @@ class SampleConfig: GraffeineViewConfig {
             GraffeineBarLayer(id: ID.colorBars)
                 .apply ({
                     $0.flipXY = true
-                    $0.barMargin = unitMargin
+                    $0.unitMargin = unitMargin
                 }),
 
             GraffeineBarLayer(id: ID.descendingBars)
                 .apply ({
-                    $0.barMargin = unitMargin
+                    $0.unitMargin = unitMargin
                     $0.colors = [.purple]
                 }),
 

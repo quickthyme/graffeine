@@ -13,10 +13,7 @@ extension GraffeineHorizontalGutter {
                              in labels: [String?],
                              columnWidth: GraffeineLayer.DimensionalUnit,
                              columnMargin: CGFloat,
-                             containerSize: CGSize,
-                             animated: Bool,
-                             duration: TimeInterval,
-                             timing: CAMediaTimingFunctionName) {
+                             containerSize: CGSize) {
 
             let labelsCount = labels.count
 
@@ -24,9 +21,11 @@ extension GraffeineHorizontalGutter {
                 (index < labelsCount),
                 let labelValue = labels[index]
                 else {
-                    self.frame.size.width = 1.0
-                    self.frame.size.height = 0.0
-                    self.position = CGPoint(x: 0, y: 0)
+                    performWithoutAnimation {
+                        self.frame.size.width = 1.0
+                        self.frame.size.height = 0.0
+                        self.position = CGPoint(x: 0, y: 0)
+                    }
                     return
             }
 
@@ -41,11 +40,13 @@ extension GraffeineHorizontalGutter {
                                                               padding: vPadding,
                                                               within: containerSize.height)
 
-            self.string = labelValue
-            self.alignmentMode = horizontalAlignmentMode.textAlignment(for: index, in: labels)
-            self.frame.size.height = containerSize.height
-            self.frame.size.width = width
-            self.position = CGPoint(x: xPos, y: yPos)
+            performWithoutAnimation {
+                self.string = labelValue
+                self.alignmentMode = horizontalAlignmentMode.textAlignment(for: index, in: labels)
+                self.frame.size.height = containerSize.height
+                self.frame.size.width = width
+                self.position = CGPoint(x: xPos, y: yPos)
+            }
         }
 
         func calculateXPaddingOffset() -> CGFloat {

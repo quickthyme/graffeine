@@ -2,33 +2,29 @@ import UIKit
 
 open class GraffeineBarLayer: GraffeineLayer {
 
-    public var barWidth: GraffeineLayer.DimensionalUnit = .relative
-    public var barMargin: CGFloat = 4.0
-    public var barSubdivision: Bar.Subdivision? = nil
+    public var unitWidth: GraffeineLayer.DimensionalUnit = .relative
+    public var unitMargin: CGFloat = 4.0
+    public var unitSubdivision: GraffeineLayer.UnitSubdivision? = nil
 
     override open func generateSublayer() -> CALayer {
         return Bar()
     }
 
-    override open func repositionSublayers(animated: Bool,
-                                           duration: TimeInterval,
-                                           timing: CAMediaTimingFunctionName) {
+    override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let numberOfUnits = data.valuesHi.count
 
         for (index, bar) in sublayers.enumerated() {
             guard let bar = bar as? Bar, index < numberOfUnits else { continue }
             bar.backgroundColor = safeIndexedColor(index)
-            bar.subdivision = barSubdivision
+            bar.subdivision = unitSubdivision
             bar.flipXY = flipXY
             bar.reposition(for: index,
                            in: data,
-                           barWidth: barWidth,
-                           barMargin: barMargin,
+                           unitWidth: unitWidth,
+                           unitMargin: unitMargin,
                            containerSize: bounds.size,
-                           animated: animated,
-                           duration: duration,
-                           timing: timing)
+                           animator: animator as? GraffeineBarDataAnimating)
         }
     }
 
@@ -50,9 +46,9 @@ open class GraffeineBarLayer: GraffeineLayer {
     override public init(layer: Any) {
         super.init(layer: layer)
         if let layer = layer as? Self {
-            self.barWidth = layer.barWidth
-            self.barMargin = layer.barMargin
-            self.barSubdivision = layer.barSubdivision
+            self.unitWidth = layer.unitWidth
+            self.unitMargin = layer.unitMargin
+            self.unitSubdivision = layer.unitSubdivision
         }
     }
 

@@ -8,24 +8,22 @@ extension GraffeineLineLayer {
                              unitWidth: GraffeineLayer.DimensionalUnit,
                              unitMargin: CGFloat,
                              containerSize: CGSize,
-                             animated: Bool,
-                             duration: TimeInterval,
-                             timing: CAMediaTimingFunctionName) {
+                             animator: GraffeineLineDataAnimating?) {
             self.frame.size = containerSize
 
             let newPath = pathForLine(data: data,
                                       unitWidth: unitWidth,
                                       unitMargin: unitMargin,
                                       containerSize: containerSize)
-            if (animated && self.path != nil) {
-                let animation = CABasicAnimation(keyPath: "path")
-                animation.timingFunction  = CAMediaTimingFunction(name: timing)
-                animation.duration = duration
-                animation.fromValue = path
-                animation.toValue = newPath
-                self.add(animation, forKey: "reposition")
+
+            if let animator = animator,
+                let oldPath = self.path {
+                animator.animate(line: self, from: oldPath, to: newPath)
+            } else {
+                performWithoutAnimation {
+                    self.path = newPath
+                }
             }
-            self.path = newPath
         }
 
         func getPercent(of value: Double, in maxValue: Double) -> CGFloat {

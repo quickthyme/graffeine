@@ -1,0 +1,69 @@
+import UIKit
+
+extension GraffeineDataAnimators.Pie {
+
+    public struct Spin: GraffeinePieDataAnimating {
+
+        let equalizeAngles = GraffeineDataAnimators.Pie.equalizeAngles
+
+        public var duration: TimeInterval
+        public var timing: CAMediaTimingFunctionName
+
+        public init(duration: TimeInterval, timing: CAMediaTimingFunctionName) {
+            self.duration = duration
+            self.timing = timing
+        }
+
+        public func animate(pieSlice: GraffeinePieLayer.PieSlice, fromAngles: GraffeineAnglePair, toAngles: GraffeineAnglePair, centerPoint: CGPoint) {
+            let animation = CAKeyframeAnimation(keyPath: "path")
+            animation.timingFunction  = CAMediaTimingFunction(name: timing)
+            animation.duration = duration
+            animation.values = interpolatePaths(pieSlice: pieSlice,
+                                                fromAngles: fromAngles,
+                                                toAngles: toAngles,
+                                                centerPoint: centerPoint)
+            pieSlice.path = pieSlice.constructPath(centerPoint: centerPoint, angles: toAngles)
+            pieSlice.add(animation, forKey: "reposition")
+        }
+
+        private func interpolatePaths(pieSlice: GraffeinePieLayer.PieSlice,
+                                      fromAngles: GraffeineAnglePair,
+                                      toAngles: GraffeineAnglePair,
+                                      centerPoint: CGPoint) -> [CGPath] {
+            let startStep: CGFloat = OneDegreeInRadians
+            let endStep: CGFloat = OneDegreeInRadians
+            let fullCircle = DegreesToRadians(360)
+
+            let eqAngles1 = equalizeAngles(
+                [fromAngles.start]
+                    + Array<CGFloat>(stride(from: fromAngles.start,
+                                            to: fullCircle,
+                                            by: startStep))
+                    + [fullCircle],
+                [fromAngles.end]
+                    + Array<CGFloat>(stride(from: fromAngles.end,
+                                            to: fullCircle,
+                                            by: endStep))
+                    + [fullCircle]
+            )
+
+            let eqAngles2 = equalizeAngles(
+                [CGFloat(0)]
+                    + Array<CGFloat>(stride(from: CGFloat(0),
+                                            to: toAngles.start,
+                                            by: startStep))
+                    + [toAngles.start],
+                [CGFloat(0)]
+                    + Array<CGFloat>(stride(from: CGFloat(0),
+                                            to: toAngles.end,
+                                            by: endStep))
+                    + [toAngles.end]
+            )
+
+            return zip(eqAngles1.start + eqAngles2.start, eqAngles1.end + eqAngles2.end).map {
+                return pieSlice.constructPath(centerPoint: centerPoint,
+                                              angles: GraffeineAnglePair(start: $0.0, end: $0.1))
+            }
+        }
+    }
+}

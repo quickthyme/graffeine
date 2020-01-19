@@ -11,10 +11,7 @@ extension GraffeinePlotLayer {
                              unitWidth: GraffeineLayer.DimensionalUnit,
                              unitMargin: CGFloat,
                              containerSize: CGSize,
-                             animated: Bool,
-                             duration: TimeInterval,
-                             animationDurationPercentDelay: Double,
-                             timing: CAMediaTimingFunctionName) {
+                             animator: GraffeinePlotDataAnimating?) {
 
             guard let value = data.values[index] else {
                 performWithoutAnimation {
@@ -32,27 +29,29 @@ extension GraffeinePlotLayer {
                                            numberOfUnits: numberOfUnitsAdjustedForPlotOffset,
                                            unitMargin: unitMargin)
 
-            let yPos = containerSize.height - (containerSize.height * valPercent)
-            let xPos = (CGFloat(index) * (width + unitMargin))
+            let newPosition = CGPoint(
+                x: (CGFloat(index) * (width + unitMargin)),
+                y: containerSize.height - (containerSize.height * valPercent)
+            )
 
-            performWithoutAnimation {
-                self.opacity = 0.0
-                self.frame.size = CGSize(width: diameter, height: diameter)
-                self.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: diameter, height: diameter),
-                                         cornerRadius: diameter / 2).cgPath
-                self.position = CGPoint(x: xPos, y: yPos)
-                if (!animated) { self.opacity = 1.0 }
-            }
+            let newShape = UIBezierPath(
+                roundedRect: CGRect(x: 0, y: 0, width: diameter, height: diameter),
+                cornerRadius: diameter / 2
+            ).cgPath
 
-            if (animated) {
-                let delayKeyTime = NSNumber(value: animationDurationPercentDelay )
-                let animation = CAKeyframeAnimation(keyPath: "opacity")
-                animation.timingFunction  = CAMediaTimingFunction(name: timing)
-                animation.duration = duration
-                animation.values = [0.0, 0.0, 1.0]
-                animation.keyTimes = [0.0, delayKeyTime, 1.0]
-                animation.fillMode = .forwards
-                self.add(animation, forKey: "reposition")
+            if let animator = animator {
+                animator.animate(plot: self,
+                                 fromPosition: position,
+                                 toPosition: newPosition,
+                                 fromShape: path ?? newShape,
+                                 toShape: newShape)
+            } else {
+                performWithoutAnimation {
+                    self.frame.size = newShape.boundingBoxOfPath.size
+                    self.path = newShape
+                    self.position = newPosition
+                    self.opacity = 1.0
+                }
             }
         }
 

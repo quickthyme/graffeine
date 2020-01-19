@@ -8,15 +8,14 @@ extension GraffeineGridLineLayer {
 
         open func reposition(for index: Int,
                              in data: Data,
-                             containerSize: CGSize,
-                             animated: Bool,
-                             duration: TimeInterval,
-                             timing: CAMediaTimingFunctionName) {
+                             containerSize: CGSize) {
 
             guard let value = data.values[index] else {
-                self.frame.size.width = 1.0
-                self.frame.size.height = 0.0
-                self.position = CGPoint(x: 0, y: 0)
+                performWithoutAnimation {
+                    self.frame.size.width = 1.0
+                    self.frame.size.height = 0.0
+                    self.position = CGPoint(x: 0, y: 0)
+                }
                 return
             }
 
@@ -28,14 +27,15 @@ extension GraffeineGridLineLayer {
 
             let yPos: CGFloat = translatedContainerSize.height * valPercentInverted
 
-            self.anchorPoint = translatedAnchor(yPos, translatedContainerSize)
-            self.frame.size = translatedSize( CGSize(width: translatedContainerSize.width, height: 0.0) )
-            self.path = pathForLine().cgPath
-            self.position = translatedPosition(
-                thicknessOffset(CGPoint(x: 0, y: translatedContainerSize.height * valPercentInverted),
-                                translatedContainerSize)
-
-            )
+            performWithoutAnimation {
+                self.anchorPoint = translatedAnchor(yPos, translatedContainerSize)
+                self.frame.size = translatedSize( CGSize(width: translatedContainerSize.width, height: 0.0) )
+                self.path = pathForLine().cgPath
+                self.position = translatedPosition(
+                    thicknessOffset(CGPoint(x: 0, y: translatedContainerSize.height * valPercentInverted),
+                                    translatedContainerSize)
+                )
+            }
         }
 
         private func translatedSize(_ size: CGSize) -> CGSize {

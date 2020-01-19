@@ -17,9 +17,7 @@ open class GraffeinePieLayer: GraffeineLayer {
         return PieSlice()
     }
 
-    override open func repositionSublayers(animated: Bool,
-                                           duration: TimeInterval,
-                                           timing: CAMediaTimingFunctionName) {
+    override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let centerPoint = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
         let numberOfSlices = data.values.count
@@ -43,9 +41,7 @@ open class GraffeinePieLayer: GraffeineLayer {
             slice.reposition(for: index,
                              in: percentages,
                              centerPoint: centerPoint,
-                             animated: animated,
-                             duration: duration,
-                             timing: timing)
+                             animator: animator as? GraffeinePieDataAnimating)
         }
     }
 

@@ -19,9 +19,7 @@ open class GraffeineLineLayer: GraffeineLayer {
         return Line()
     }
 
-    override open func repositionSublayers(animated: Bool,
-                                           duration: TimeInterval,
-                                           timing: CAMediaTimingFunctionName) {
+    override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         guard let line = self.sublayers?.first(where: { $0 is Line }) as? Line
             else { return }
         line.strokeColor = safeIndexedColor(0)
@@ -34,9 +32,7 @@ open class GraffeineLineLayer: GraffeineLayer {
                         unitWidth: unitWidth,
                         unitMargin: unitMargin,
                         containerSize: bounds.size,
-                        animated: animated,
-                        duration: duration,
-                        timing: timing)
+                        animator: animator as? GraffeineLineDataAnimating)
     }
 
     override public init() {

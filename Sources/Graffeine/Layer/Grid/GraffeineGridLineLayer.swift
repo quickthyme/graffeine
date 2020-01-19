@@ -10,9 +10,7 @@ open class GraffeineGridLineLayer: GraffeineLayer {
         return GridLine()
     }
 
-    override open func repositionSublayers(animated: Bool,
-                                           duration: TimeInterval,
-                                           timing: CAMediaTimingFunctionName) {
+    override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
 
         for (index, line) in sublayers.enumerated() {
@@ -24,10 +22,7 @@ open class GraffeineGridLineLayer: GraffeineLayer {
             line.lineDashPhase = dashPhase
             line.reposition(for: index,
                             in: data,
-                            containerSize: bounds.size,
-                            animated: animated,
-                            duration: duration,
-                            timing: timing)
+                            containerSize: bounds.size)
         }
     }
 

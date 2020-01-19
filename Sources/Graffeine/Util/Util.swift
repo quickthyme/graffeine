@@ -8,3 +8,9 @@ internal extension CALayer {
         CATransaction.commit()
     }
 }
+
+internal let OneDegreeInRadians = (CGFloat.pi / 180)
+
+internal let DegreesToRadians: (CGFloat) -> (CGFloat) = {
+    return $0 * OneDegreeInRadians
+}
