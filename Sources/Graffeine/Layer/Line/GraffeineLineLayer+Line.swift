@@ -4,7 +4,7 @@ extension GraffeineLineLayer {
 
     open class Line: CAShapeLayer {
 
-        open func reposition(data: Data,
+        open func reposition(data: GraffeineData,
                              unitWidth: GraffeineLayer.DimensionalUnit,
                              unitMargin: CGFloat,
                              containerSize: CGSize,
@@ -30,7 +30,7 @@ extension GraffeineLineLayer {
             return (value < maxValue) ? CGFloat(value / maxValue) : 1.0
         }
 
-        func pathForLine(data: Data,
+        func pathForLine(data: GraffeineData,
                          unitWidth: GraffeineLayer.DimensionalUnit,
                          unitMargin: CGFloat,
                          containerSize: CGSize) -> CGPath {

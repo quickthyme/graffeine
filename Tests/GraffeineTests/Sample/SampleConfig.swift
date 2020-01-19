@@ -29,14 +29,14 @@ class SampleConfig: GraffeineViewConfig {
                 .apply ({
                     $0.colors = [.purple]
                     $0.labelHorizontalAlignmentMode = .centerLeftRight
-                    $0.data = GraffeineLayer.Data(labels: ["low", "medium", "high"])
+                    $0.data = GraffeineData(labels: ["low", "medium", "high"])
                 }),
 
             GraffeineVerticalGutter(id: ID.leftGutter, width: 64, region: .leftGutter)
                 .apply ({
                     $0.rowMargin = unitMargin
                     $0.colors = Self.colorValues
-                    $0.data = GraffeineLayer.Data(labels: Self.colorNames)
+                    $0.data = GraffeineData(labels: Self.colorNames)
                 }),
 
             GraffeineGridLineLayer(id: ID.bgGrid)
@@ -44,7 +44,7 @@ class SampleConfig: GraffeineViewConfig {
                     $0.colors = [.lightGray]
                     $0.dashPattern = [1, 3]
                     $0.thickness = 0.5
-                    $0.data = GraffeineLayer.Data(valueMax: 20, values: [2, 4, 6, 8, 12, 14, 16, 18])
+                    $0.data = GraffeineData(valueMax: 20, values: [2, 4, 6, 8, 12, 14, 16, 18])
                 }),
 
             GraffeineBarLayer(id: ID.colorBars)
@@ -93,7 +93,7 @@ class SampleConfig: GraffeineViewConfig {
                 .apply ({
                     $0.colors = [.darkGray]
                     $0.thickness = 1.0
-                    $0.data = GraffeineLayer.Data(valueMax: 20, values: [0, 10, 20])
+                    $0.data = GraffeineData(valueMax: 20, values: [0, 10, 20])
                 })
         ]
     }

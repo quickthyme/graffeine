@@ -9,7 +9,7 @@ extension GraffeineBarLayer {
         open var flipXY: Bool = false
 
         open func reposition(for index: Int,
-                             in data: Data,
+                             in data: GraffeineData,
                              unitWidth: GraffeineLayer.DimensionalUnit,
                              unitMargin: CGFloat,
                              containerSize: CGSize,

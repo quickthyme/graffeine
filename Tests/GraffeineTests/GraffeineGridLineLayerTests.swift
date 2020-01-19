@@ -17,6 +17,67 @@ class GraffeineGridLineLayerTests: XCTestCase {
 
     func test_grid_layer_loaded_properly() {
         XCTAssertNotNil(subject)
+    }
+
+    func test_given_max_value_20_with_8_values_then_it_should_have_8_grid_lines() {
         XCTAssertEqual(subject.sublayers!.count, 8)
+    }
+
+    func test_given_max_value_20_with_values_2_through_18_then_it_has_correct_grid_lines() {
+        if let gridLine = (subject.sublayers?[0] as? CAShapeLayer) {
+            XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
+            XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
+            XCTAssertEqual(gridLine.lineWidth, 0.5)
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 142.2))
+        }
+
+        if let gridLine = (subject.sublayers?[1] as? CAShapeLayer) {
+            XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
+            XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
+            XCTAssertEqual(gridLine.lineWidth, 0.5)
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 126.4))
+        }
+
+        if let gridLine = (subject.sublayers?[2] as? CAShapeLayer) {
+            XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
+            XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
+            XCTAssertEqual(gridLine.lineWidth, 0.5)
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 110.6))
+        }
+
+        if let gridLine = (subject.sublayers?[3] as? CAShapeLayer) {
+            XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
+            XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
+            XCTAssertEqual(gridLine.lineWidth, 0.5)
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 94.8))
+        }
+
+        if let gridLine = (subject.sublayers?[4] as? CAShapeLayer) {
+            XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
+            XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
+            XCTAssertEqual(gridLine.lineWidth, 0.5)
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 63.2))
+        }
+
+        if let gridLine = (subject.sublayers?[5] as? CAShapeLayer) {
+            XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
+            XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
+            XCTAssertEqual(gridLine.lineWidth, 0.5)
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 47.4))
+        }
+
+        if let gridLine = (subject.sublayers?[6] as? CAShapeLayer) {
+            XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
+            XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
+            XCTAssertEqual(gridLine.lineWidth, 0.5)
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 31.59))
+        }
+
+        if let gridLine = (subject.sublayers?[7] as? CAShapeLayer) {
+            XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
+            XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
+            XCTAssertEqual(gridLine.lineWidth, 0.5)
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 15.79))
+        }
     }
 }

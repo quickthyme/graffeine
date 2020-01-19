@@ -7,7 +7,7 @@ extension GraffeinePlotLayer {
         public var diameter: CGFloat = 0.0
 
         open func reposition(for index: Int,
-                             in data: Data,
+                             in data: GraffeineData,
                              unitWidth: GraffeineLayer.DimensionalUnit,
                              unitMargin: CGFloat,
                              containerSize: CGSize,

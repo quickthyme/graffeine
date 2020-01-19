@@ -16,14 +16,14 @@ open class GraffeineLayer: CALayer {
         didSet { self.addOrRemoveSublayers() }
     }
 
-    private var _data: GraffeineLayer.Data = GraffeineLayer.Data()
+    private var _data: GraffeineData = GraffeineData()
 
-    public var data: GraffeineLayer.Data {
+    public var data: GraffeineData {
         get { return _data }
         set { setData(newValue, animator: nil) }
     }
 
-    open func setData(_ data: Data, animator: GraffeineDataAnimating?) {
+    open func setData(_ data: GraffeineData, animator: GraffeineDataAnimating?) {
         _data = data
         addOrRemoveSublayers()
         if let animator = animator {

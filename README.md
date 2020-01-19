@@ -24,16 +24,13 @@ Graffeine is an iOS library that uses CoreAnimation to render various types of d
 
 Subclass of UIView that manages and provides the rendering context for the various graphing layers, which are divided into 5 *regions*:
 
-                   Top Gutter
-                +---------------+
-        Left    |     Main      | Right
-        Gutter  |     Region    | Gutter
-                +---------------+
-                  Bottom Gutter
-    
-    enum Region {
-        case main, topGutter, rightGutter, bottomGutter, leftGutter
-    }
+               Top Gutter
+            +---------------+
+    Left    |     Main      | Right
+    Gutter  |     Region    | Gutter
+            +---------------+
+              Bottom Gutter
+
 
 Whenever a layer exists belonging to one of the regions, its positioning and size will automatically be managed by the view, which includes responding to layout changes or resizing events.
 
@@ -62,15 +59,15 @@ By default, `GraffeineView` contains no layers. You must add layers to it by set
 
 Out of the box, there are a handful of ready-to-go graphing layers:
 
-| GraffeineLayer               | Displays                                   |
-|------------------------------|--------------------------------------------|
-| `GraffeineBarLayer`          |   vertical or horizontal bars              |
-| `GraffeineBarLayer`          |   horizontal or vertical grid lines        |
-| `GraffeineHorizontalGutter`  |   labels arranged horizontally             |
-| `GraffeineVerticalGutter`    |   labels arranged vertically               |
-| `GraffeineLineLayer`         |   bezier line graph connecting data points |
-| `GraffeinePieLayer`          |   segmented pie and donut charts           |
-| `GraffeinePlotLayer`         |   individual plots (points)                |
+| GraffeineLayer               | Displays                              |
+|------------------------------|---------------------------------------|
+| `GraffeineBarLayer`          |   vertical or horizontal bars         |
+| `GraffeineGridLineLayer`     |   horizontal or vertical grid lines   |
+| `GraffeineHorizontalGutter`  |   labels arranged horizontally        |
+| `GraffeineVerticalGutter`    |   labels arranged vertically          |
+| `GraffeineLineLayer`         |   bezier line connecting data points  |
+| `GraffeinePieLayer`          |   segmented pies and donuts           |
+| `GraffeinePlotLayer`         |   individual plots (points)           |
 
 When constructing a `GraffeineLayer`, you typically provide it with an `id` and a `region`.
 
@@ -84,7 +81,9 @@ The id is used to identify and access the layer after it has been added to a `Gr
 
 ##### region
 
-You can use any layer with any region, although some are more intended for certain regions than others. For example, the horizontal and vertical gutters are generally intended to be placed in one of the gutter regions.
+You can use any layer with any region, although some are more intended for certain
+regions than others. For example, the horizontal and vertical gutters are generally
+intended to be placed in one of the gutter regions.
 
 <br />
 
@@ -92,14 +91,15 @@ You can use any layer with any region, although some are more intended for certa
 
 ![sample_6](docs/sample_6.png)
 
-It's easy to apply new data to a specific layer by just assigning it:
+`GraffeineData` is the vehicle with which to pass data into Graffeine.
+It's easy to apply new data to a specific layer by **assignment**:
 
-    graffeineView.layer(id: "pie")?.data = freshPieData
+    graffeineView.layer(id: "pie")?.data = GraffeineData(valueMax: 20, values: [1, 1, 2, 3, 5, 8, 13, 21, 34])
+                                             
+Or if you want it to **animate** whenever the data changes:
 
-
-Or if you want it to animate whenever the data changes:
-
-    graffeineView.layer(id: "pie")?.setData(freshPieData, animator: GraffeineDataAnimators.Pie.Spin(duration: 1.2, timing: .easeInEaseOut))
+    graffeineView.layer(id: "pie")?.setData(GraffeineData(valueMax: 20, values: [1, 1, 2, 3, 5, 8, 13, 21, 34]), 
+                        animator: GraffeineDataAnimators.Pie.Spin(duration: 1.2, timing: .easeInEaseOut))
 
 *There are a handful of data animators included with the library, out-of-box, or you can create your own custom animator so long as it conforms to `GraffeineDataAnimating`.*
 
@@ -111,13 +111,7 @@ Or if you want it to animate whenever the data changes:
 
 ### More
 
-More features! More documentation!
-
-There are plenty more features and graph types planned (and bugs yet to be introduced).
-
-Stay tuned for more...
-
- <br />
+There are still more features and documentation planned. Stay tuned...
 
 ...meanwhile, there is an iOS app, *[graffeine-demo](https://github.com/quickthyme/graffeine-demo)*,
 which demonstrates how to quickly go about composing many typical types of graphs. If nothing else, it serves as an example of how to plug the library in and turn it on.

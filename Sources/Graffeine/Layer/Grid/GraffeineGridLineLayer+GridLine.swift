@@ -7,7 +7,7 @@ extension GraffeineGridLineLayer {
         open var flipXY: Bool = false
 
         open func reposition(for index: Int,
-                             in data: Data,
+                             in data: GraffeineData,
                              containerSize: CGSize) {
 
             guard let value = data.values[index] else {

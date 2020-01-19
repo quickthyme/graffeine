@@ -1,7 +1,7 @@
 import XCTest
 @testable import Graffeine
 
-class GraffeineAnglePairTests: XCTestCase {
+class GRAnglePairTests: XCTestCase {
 
     var subject: GraffeineAnglePair!
 
