@@ -65,6 +65,7 @@ Out of the box, there are a handful of ready-to-go graphing layers:
 | `GraffeineGridLineLayer`         |   horizontal or vertical lines  |
 | `GraffeineHorizontalLabelLayer`  |   labels arranged horizontally  |
 | `GraffeineVerticalLabelLayer`    |   labels arranged vertically    |
+| `GraffeineRadialLabelLayer`      |   labels arranged circularly    |
 | `GraffeineLineLayer`             |   bezier line connecting data   |
 | `GraffeinePieLayer`              |   segmented pies and donuts     |
 | `GraffeinePlotLayer`             |   individual plots (points)     |

@@ -8,6 +8,12 @@ public struct GraffeineAnglePair: Equatable {
         self.end = end
     }
 
+    public var middle: CGFloat {
+        let hi = max(start, end)
+        let lo = min(start, end)
+        return start + ((hi - lo) / 2)
+    }
+
     public static var zero: GraffeineAnglePair { return GraffeineAnglePair(start: 0, end: 0) }
 
     public static func ==(lhs: GraffeineAnglePair, rhs: GraffeineAnglePair) -> Bool {

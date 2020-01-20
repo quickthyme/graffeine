@@ -5,7 +5,7 @@ class SampleConfig: GraffeineViewConfig {
 
     enum ID: Hashable {
         case topGutter, rightGutter, bottomGutter, leftGutter, bgGrid, fgGrid
-        case colorBars, descendingBars, rgbaBars, redLine, greenLine, vectorPlots, pie
+        case colorBars, descendingBars, rgbaBars, redLine, greenLine, vectorPlots, pie, pieLabels
     }
 
     static let colorValues: [UIColor] = [.black, .brown, .red, .orange, .yellow, .green,
@@ -87,6 +87,11 @@ class SampleConfig: GraffeineViewConfig {
             GraffeinePieLayer(id: ID.pie)
                 .apply ({
                     $0.colors = [.darkGray, .lightGray]
+                }),
+
+            GraffeineRadialLabelLayer(id: ID.pieLabels)
+                .apply ({
+                    $0.colors = [.lightGray]
                 }),
 
             GraffeineGridLineLayer(id: ID.fgGrid)

@@ -20,7 +20,7 @@ class GraffeineVerticalLabelLayerTests: XCTestCase {
         subject = graffeineView.layer(id: SampleConfig.ID.leftGutter) as? GraffeineVerticalLabelLayer
     }
 
-    func test_bar_layer_loaded_properly() {
+    func test_loaded_properly() {
         XCTAssertNotNil(subject)
     }
 

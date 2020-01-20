@@ -40,8 +40,8 @@ class SampleData {
     }
 
     func applyPieSlices(to graffeineView: GraffeineView) {
-        if let layer = graffeineView.layer(id: SampleConfig.ID.pie) {
-            layer.data = GraffeineData(valueMax: 200, values: [20, 30, 50])
-        }
+        let data = GraffeineData(valueMax: 200, values: [20, 30, 50], labels: ["A", "B", "C"])
+        graffeineView.layer(id: SampleConfig.ID.pie)?.data = data
+        graffeineView.layer(id: SampleConfig.ID.pieLabels)?.data = data
     }
 }
