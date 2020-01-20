@@ -88,6 +88,7 @@ intended to be placed in one of the gutter regions.
 
 <br />
 
+
 ### Setting Data
 
 ![sample_6](docs/sample_6.png)
@@ -102,19 +103,26 @@ Or if you want it to **animate** whenever the data changes:
     graffeineView.layer(id: "pie")?.setData(GraffeineData(valueMax: 20, values: [1, 1, 2, 3, 5, 8, 13, 21, 34]), 
                         animator: GraffeineDataAnimators.Pie.Spin(duration: 1.2, timing: .easeInEaseOut))
 
-*There are a handful of data animators included with the library, out-of-box, or you can create your own custom animator so long as it conforms to `GraffeineDataAnimating`.*
+*There are a handful of data animators included with the library, out-of-box, or you can
+create your own, so long as it conforms to `GraffeineDataAnimating`.*
 
 <br />
 
 
+### Selection
+
+Selection in Graffeine is ~~MIA~~ *WIP*, but it does currently invoke an `onSelect`
+handler when the view receives a touch interaction. This is rudimentary at best, but
+will eventually be expanded upon to be more useful.
+
+<br />
 
 
+### Demo App
 
-### More
-
-There are still more features and documentation planned. Stay tuned...
-
-...meanwhile, there is an iOS app, *[graffeine-demo](https://github.com/quickthyme/graffeine-demo)*,
-which demonstrates how to quickly go about composing many typical types of graphs. If nothing else, it serves as an example of how to plug the library in and turn it on.
+There is an iOS app,
+*[graffeine-demo](https://github.com/quickthyme/graffeine-demo)*,
+which demonstrates how to quickly go about composing many typical types of graphs. If
+nothing else, it serves as an example of how to plug the library in and turn it on.
 
 <br />

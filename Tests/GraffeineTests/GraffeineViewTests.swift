@@ -13,6 +13,27 @@ class GraffeineViewTests: XCTestCase {
 
     let subjectFrame = CGRect(x: 0, y: 0, width: 300, height: 200)
 
+    func simulateTouch(_ view: UIView) {
+        let touches = Set<UITouch>([UITouch()])
+        let event = UIEvent()
+        subject.touchesBegan(touches, with: event)
+        subject.touchesEnded(touches, with: event)
+    }
+
+    func simulateCancelledTouch(_ view: UIView) {
+        let touches = Set<UITouch>([UITouch()])
+        let event = UIEvent()
+        subject.touchesBegan(touches, with: event)
+        subject.touchesCancelled(touches, with: event)
+    }
+
+    func simulateMultiTouch(_ view: UIView) {
+        let touches = Set<UITouch>([UITouch(), UITouch()])
+        let event = UIEvent()
+        subject.touchesBegan(touches, with: event)
+        subject.touchesEnded(touches, with: event)
+    }
+
     override func setUp() {
         subject = GraffeineView(frame: subjectFrame)
     }
@@ -123,5 +144,29 @@ class GraffeineViewTests: XCTestCase {
         XCTAssert(subject.layers[10] is GraffeinePieLayer)
         XCTAssert(subject.layers[11] is GraffeineRadialLabelLayer)
         XCTAssert(subject.layers[12] is GraffeineGridLineLayer)
+    }
+
+    func test_given_onSelect_when_it_is_touched_then_it_invokes_onSelect() {
+        var didSelect: Bool = false
+        subject.layers = [GraffeineBarLayer(id: "mainRegion")]
+        subject.onSelect = ({ didSelect = true })
+        simulateTouch(subject)
+        XCTAssertTrue(didSelect)
+    }
+
+    func test_given_onSelect_when_touch_cancelled_then_it_does_not_invoke_onSelect() {
+        var didSelect: Bool = false
+        subject.layers = [GraffeineBarLayer(id: "mainRegion")]
+        subject.onSelect = ({ didSelect = true })
+        simulateCancelledTouch(subject)
+        XCTAssertFalse(didSelect)
+    }
+
+    func test_given_onSelect_when_more_than_1_touch_is_used_then_it_does_not_invoke_onSelect() {
+        var didSelect: Bool = false
+        subject.layers = [GraffeineBarLayer(id: "mainRegion")]
+        subject.onSelect = ({ didSelect = true })
+        simulateMultiTouch(subject)
+        XCTAssertFalse(didSelect)
     }
 }

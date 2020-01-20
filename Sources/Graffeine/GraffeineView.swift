@@ -2,7 +2,11 @@ import UIKit
 
 open class GraffeineView: UIView {
 
+    public typealias OnSelect = () -> ()
+
     @IBInspectable public var configClass: String = ""
+
+    public var onSelect: OnSelect? = nil
 
     public var layers: [GraffeineLayer] {
         get { return (self.layer.sublayers ?? Array<CALayer>()).compactMap { $0 as? GraffeineLayer } }
@@ -147,5 +151,25 @@ open class GraffeineView: UIView {
 
     private func sanitize(_ str: String) -> String {
         return str.replacingOccurrences(of: "-", with: "_")
+    }
+
+    // MARK: - Selection and Touch
+    private var touchBeganInside: Bool = false
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        touchBeganInside = touches.count == 1
+    }
+
+    override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        touchBeganInside = false
+    }
+
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        if (touchBeganInside && touches.count == 1) {
+            onSelect?()
+        }
+        touchBeganInside = false
     }
 }
