@@ -37,9 +37,9 @@ Whenever a layer exists belonging to one of the regions, its positioning and siz
 By default, `GraffeineView` contains no layers. You must add layers to it by setting the `layers` property, like so:
 
     graffeineView.layers = [
-            GraffeineHorizontalGutter(id: "top", height: 16, region: .topGutter),
+            GraffeineHorizontalLabelLayer(id: "top", height: 16, region: .topGutter),
             
-            GraffeineHorizontalGutter(id: "bottom", height: 26, region: .bottomGutter),
+            GraffeineHorizontalLabelLayer(id: "bottom", height: 26, region: .bottomGutter),
             
             GraffeineBarLayer(id: "bars")
                 .apply ({
@@ -59,15 +59,15 @@ By default, `GraffeineView` contains no layers. You must add layers to it by set
 
 Out of the box, there are a handful of ready-to-go graphing layers:
 
-| GraffeineLayer               | Displays                              |
-|------------------------------|---------------------------------------|
-| `GraffeineBarLayer`          |   vertical or horizontal bars         |
-| `GraffeineGridLineLayer`     |   horizontal or vertical grid lines   |
-| `GraffeineHorizontalGutter`  |   labels arranged horizontally        |
-| `GraffeineVerticalGutter`    |   labels arranged vertically          |
-| `GraffeineLineLayer`         |   bezier line connecting data points  |
-| `GraffeinePieLayer`          |   segmented pies and donuts           |
-| `GraffeinePlotLayer`         |   individual plots (points)           |
+| GraffeineLayer                   | Displays                        |
+|----------------------------------|---------------------------------|
+| `GraffeineBarLayer`              |   vertical or horizontal bars   |
+| `GraffeineGridLineLayer`         |   horizontal or vertical lines  |
+| `GraffeineHorizontalLabelLayer`  |   labels arranged horizontally  |
+| `GraffeineVerticalLabelLayer`    |   labels arranged vertically    |
+| `GraffeineLineLayer`             |   bezier line connecting data   |
+| `GraffeinePieLayer`              |   segmented pies and donuts     |
+| `GraffeinePlotLayer`             |   individual plots (points)     |
 
 When constructing a `GraffeineLayer`, you typically provide it with an `id` and a `region`.
 
@@ -82,7 +82,7 @@ The id is used to identify and access the layer after it has been added to a `Gr
 ##### region
 
 You can use any layer with any region, although some are more intended for certain
-regions than others. For example, the horizontal and vertical gutters are generally
+regions than others. For example, the horizontal and vertical label layers are generally
 intended to be placed in one of the gutter regions.
 
 <br />

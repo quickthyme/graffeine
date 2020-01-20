@@ -1,14 +1,14 @@
 import UIKit
 
-open class GraffeineHorizontalGutter: GraffeineLayer {
+open class GraffeineVerticalLabelLayer: GraffeineLayer {
 
-    open var columnWidth: GraffeineLayer.DimensionalUnit = .relative
-    open var columnMargin: CGFloat = 4.0
+    open var rowHeight: GraffeineLayer.DimensionalUnit = .relative
+    open var rowMargin: CGFloat = 4.0
     open var fontSize: CGFloat = 10.0
     open var labelHPadding: CGFloat = 4.0
     open var labelVPadding: CGFloat = 0.0
-    open var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .centerLeftRight
-    open var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .center
+    open var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .right
+    open var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .centerTopBottom
 
     override open var expectedNumberOfSublayers: Int {
         return self.data.labels.count
@@ -25,16 +25,16 @@ open class GraffeineHorizontalGutter: GraffeineLayer {
         for (index, label) in sublayers.enumerated() {
             guard let label = label as? Label, index < numberOfUnits else { continue }
 
-            label.fontSize = fontSize
             label.foregroundColor = safeIndexedColor(index)
+            label.fontSize = fontSize
             label.hPadding = labelHPadding
             label.vPadding = labelVPadding
             label.horizontalAlignmentMode = labelHorizontalAlignmentMode
             label.verticalAlignmentMode = labelVerticalAlignmentMode
             label.reposition(for: index,
                              in: data.labels,
-                             columnWidth: columnWidth,
-                             columnMargin: columnMargin,
+                             rowHeight: rowHeight,
+                             rowMargin: rowMargin,
                              containerSize: bounds.size)
         }
     }
@@ -44,11 +44,11 @@ open class GraffeineHorizontalGutter: GraffeineLayer {
         self.contentsScale = UIScreen.main.scale
     }
 
-    public convenience init(id: AnyHashable, height: CGFloat, region: Region = .bottomGutter) {
+    public convenience init(id: AnyHashable, width: CGFloat, region: Region = .leftGutter) {
         self.init()
         self.id = id
         self.region = region
-        self.frame = CGRect(x: 0, y: 0, width: 100, height: height)
+        self.frame = CGRect(x: 0, y: 0, width: width, height: 100)
     }
 
     required public init?(coder: NSCoder) {
@@ -58,8 +58,8 @@ open class GraffeineHorizontalGutter: GraffeineLayer {
     override public init(layer: Any) {
         super.init(layer: layer)
         if let layer = layer as? Self {
-            self.columnWidth = layer.columnWidth
-            self.columnMargin = layer.columnMargin
+            self.rowHeight = layer.rowHeight
+            self.rowMargin = layer.rowMargin
             self.fontSize = layer.fontSize
             self.labelHPadding = layer.labelHPadding
             self.labelVPadding = layer.labelVPadding
@@ -69,7 +69,7 @@ open class GraffeineHorizontalGutter: GraffeineLayer {
     }
 
     @discardableResult
-    override open func apply(_ conf: (GraffeineHorizontalGutter) -> ()) -> GraffeineHorizontalGutter {
+    override open func apply(_ conf: (GraffeineVerticalLabelLayer) -> ()) -> GraffeineVerticalLabelLayer {
         conf(self)
         return self
     }

@@ -19,8 +19,9 @@
 		DC7F21B923C6BE4E009629DD /* Normalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21B823C6BE4E009629DD /* Normalized.swift */; };
 		DC7F21BC23C6C1B0009629DD /* GraffeineLineLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21BA23C6C162009629DD /* GraffeineLineLayerTests.swift */; };
 		DC7F21BE23C6C360009629DD /* GraffeineGridLineLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */; };
-		DC7F220623C711FF009629DD /* GraffeineHorizontalGutterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F220423C711EC009629DD /* GraffeineHorizontalGutterTests.swift */; };
+		DC7F220623C711FF009629DD /* GraffeineHorizontalLabelLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F220423C711EC009629DD /* GraffeineHorizontalLabelLayerTests.swift */; };
 		DC7F222023C83F94009629DD /* GraffeineLayer+LabelAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7F221F23C83F94009629DD /* GraffeineLayer+LabelAlignment.swift */; };
+		DC8E25FC23D55ADD004DD5CE /* GraffeineVerticalLabelLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8E25FB23D55ADD004DD5CE /* GraffeineVerticalLabelLayerTests.swift */; };
 		DCCC5FE523D2BEA600DA8839 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCCC5FE423D2BEA600DA8839 /* Util.swift */; };
 		DCE3CEA923D3E6080028F0B7 /* GraffeineDataAnimating.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE3CE9E23D3E5DF0028F0B7 /* GraffeineDataAnimating.swift */; };
 		DCE3CEAA23D3E6080028F0B7 /* GraffeineDataAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE3CE9F23D3E5E10028F0B7 /* GraffeineDataAnimators.swift */; };
@@ -49,10 +50,10 @@
 		DCF3C77723C6996400F5F92F /* GraffeineBarLayer+Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5E25E523BE851E006562B6 /* GraffeineBarLayer+Bar.swift */; };
 		DCF3C77823C6996900F5F92F /* GraffeineGridLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9E5A1323C42DD100050A0B /* GraffeineGridLineLayer.swift */; };
 		DCF3C77923C6996900F5F92F /* GraffeineGridLineLayer+GridLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9E5A1423C42E5800050A0B /* GraffeineGridLineLayer+GridLine.swift */; };
-		DCF3C77A23C6997000F5F92F /* GraffeineHorizontalGutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC87B6A223C5069200C4C334 /* GraffeineHorizontalGutter.swift */; };
-		DCF3C77B23C6997000F5F92F /* GraffeineHorizontalGutter+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC87B6A323C5069200C4C334 /* GraffeineHorizontalGutter+Label.swift */; };
-		DCF3C77C23C6997500F5F92F /* GraffeineVerticalGutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FCC23C59340008338EB /* GraffeineVerticalGutter.swift */; };
-		DCF3C77D23C6997500F5F92F /* GraffeineVerticalGutter+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FCD23C59340008338EB /* GraffeineVerticalGutter+Label.swift */; };
+		DCF3C77A23C6997000F5F92F /* GraffeineHorizontalLabelLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC87B6A223C5069200C4C334 /* GraffeineHorizontalLabelLayer.swift */; };
+		DCF3C77B23C6997000F5F92F /* GraffeineHorizontalLabelLayer+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC87B6A323C5069200C4C334 /* GraffeineHorizontalLabelLayer+Label.swift */; };
+		DCF3C77C23C6997500F5F92F /* GraffeineVerticalLabelLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FCC23C59340008338EB /* GraffeineVerticalLabelLayer.swift */; };
+		DCF3C77D23C6997500F5F92F /* GraffeineVerticalLabelLayer+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FCD23C59340008338EB /* GraffeineVerticalLabelLayer+Label.swift */; };
 		DCF3C77E23C6997A00F5F92F /* GraffeineLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FD423C5B590008338EB /* GraffeineLineLayer.swift */; };
 		DCF3C77F23C6997A00F5F92F /* GraffeineLineLayer+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FD523C5B590008338EB /* GraffeineLineLayer+Line.swift */; };
 		DCF3C78623C69AE200F5F92F /* libGraffeine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF3C76A23C6993A00F5F92F /* libGraffeine.a */; };
@@ -101,14 +102,15 @@
 		DC7F21B823C6BE4E009629DD /* Normalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Normalized.swift; sourceTree = "<group>"; };
 		DC7F21BA23C6C162009629DD /* GraffeineLineLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineLineLayerTests.swift; sourceTree = "<group>"; };
 		DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineGridLineLayerTests.swift; sourceTree = "<group>"; };
-		DC7F220423C711EC009629DD /* GraffeineHorizontalGutterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineHorizontalGutterTests.swift; sourceTree = "<group>"; };
+		DC7F220423C711EC009629DD /* GraffeineHorizontalLabelLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineHorizontalLabelLayerTests.swift; sourceTree = "<group>"; };
 		DC7F221F23C83F94009629DD /* GraffeineLayer+LabelAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLayer+LabelAlignment.swift"; sourceTree = "<group>"; };
 		DC7F222323C85A81009629DD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DC7F222423C85A81009629DD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		DC87B6A223C5069200C4C334 /* GraffeineHorizontalGutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineHorizontalGutter.swift; sourceTree = "<group>"; };
-		DC87B6A323C5069200C4C334 /* GraffeineHorizontalGutter+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineHorizontalGutter+Label.swift"; sourceTree = "<group>"; };
-		DC9A1FCC23C59340008338EB /* GraffeineVerticalGutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineVerticalGutter.swift; sourceTree = "<group>"; };
-		DC9A1FCD23C59340008338EB /* GraffeineVerticalGutter+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineVerticalGutter+Label.swift"; sourceTree = "<group>"; };
+		DC87B6A223C5069200C4C334 /* GraffeineHorizontalLabelLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineHorizontalLabelLayer.swift; sourceTree = "<group>"; };
+		DC87B6A323C5069200C4C334 /* GraffeineHorizontalLabelLayer+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineHorizontalLabelLayer+Label.swift"; sourceTree = "<group>"; };
+		DC8E25FB23D55ADD004DD5CE /* GraffeineVerticalLabelLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineVerticalLabelLayerTests.swift; sourceTree = "<group>"; };
+		DC9A1FCC23C59340008338EB /* GraffeineVerticalLabelLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineVerticalLabelLayer.swift; sourceTree = "<group>"; };
+		DC9A1FCD23C59340008338EB /* GraffeineVerticalLabelLayer+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineVerticalLabelLayer+Label.swift"; sourceTree = "<group>"; };
 		DC9A1FD223C5A837008338EB /* GraffeineViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineViewConfig.swift; sourceTree = "<group>"; };
 		DC9A1FD423C5B590008338EB /* GraffeineLineLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeineLineLayer.swift; sourceTree = "<group>"; };
 		DC9A1FD523C5B590008338EB /* GraffeineLineLayer+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLineLayer+Line.swift"; sourceTree = "<group>"; };
@@ -167,8 +169,8 @@
 		DC59FB3523C4F68E00684E03 /* Horizontal */ = {
 			isa = PBXGroup;
 			children = (
-				DC87B6A223C5069200C4C334 /* GraffeineHorizontalGutter.swift */,
-				DC87B6A323C5069200C4C334 /* GraffeineHorizontalGutter+Label.swift */,
+				DC87B6A223C5069200C4C334 /* GraffeineHorizontalLabelLayer.swift */,
+				DC87B6A323C5069200C4C334 /* GraffeineHorizontalLabelLayer+Label.swift */,
 			);
 			path = Horizontal;
 			sourceTree = "<group>";
@@ -236,7 +238,8 @@
 				DCE3CEC723D43A960028F0B7 /* GraffeineAnglePairTests.swift */,
 				DC7F21B423C6B490009629DD /* GraffeineBarLayerTests.swift */,
 				DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */,
-				DC7F220423C711EC009629DD /* GraffeineHorizontalGutterTests.swift */,
+				DC7F220423C711EC009629DD /* GraffeineHorizontalLabelLayerTests.swift */,
+				DC8E25FB23D55ADD004DD5CE /* GraffeineVerticalLabelLayerTests.swift */,
 				DC7F21BA23C6C162009629DD /* GraffeineLineLayerTests.swift */,
 				DCF0C99923D1A1DD00EDD4E4 /* GraffeinePieLayerTests.swift */,
 				DC2FA27423CEAB3900E88807 /* GraffeinePlotLayerTests.swift */,
@@ -278,7 +281,7 @@
 				DCE3CEBC23D3E7C10028F0B7 /* GraffeineLayer+UnitSubdivision.swift */,
 				DC5E25E323BE84AA006562B6 /* Bar */,
 				DC9E5A1223C42D9F00050A0B /* Grid */,
-				DC9A1FCA23C59322008338EB /* Gutter */,
+				DC9A1FCA23C59322008338EB /* Label */,
 				DC5E25E423BE84BD006562B6 /* Line */,
 				DCF0C99423D1A18C00EDD4E4 /* Pie */,
 				DC2FA27123CEA9BE00E88807 /* Plot */,
@@ -295,20 +298,20 @@
 			path = Sample;
 			sourceTree = "<group>";
 		};
-		DC9A1FCA23C59322008338EB /* Gutter */ = {
+		DC9A1FCA23C59322008338EB /* Label */ = {
 			isa = PBXGroup;
 			children = (
 				DC59FB3523C4F68E00684E03 /* Horizontal */,
 				DC9A1FCB23C59330008338EB /* Vertical */,
 			);
-			path = Gutter;
+			path = Label;
 			sourceTree = "<group>";
 		};
 		DC9A1FCB23C59330008338EB /* Vertical */ = {
 			isa = PBXGroup;
 			children = (
-				DC9A1FCC23C59340008338EB /* GraffeineVerticalGutter.swift */,
-				DC9A1FCD23C59340008338EB /* GraffeineVerticalGutter+Label.swift */,
+				DC9A1FCC23C59340008338EB /* GraffeineVerticalLabelLayer.swift */,
+				DC9A1FCD23C59340008338EB /* GraffeineVerticalLabelLayer+Label.swift */,
 			);
 			path = Vertical;
 			sourceTree = "<group>";
@@ -490,12 +493,13 @@
 			files = (
 				DC7F21B923C6BE4E009629DD /* Normalized.swift in Sources */,
 				DCE3CEC923D43A9A0028F0B7 /* GraffeineAnglePairTests.swift in Sources */,
+				DC8E25FC23D55ADD004DD5CE /* GraffeineVerticalLabelLayerTests.swift in Sources */,
 				DCF3C76523C6963800F5F92F /* SampleConfig.swift in Sources */,
 				DC7F21B723C6BE0A009629DD /* DimensionalUnitTests.swift in Sources */,
 				DC7F21B223C6B36B009629DD /* SampleData.swift in Sources */,
 				DC7F21B523C6B490009629DD /* GraffeineBarLayerTests.swift in Sources */,
 				DC612E8223B449A100C08AB5 /* GraffeineViewTests.swift in Sources */,
-				DC7F220623C711FF009629DD /* GraffeineHorizontalGutterTests.swift in Sources */,
+				DC7F220623C711FF009629DD /* GraffeineHorizontalLabelLayerTests.swift in Sources */,
 				DC612E7423B4410400C08AB5 /* StoryboardLoader.swift in Sources */,
 				DC2FA27523CEAB3900E88807 /* GraffeinePlotLayerTests.swift in Sources */,
 				DC7F21BE23C6C360009629DD /* GraffeineGridLineLayerTests.swift in Sources */,
@@ -513,12 +517,12 @@
 				DCF3C77123C6995900F5F92F /* GraffeineView.swift in Sources */,
 				DCF3C77223C6995900F5F92F /* GraffeineViewConfig.swift in Sources */,
 				DC2FA27623CEAB5A00E88807 /* GraffeinePlotLayer.swift in Sources */,
-				DCF3C77D23C6997500F5F92F /* GraffeineVerticalGutter+Label.swift in Sources */,
-				DCF3C77C23C6997500F5F92F /* GraffeineVerticalGutter.swift in Sources */,
+				DCF3C77D23C6997500F5F92F /* GraffeineVerticalLabelLayer+Label.swift in Sources */,
+				DCF3C77C23C6997500F5F92F /* GraffeineVerticalLabelLayer.swift in Sources */,
 				DCE3CEA923D3E6080028F0B7 /* GraffeineDataAnimating.swift in Sources */,
 				DCE3CEAE23D3E6080028F0B7 /* GraffeineDataAnimators_Line_Morph.swift in Sources */,
 				DCE3CEAB23D3E6080028F0B7 /* GraffeineDataAnimators_Bar.swift in Sources */,
-				DCF3C77B23C6997000F5F92F /* GraffeineHorizontalGutter+Label.swift in Sources */,
+				DCF3C77B23C6997000F5F92F /* GraffeineHorizontalLabelLayer+Label.swift in Sources */,
 				DCE3CEAC23D3E6080028F0B7 /* GraffeineDataAnimators_Bar_Grow.swift in Sources */,
 				DCF0C99823D1A1D000EDD4E4 /* GraffeinePieLayer.swift in Sources */,
 				DCF3C77F23C6997A00F5F92F /* GraffeineLineLayer+Line.swift in Sources */,
@@ -529,7 +533,7 @@
 				DCE3CEBD23D3E7C20028F0B7 /* GraffeineLayer+UnitSubdivision.swift in Sources */,
 				DCE3CEB223D3E6080028F0B7 /* GraffeineDataAnimators_Pie.swift in Sources */,
 				DCF3C77523C6996000F5F92F /* GraffeineLayer+DimensionalUnit.swift in Sources */,
-				DCF3C77A23C6997000F5F92F /* GraffeineHorizontalGutter.swift in Sources */,
+				DCF3C77A23C6997000F5F92F /* GraffeineHorizontalLabelLayer.swift in Sources */,
 				DCE3CEAA23D3E6080028F0B7 /* GraffeineDataAnimators.swift in Sources */,
 				DCF0C99723D1A1CD00EDD4E4 /* GraffeinePieLayer+PieSlice.swift in Sources */,
 				DCF3C77823C6996900F5F92F /* GraffeineGridLineLayer.swift in Sources */,

@@ -77,10 +77,10 @@ class GraffeineViewTests: XCTestCase {
 
     func test_when_layers_are_set_that_include_gutters_then_all_region_frames_should_be_properly_positioned() {
         subject.layers = [
-            GraffeineHorizontalGutter(id: "topGutter", height: 20, region: .topGutter),
-            GraffeineVerticalGutter(id: "rightGutter", width: 20, region: .rightGutter),
-            GraffeineHorizontalGutter(id: "bottomGutter", height: 20, region: .bottomGutter),
-            GraffeineVerticalGutter(id: "leftGutter", width: 20, region: .leftGutter),
+            GraffeineHorizontalLabelLayer(id: "topGutter", height: 20, region: .topGutter),
+            GraffeineVerticalLabelLayer(id: "rightGutter", width: 20, region: .rightGutter),
+            GraffeineHorizontalLabelLayer(id: "bottomGutter", height: 20, region: .bottomGutter),
+            GraffeineVerticalLabelLayer(id: "leftGutter", width: 20, region: .leftGutter),
             GraffeineLineLayer(id: "mainRegion")
         ]
         XCTAssertEqual(subject.layer(id: "topGutter")?.frame,    CGRect(x:  20, y:   0, width: 260, height:  20))
@@ -93,10 +93,10 @@ class GraffeineViewTests: XCTestCase {
     func test_when_layers_are_set_that_include_insets_then_all_region_frames_should_be_properly_positioned() {
         let insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         subject.layers = [
-            GraffeineHorizontalGutter(id: "topGutter", height: 20, region: .topGutter).apply { $0.insets = insets },
-            GraffeineVerticalGutter(id: "rightGutter", width: 20, region: .rightGutter).apply { $0.insets = insets },
-            GraffeineHorizontalGutter(id: "bottomGutter", height: 20, region: .bottomGutter).apply { $0.insets = insets },
-            GraffeineVerticalGutter(id: "leftGutter", width: 20, region: .leftGutter).apply { $0.insets = insets },
+            GraffeineHorizontalLabelLayer(id: "topGutter", height: 20, region: .topGutter).apply { $0.insets = insets },
+            GraffeineVerticalLabelLayer(id: "rightGutter", width: 20, region: .rightGutter).apply { $0.insets = insets },
+            GraffeineHorizontalLabelLayer(id: "bottomGutter", height: 20, region: .bottomGutter).apply { $0.insets = insets },
+            GraffeineVerticalLabelLayer(id: "leftGutter", width: 20, region: .leftGutter).apply { $0.insets = insets },
             GraffeineLineLayer(id: "mainRegion").apply { $0.insets = insets }
         ]
         XCTAssertEqual(subject.layer(id: "topGutter")?.frame,    CGRect(x:  25, y:   5, width: 250, height:  10))
@@ -110,10 +110,10 @@ class GraffeineViewTests: XCTestCase {
         subject.configClass = "SampleConfig"
         subject.awakeFromNib()
         XCTAssertEqual(subject.layers.count, 12)
-        XCTAssert(subject.layers[ 0] is GraffeineHorizontalGutter)
-        XCTAssert(subject.layers[ 1] is GraffeineVerticalGutter)
-        XCTAssert(subject.layers[ 2] is GraffeineHorizontalGutter)
-        XCTAssert(subject.layers[ 3] is GraffeineVerticalGutter)
+        XCTAssert(subject.layers[ 0] is GraffeineHorizontalLabelLayer)
+        XCTAssert(subject.layers[ 1] is GraffeineVerticalLabelLayer)
+        XCTAssert(subject.layers[ 2] is GraffeineHorizontalLabelLayer)
+        XCTAssert(subject.layers[ 3] is GraffeineVerticalLabelLayer)
         XCTAssert(subject.layers[ 4] is GraffeineGridLineLayer)
         XCTAssert(subject.layers[ 5] is GraffeineBarLayer)
         XCTAssert(subject.layers[ 6] is GraffeineBarLayer)

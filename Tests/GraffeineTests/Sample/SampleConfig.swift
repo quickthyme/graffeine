@@ -21,18 +21,18 @@ class SampleConfig: GraffeineViewConfig {
 
         graffeineView.layers = [
 
-            GraffeineHorizontalGutter(id: ID.topGutter, height: 16, region: .topGutter),
+            GraffeineHorizontalLabelLayer(id: ID.topGutter, height: 16, region: .topGutter),
 
-            GraffeineVerticalGutter(id: ID.rightGutter, width: 16, region: .rightGutter),
+            GraffeineVerticalLabelLayer(id: ID.rightGutter, width: 16, region: .rightGutter),
 
-            GraffeineHorizontalGutter(id: ID.bottomGutter, height: 26, region: .bottomGutter)
+            GraffeineHorizontalLabelLayer(id: ID.bottomGutter, height: 26, region: .bottomGutter)
                 .apply ({
                     $0.colors = [.purple]
                     $0.labelHorizontalAlignmentMode = .centerLeftRight
                     $0.data = GraffeineData(labels: ["low", "medium", "high"])
                 }),
 
-            GraffeineVerticalGutter(id: ID.leftGutter, width: 64, region: .leftGutter)
+            GraffeineVerticalLabelLayer(id: ID.leftGutter, width: 64, region: .leftGutter)
                 .apply ({
                     $0.rowMargin = unitMargin
                     $0.colors = Self.colorValues
