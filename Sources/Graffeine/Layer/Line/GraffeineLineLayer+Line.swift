@@ -16,8 +16,10 @@ extension GraffeineLineLayer {
                                       unitMargin: unitMargin,
                                       containerSize: containerSize)
 
-            if let animator = animator,
-                let oldPath = self.path {
+            if let animator = animator {
+                let oldPath = self.presentation()?.path
+                    ?? self.path
+                    ?? newPath
                 animator.animate(line: self, from: oldPath, to: newPath)
             } else {
                 performWithoutAnimation {

@@ -13,17 +13,22 @@ extension GraffeineDataAnimators.Bar {
         }
 
         public func animate(bar: GraffeineBarLayer.Bar,
-                            fromPosition: CGPoint,
-                            toPosition: CGPoint,
+                            fromOrigin: CGPoint,
+                            toOrigin: CGPoint,
                             fromSize: CGSize,
                             toSize: CGSize) {
 
-            CATransaction.begin()
-            CATransaction.setAnimationDuration(duration)
-            CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: timing))
-            bar.position = toPosition
-            bar.frame.size = toSize
-            CATransaction.commit()
+            let fromPath = bar.presentation()?.path
+                ?? bar.constructPath(origin: fromOrigin, size: fromSize)
+            let toPath = bar.constructPath(origin: toOrigin, size: toSize)
+
+            let animation = CABasicAnimation(keyPath: "path")
+            animation.timingFunction  = CAMediaTimingFunction(name: timing)
+            animation.duration = duration
+            animation.fromValue = fromPath
+            animation.toValue = toPath
+            bar.path = toPath
+            bar.add(animation, forKey: "GraffeineDataAnimators.Bar.Grow")
         }
     }
 }

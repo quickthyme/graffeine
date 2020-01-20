@@ -160,6 +160,11 @@ open class GraffeineView: UIView {
         touchBeganInside = touches.count == 1
     }
 
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        touchBeganInside = false
+    }
+
     override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         touchBeganInside = false
@@ -168,7 +173,7 @@ open class GraffeineView: UIView {
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         if (touchBeganInside && touches.count == 1) {
-            onSelect?()
+            self.onSelect?()
         }
         touchBeganInside = false
     }

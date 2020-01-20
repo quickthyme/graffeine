@@ -23,7 +23,7 @@ extension GraffeineDataAnimators.Pie {
                                                 toAngles: toAngles,
                                                 centerPoint: centerPoint)
             pieSlice.path = pieSlice.constructPath(centerPoint: centerPoint, angles: toAngles)
-            pieSlice.add(animation, forKey: "reposition")
+            pieSlice.add(animation, forKey: "GraffeineDataAnimators.Pie.Spin")
         }
 
         private func interpolatePaths(pieSlice: GraffeinePieLayer.PieSlice,

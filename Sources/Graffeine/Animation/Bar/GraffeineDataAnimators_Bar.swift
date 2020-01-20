@@ -2,8 +2,8 @@ import UIKit
 
 public protocol GraffeineBarDataAnimating: GraffeineDataAnimating {
     func animate(bar: GraffeineBarLayer.Bar,
-                 fromPosition: CGPoint,
-                 toPosition: CGPoint,
+                 fromOrigin: CGPoint,
+                 toOrigin: CGPoint,
                  fromSize: CGSize,
                  toSize: CGSize)
 }
