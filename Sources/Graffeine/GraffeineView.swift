@@ -4,6 +4,8 @@ open class GraffeineView: UIView {
 
     public typealias OnSelect = () -> ()
 
+    public typealias Region = GraffeineLayer.Region
+
     @IBInspectable public var configClass: String = ""
 
     public var onSelect: OnSelect? = nil
@@ -12,13 +14,14 @@ open class GraffeineView: UIView {
         get { return (self.layer.sublayers ?? Array<CALayer>()).compactMap { $0 as? GraffeineLayer } }
         set {
             let sublayers = (self.layer.sublayers?.compactMap { $0 as? GraffeineLayer }) ?? []
-            let mainFrame = calculateMainRegionFrame(newValue)
-
+            let mainFrame = Region.calculateMainRegionFrame(layers: newValue,
+                                                            bounds: self.bounds)
             for layer in sublayers {
                 layer.removeFromSuperlayer()
             }
             for layer in newValue {
-                layer.frame = calculateRegionFrame(layer, precomputedMainRegionFrame: mainFrame)
+                layer.frame = Region.calculateRegionFrame(layer: layer,
+                                                          precomputedMainRegionFrame: mainFrame)
                 self.layer.addSublayer(layer)
             }
         }
@@ -30,97 +33,15 @@ open class GraffeineView: UIView {
 
     override public func layoutSublayers(of layer: CALayer) {
         if layer === self.layer, let sublayers = layer.sublayers {
-            let mainFrame = calculateMainRegionFrame(layers)
+            let mainFrame = Region.calculateMainRegionFrame(layers: layers,
+                                                            bounds: self.bounds)
             for sublayer in sublayers {
                 if let sublayer = sublayer as? GraffeineLayer {
-                    sublayer.frame = calculateRegionFrame(sublayer, precomputedMainRegionFrame: mainFrame)
+                    sublayer.frame = Region.calculateRegionFrame(layer: sublayer,
+                                                                 precomputedMainRegionFrame: mainFrame)
                 }
                 sublayer.layoutSublayers()
             }
-        }
-    }
-
-    public func calculateMainRegionFrame(_ layers: [GraffeineLayer]) -> CGRect {
-        let bounds = self.bounds
-
-        return layers.reduce(bounds) { result, next in
-            var output = result
-            switch next.region {
-
-            case .topGutter:
-                let delta = next.frame.size.height - output.origin.y
-                if (delta > 0) {
-                    output.origin.y += delta
-                    output.size.height -= delta
-                }
-
-            case .rightGutter:
-                let gutterX = output.origin.x + output.size.width
-                let gutterWidth = (bounds.size.width - gutterX)
-                let delta = next.frame.size.width - gutterWidth
-                if (delta > 0) {
-                    output.size.width -= delta
-                }
-
-            case .bottomGutter:
-                let gutterY = output.origin.y + output.size.height
-                let gutterHeight = (bounds.size.height - gutterY)
-                let delta = next.frame.size.height - gutterHeight
-                if (delta > 0) {
-                    output.size.height -= delta
-                }
-
-            case .leftGutter:
-                let delta = next.frame.size.width - output.origin.x
-                if (delta > 0) {
-                    output.origin.x += delta
-                    output.size.width -= delta
-                }
-
-            case .main:
-                break
-            }
-            return output
-        }
-    }
-
-    public func calculateRegionFrame(_ layer: GraffeineLayer, precomputedMainRegionFrame mainFrame: CGRect) -> CGRect {
-        let layerFrame = layer.frame
-        let insets = layer.insets
-        let insetSize = CGSize(width: insets.left + insets.right,
-                               height: insets.top + insets.bottom)
-
-        switch layer.region {
-
-        case .topGutter:
-            return CGRect(x: mainFrame.origin.x + insets.left,
-                          y: 0.0 + insets.top,
-                          width: mainFrame.size.width - insetSize.width,
-                          height: layerFrame.height - insetSize.height)
-
-        case .rightGutter:
-            return CGRect(x: mainFrame.origin.x + mainFrame.size.width + insets.left,
-                          y: mainFrame.origin.y + insets.top,
-                          width: layerFrame.size.width - insetSize.width,
-                          height: mainFrame.size.height - insetSize.height)
-
-        case .bottomGutter:
-            return CGRect(x: mainFrame.origin.x + insets.left,
-                          y: mainFrame.origin.y + mainFrame.size.height + insets.top,
-                          width: mainFrame.size.width - insetSize.width,
-                          height: layerFrame.size.height - insetSize.height)
-
-        case .leftGutter:
-            return CGRect(x: 0.0 + insets.left,
-                          y: mainFrame.origin.y + insets.top,
-                          width: layerFrame.size.width - insetSize.width,
-                          height: mainFrame.size.height - insetSize.height)
-
-        case .main:
-            return CGRect(x: mainFrame.origin.x + insets.left,
-                          y: mainFrame.origin.y + insets.top,
-                          width: mainFrame.size.width - insetSize.width,
-                          height: mainFrame.size.height - insetSize.height)
         }
     }
 

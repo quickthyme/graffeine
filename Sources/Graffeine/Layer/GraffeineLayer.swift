@@ -2,10 +2,6 @@ import UIKit
 
 open class GraffeineLayer: CALayer {
 
-    public enum Region {
-        case main, topGutter, rightGutter, bottomGutter, leftGutter
-    }
-
     open var region: Region = .main
 
     open var insets: UIEdgeInsets = .zero
