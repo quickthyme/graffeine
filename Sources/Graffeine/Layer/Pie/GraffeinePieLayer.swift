@@ -38,6 +38,8 @@ open class GraffeinePieLayer: GraffeineLayer {
             slice.lineWidth = borderThickness
             slice.lineDashPattern = borderDashPattern
             slice.lineDashPhase = borderDashPhase
+            unitShadow.apply(to: slice)
+
             slice.reposition(for: index,
                              in: percentages,
                              centerPoint: centerPoint,

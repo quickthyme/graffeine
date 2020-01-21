@@ -31,6 +31,8 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
             label.vPadding = labelVPadding
             label.horizontalAlignmentMode = labelHorizontalAlignmentMode
             label.verticalAlignmentMode = labelVerticalAlignmentMode
+            unitShadow.apply(to: label)
+
             label.reposition(for: index,
                              in: data.labels,
                              rowHeight: rowHeight,

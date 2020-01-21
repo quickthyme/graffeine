@@ -28,6 +28,8 @@ open class GraffeineLineLayer: GraffeineLayer {
         line.lineDashPhase = dashPhase
         line.lineJoin = lineJoin
         line.lineCap = lineCap
+        unitShadow.apply(to: line)
+
         line.reposition(data: data,
                         unitWidth: unitWidth,
                         unitMargin: unitMargin,

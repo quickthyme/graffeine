@@ -7,11 +7,6 @@ open class GraffeineBarLayer: GraffeineLayer {
     public var unitSubdivision: GraffeineLayer.UnitSubdivision? = nil
     public var roundedEnds: RoundedEnds = .none
 
-    public var barShadowColor:   UIColor? = nil
-    public var barShadowOpacity: CGFloat = 0.0
-    public var barShadowRadius:  CGFloat = 0.0
-    public var barShadowOffset:  CGSize = .zero
-
     override open func generateSublayer() -> CALayer {
         return Bar()
     }
@@ -24,12 +19,7 @@ open class GraffeineBarLayer: GraffeineLayer {
             guard let bar = bar as? Bar, index < numberOfUnits else { continue }
             bar.frame = self.bounds
             bar.fillColor = safeIndexedColor(index)
-            if let shadowColor = barShadowColor {
-                bar.shadowColor = shadowColor.cgColor
-                bar.shadowOpacity = Float(barShadowOpacity)
-                bar.shadowRadius = barShadowRadius
-                bar.shadowOffset = barShadowOffset
-            }
+            unitShadow.apply(to: bar)
             bar.subdivision = unitSubdivision
             bar.roundedEnds = roundedEnds
             bar.flipXY = flipXY
@@ -65,9 +55,6 @@ open class GraffeineBarLayer: GraffeineLayer {
             self.unitMargin = layer.unitMargin
             self.unitSubdivision = layer.unitSubdivision
             self.roundedEnds = layer.roundedEnds
-            self.barShadowColor = layer.barShadowColor
-            self.barShadowRadius = layer.barShadowRadius
-            self.barShadowOffset = layer.barShadowOffset
         }
     }
 

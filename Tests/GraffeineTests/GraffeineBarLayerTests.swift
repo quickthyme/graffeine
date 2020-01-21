@@ -64,4 +64,18 @@ class GraffeineBarLayerTests: XCTestCase {
         XCTAssertEqual(normalized(boundingBox(bars[ 9])), CGRect(x: 104.89, y: 150.10, width: 1.79, height:  7.90))
         XCTAssertEqual(normalized(boundingBox(bars[10])), CGRect(x: 116.34, y: 158.00, width: 1.79, height:  0.00))
     }
+
+    func test_given_unit_shadow_values_then_it_has_sublayers_with_individual_shadow() {
+        sampleData.applyDescendingBars(to: graffeineView)
+        subject.unitShadow.color = .red
+        subject.unitShadow.offset = CGSize(width: 2, height: 3)
+        subject.unitShadow.opacity = 0.6
+        subject.unitShadow.radius = 3
+        graffeineView.layoutIfNeeded()
+        let bars = subject.sublayers as! [GraffeineBarLayer.Bar]
+        XCTAssertEqual(bars.first!.shadowColor, UIColor.red.cgColor)
+        XCTAssertEqual(bars.first!.shadowOffset, CGSize(width: 2, height: 3))
+        XCTAssertEqual(bars.first!.shadowOpacity, 0.6)
+        XCTAssertEqual(bars.first!.shadowRadius, 3)
+    }
 }

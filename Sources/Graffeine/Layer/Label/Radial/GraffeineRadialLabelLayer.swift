@@ -29,6 +29,8 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             label.fontSize = fontSize
             label.foregroundColor = safeIndexedColor(index)
             label.string = text
+            unitShadow.apply(to: label)
+
             label.frame.size = label.preferredFrameSize()
             label.reposition(for: index,
                              in: percentages,

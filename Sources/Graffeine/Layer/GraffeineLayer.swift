@@ -12,6 +12,8 @@ open class GraffeineLayer: CALayer {
 
     open var id: AnyHashable = Int(0)
 
+    public var unitShadow: UnitShadow = UnitShadow()
+
     open var flipXY: Bool = false {
         didSet { self.addOrRemoveSublayers() }
     }
@@ -61,6 +63,7 @@ open class GraffeineLayer: CALayer {
             self.flipXY = layer.flipXY
             self.data = layer.data
             self.colors = layer.colors
+            self.unitShadow = layer.unitShadow
         }
     }
 

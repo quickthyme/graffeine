@@ -23,6 +23,8 @@ open class GraffeinePlotLayer: GraffeineLayer {
             plot.fillColor = safeIndexedColor(index)
             plot.strokeColor = safeIndexedBorderColor(0)
             plot.lineWidth = plotBorderThickness
+            unitShadow.apply(to: plot)
+
             plot.reposition(for: index,
                             in: data,
                             unitWidth: unitWidth,

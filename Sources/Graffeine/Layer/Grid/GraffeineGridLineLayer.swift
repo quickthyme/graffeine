@@ -20,6 +20,8 @@ open class GraffeineGridLineLayer: GraffeineLayer {
             line.lineWidth = thickness
             line.lineDashPattern = dashPattern
             line.lineDashPhase = dashPhase
+            unitShadow.apply(to: line)
+
             line.reposition(for: index,
                             in: data,
                             containerSize: bounds.size)
