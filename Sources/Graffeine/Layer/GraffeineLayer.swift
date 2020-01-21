@@ -10,6 +10,8 @@ open class GraffeineLayer: CALayer {
 
     public var unitShadow: UnitShadow = UnitShadow()
 
+    public var selection: Selection = Selection()
+
     open var flipXY: Bool = false {
         didSet { self.addOrRemoveSublayers() }
     }
@@ -60,6 +62,7 @@ open class GraffeineLayer: CALayer {
             self.data = layer.data
             self.colors = layer.colors
             self.unitShadow = layer.unitShadow
+            self.selection = layer.selection
         }
     }
 

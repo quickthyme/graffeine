@@ -23,6 +23,11 @@ open class GraffeineBarLayer: GraffeineLayer {
             bar.subdivision = unitSubdivision
             bar.roundedEnds = roundedEnds
             bar.flipXY = flipXY
+
+            if (data.selectedIndex == index) {
+                if let color = selection.fill.color { bar.fillColor = color.cgColor }
+            }
+
             bar.reposition(for: index,
                            in: data,
                            unitWidth: unitWidth,

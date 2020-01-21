@@ -30,6 +30,13 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             label.string = text
             unitShadow.apply(to: label)
 
+            if (data.selectedIndex == index) {
+                if let color = selection.text.color { label.foregroundColor = color.cgColor }
+                if let selectedDiameter = selection.radial.diameter {
+                    label.radius = resolveRadius(selectedDiameter)
+                }
+            }
+
             label.frame.size = label.preferredFrameSize()
             label.reposition(for: index,
                              in: percentages,

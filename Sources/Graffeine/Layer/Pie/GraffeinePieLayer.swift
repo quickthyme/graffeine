@@ -39,6 +39,17 @@ open class GraffeinePieLayer: GraffeineLayer {
             slice.lineDashPhase = borderDashPhase
             unitShadow.apply(to: slice)
 
+            if (data.selectedIndex == index) {
+                if let color = selection.fill.color { slice.fillColor = color.cgColor }
+                if let color = selection.line.color { slice.fillColor = color.cgColor }
+                if let selectedDiameter = selection.radial.diameter {
+                    let selectedRadius = resolveRadius(selectedDiameter)
+                    let radDelta = selectedRadius - radius
+                    slice.radius = radius + radDelta
+                    slice.holeRadius = holeRadius + radDelta
+                }
+            }
+
             slice.reposition(for: index,
                              in: percentages,
                              centerPoint: centerPoint,

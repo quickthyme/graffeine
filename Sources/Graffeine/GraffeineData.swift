@@ -6,6 +6,8 @@ public struct GraffeineData: Equatable {
     public var valuesLo: [Double?]
     public var labels: [String?]
 
+    public var selectedIndex: Int?
+
     public var values: [Double?] {
         get { return valuesHi }
         set { valuesHi = newValue }
@@ -16,35 +18,80 @@ public struct GraffeineData: Equatable {
         valuesHi = []
         valuesLo = []
         labels = []
+        selectedIndex = nil
     }
 
     public init(valueMax: Double?,
                 valuesHi: [Double?],
-                valuesLo: [Double?] = [],
-                labels: [String?] = []) {
+                valuesLo: [Double?],
+                labels: [String?],
+                selectedIndex: Int?) {
         self.valueMax = valueMax
         self.valuesHi = valuesHi
         self.valuesLo = valuesLo
         self.labels = labels
+        self.selectedIndex = selectedIndex
     }
 
-    public init(values: [Double?]) {
-        self.init(valueMax: nil, values: values)
+    public init(valueMax: Double?,
+                valuesHi: [Double?],
+                valuesLo: [Double?]) {
+        self.valueMax = valueMax
+        self.valuesHi = valuesHi
+        self.valuesLo = valuesLo
+        self.labels = []
+        self.selectedIndex = nil
     }
 
-    public init(valueMax: Double?, values: [Double?]) {
-        self.init(valueMax: valueMax, valuesHi: values)
-    }
-
-    public init(valueMax: Double?, values: [Double?], labels: [String?]) {
+    public init(valueMax: Double?,
+                values: [Double?],
+                labels: [String?],
+                selectedIndex: Int?) {
         self.init(valueMax: valueMax,
                   valuesHi: values,
                   valuesLo: [],
-                  labels: labels)
+                  labels: labels,
+                  selectedIndex: selectedIndex)
     }
 
-    public init(values: [Double?], labels: [String?]) {
-        self.init(valueMax: nil, values: values, labels: labels)
+    public init(valueMax: Double?,
+                values: [Double?],
+                labels: [String?]) {
+        self.init(valueMax: valueMax,
+                  valuesHi: values,
+                  valuesLo: [],
+                  labels: labels,
+                  selectedIndex: nil)
+    }
+
+    public init(valueMax: Double?,
+                values: [Double?],
+                selectedIndex: Int?) {
+        self.init(valueMax: valueMax,
+                  valuesHi: values,
+                  valuesLo: [],
+                  labels: [],
+                  selectedIndex: selectedIndex)
+    }
+
+    public init(valueMax: Double?,
+                values: [Double?]) {
+        self.init(valueMax: valueMax,
+                  values: values,
+                  labels: [],
+                  selectedIndex: nil)
+    }
+
+    public init(values: [Double?]) {
+        self.init(valueMax: nil,
+                  values: values)
+    }
+
+    public init(values: [Double?],
+                labels: [String?]) {
+        self.init(valueMax: nil,
+                  values: values,
+                  labels: labels)
     }
 
     public init(labels: [String?]) {

@@ -11,6 +11,7 @@
 		DC2FA27623CEAB5A00E88807 /* GraffeinePlotLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2FA27323CEA9DB00E88807 /* GraffeinePlotLayer.swift */; };
 		DC2FA27723CEAB5A00E88807 /* GraffeinePlotLayer+Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2FA27223CEA9DB00E88807 /* GraffeinePlotLayer+Plot.swift */; };
 		DC43354923D6CD830094BEE3 /* GraffeineLayer+Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC43354823D6CD820094BEE3 /* GraffeineLayer+Region.swift */; };
+		DC43354D23D6DA460094BEE3 /* GraffeineLayer+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC43354C23D6DA450094BEE3 /* GraffeineLayer+Selection.swift */; };
 		DC45D59723D65A7C000B9A35 /* GraffeineBarLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC612E8C23B4833B00C08AB5 /* GraffeineBarLayer.swift */; };
 		DC45D59823D65A7C000B9A35 /* GraffeineBarLayer+Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC5E25E523BE851E006562B6 /* GraffeineBarLayer+Bar.swift */; };
 		DC45D59923D65A7C000B9A35 /* GraffeineBarLayer+Bar+Calc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC45D59323D65A3F000B9A35 /* GraffeineBarLayer+Bar+Calc.swift */; };
@@ -95,6 +96,7 @@
 		DC2FA27323CEA9DB00E88807 /* GraffeinePlotLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeinePlotLayer.swift; sourceTree = "<group>"; };
 		DC2FA27423CEAB3900E88807 /* GraffeinePlotLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeinePlotLayerTests.swift; sourceTree = "<group>"; };
 		DC43354823D6CD820094BEE3 /* GraffeineLayer+Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLayer+Region.swift"; sourceTree = "<group>"; };
+		DC43354C23D6DA450094BEE3 /* GraffeineLayer+Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLayer+Selection.swift"; sourceTree = "<group>"; };
 		DC45D59323D65A3F000B9A35 /* GraffeineBarLayer+Bar+Calc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineBarLayer+Bar+Calc.swift"; sourceTree = "<group>"; };
 		DC45D59523D65A50000B9A35 /* GraffeineBarLayer+Bar+RoundedEnds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineBarLayer+Bar+RoundedEnds.swift"; sourceTree = "<group>"; };
 		DC466E1823D68ADE00A86458 /* GraffeineLayer+UnitShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLayer+UnitShadow.swift"; sourceTree = "<group>"; };
@@ -298,8 +300,9 @@
 			children = (
 				DC612E7E23B444A900C08AB5 /* GraffeineLayer.swift */,
 				DC612E8723B4774000C08AB5 /* GraffeineLayer+DimensionalUnit.swift */,
-				DC43354823D6CD820094BEE3 /* GraffeineLayer+Region.swift */,
 				DC7F221F23C83F94009629DD /* GraffeineLayer+LabelAlignment.swift */,
+				DC43354823D6CD820094BEE3 /* GraffeineLayer+Region.swift */,
+				DC43354C23D6DA450094BEE3 /* GraffeineLayer+Selection.swift */,
 				DC466E1823D68ADE00A86458 /* GraffeineLayer+UnitShadow.swift */,
 				DCE3CEBC23D3E7C10028F0B7 /* GraffeineLayer+UnitSubdivision.swift */,
 				DC5E25E323BE84AA006562B6 /* Bar */,
@@ -598,6 +601,7 @@
 				DCE3CEBB23D3E75B0028F0B7 /* GraffeineAnglePair.swift in Sources */,
 				DCE3CEB123D3E6080028F0B7 /* GraffeineDataAnimators_Plot_FadeIn.swift in Sources */,
 				DCE3CEB323D3E6080028F0B7 /* GraffeineDataAnimators_Pie_Automatic.swift in Sources */,
+				DC43354D23D6DA460094BEE3 /* GraffeineLayer+Selection.swift in Sources */,
 				DC466E1923D68ADE00A86458 /* GraffeineLayer+UnitShadow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
