@@ -29,7 +29,7 @@ class GraffeinePieLayerTests: XCTestCase {
 
     func test_given_explicit_diameter_then_it_should_have_correct_radius() {
         subject.diameter = .explicit(100)
-        sampleData.applyPieSlices(to: graffeineView)
+        sampleData.applyPieSlicesWithMaxValue(to: graffeineView)
         graffeineView.layoutIfNeeded()
         let slice = subject.sublayers!.first as! GraffeinePieLayer.PieSlice
         XCTAssertEqual(slice.radius, 50)
@@ -37,36 +37,20 @@ class GraffeinePieLayerTests: XCTestCase {
 
     func test_given_percent_diameter_then_it_should_have_correct_radius() {
         subject.diameter = .percentage(0.5)
-        sampleData.applyPieSlices(to: graffeineView)
+        sampleData.applyPieSlicesWithMaxValue(to: graffeineView)
         graffeineView.layoutIfNeeded()
         let slice = subject.sublayers!.first as! GraffeinePieLayer.PieSlice
         XCTAssertEqual(slice.radius, 30)
     }
 
     func test_given_data_with_3_values_then_it_should_have_3_sublayer_slices() {
-        sampleData.applyPieSlices(to: graffeineView)
+        sampleData.applyPieSlicesWithMaxValue(to: graffeineView)
         graffeineView.layoutIfNeeded()
         XCTAssertEqual(subject.sublayers!.count, 3)
     }
 
-    func test_given_data_with_3_values_then_it_has_sublayers_positioned_correctly() {
-        sampleData.applyPieSlices(to: graffeineView)
-        graffeineView.layoutIfNeeded()
-        let slices = subject.sublayers as! [GraffeinePieLayer.PieSlice]
-        XCTAssertEqual(slices.count, 3)
-        XCTAssertEqual(radToDeg(slices[0].angles.start),   0.0)
-        XCTAssertEqual(radToDeg(slices[0].angles.end),    72.0)
-
-        XCTAssertEqual(radToDeg(slices[1].angles.start),  72.0)
-        XCTAssertEqual(radToDeg(slices[1].angles.end),   180.0)
-
-        XCTAssertEqual(radToDeg(slices[2].angles.start), 180.0)
-        XCTAssertEqual(radToDeg(slices[2].angles.end),   360.0)
-    }
-
-    func test_given_data_with_3_values_and_explicit_max_value_then_it_has_sublayers_positioned_correctly() {
-        subject.shouldUseDataValueMax = true
-        sampleData.applyPieSlices(to: graffeineView)
+    func test_given_data_with_3_values_and_explicit_max_value_then_it_uses_maxValue() {
+        sampleData.applyPieSlicesWithMaxValue(to: graffeineView)
         graffeineView.layoutIfNeeded()
         let slices = subject.sublayers as! [GraffeinePieLayer.PieSlice]
         XCTAssertEqual(slices.count, 3)
@@ -78,5 +62,20 @@ class GraffeinePieLayerTests: XCTestCase {
 
         XCTAssertEqual(radToDeg(slices[2].angles.start),  90.0)
         XCTAssertEqual(radToDeg(slices[2].angles.end),   180.0)
+    }
+
+    func test_given_data_with_3_values_and_no_max_value_then_it_uses_sum_of_values() {
+        sampleData.applyPieSlicesNoMaxValue(to: graffeineView)
+        graffeineView.layoutIfNeeded()
+        let slices = subject.sublayers as! [GraffeinePieLayer.PieSlice]
+        XCTAssertEqual(slices.count, 3)
+        XCTAssertEqual(radToDeg(slices[0].angles.start),   0.0)
+        XCTAssertEqual(radToDeg(slices[0].angles.end),    72.0)
+
+        XCTAssertEqual(radToDeg(slices[1].angles.start),  72.0)
+        XCTAssertEqual(radToDeg(slices[1].angles.end),   180.0)
+
+        XCTAssertEqual(radToDeg(slices[2].angles.start), 180.0)
+        XCTAssertEqual(radToDeg(slices[2].angles.end),   360.0)
     }
 }

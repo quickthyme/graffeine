@@ -21,7 +21,7 @@ extension GraffeinePlotLayer {
                 return
             }
 
-            let valPercent: CGFloat = getPercent(of: value, in: data.valueMax)
+            let valPercent: CGFloat = getPercent(of: value, in: data.valueMaxOrHighest)
 
             let numberOfUnitsAdjustedForPlotOffset = data.values.count - 1
 

@@ -39,8 +39,14 @@ class SampleData {
         }
     }
 
-    func applyPieSlices(to graffeineView: GraffeineView) {
+    func applyPieSlicesWithMaxValue(to graffeineView: GraffeineView) {
         let data = GraffeineData(valueMax: 200, values: [20, 30, 50], labels: ["A", "B", "C"])
+        graffeineView.layer(id: SampleConfig.ID.pie)?.data = data
+        graffeineView.layer(id: SampleConfig.ID.pieLabels)?.data = data
+    }
+
+    func applyPieSlicesNoMaxValue(to graffeineView: GraffeineView) {
+        let data = GraffeineData(values: [20, 30, 50], labels: ["A", "B", "C"])
         graffeineView.layer(id: SampleConfig.ID.pie)?.data = data
         graffeineView.layer(id: SampleConfig.ID.pieLabels)?.data = data
     }

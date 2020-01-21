@@ -17,7 +17,7 @@ extension GraffeineBarLayer {
 
             let drawingInfo = Calc.drawingInfo(valueHi: data.valuesHi[index] ?? 0,
                                                valueLo: data.loValueOrZero(index),
-                                               maxValue: data.valueMax,
+                                               maxValue: data.valueMaxOrHighest,
                                                unitIndex: index,
                                                numberOfUnits: data.valuesHi.count,
                                                unitWidth: unitWidth,

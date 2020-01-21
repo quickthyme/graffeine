@@ -5,7 +5,6 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
     public var clockwise: Bool = true
     public var rotation: UInt = 0
     public var diameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
-    public var shouldUseDataValueMax: Bool = false
     public var fontSize: CGFloat = 10.0
 
     override open func generateSublayer() -> CALayer {
@@ -16,7 +15,7 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let centerPoint = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
         let numberOfLabels = data.values.count
-        let total = (shouldUseDataValueMax) ? data.valueMax : sum(data.values)
+        let total = data.valueMaxOrSum
         let percentages = data.values.map { CGFloat( ($0 ?? 0) / total ) }
         let radius = resolveRadius(diameter)
 
@@ -45,10 +44,6 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
         return (realDiameter / 2)
     }
 
-    private func sum(_ values: [Double?]) -> Double {
-        return values.reduce(Double(0)) { $0 + ($1 ?? 0) }
-    }
-
     private func labelValue(_ index: Int, _ data: GraffeineData) -> String {
         return (data.labels.count >= index) ? (data.labels[index] ?? "") : ("")
     }
@@ -74,7 +69,6 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             self.clockwise = layer.clockwise
             self.rotation = layer.rotation
             self.diameter = layer.diameter
-            self.shouldUseDataValueMax = layer.shouldUseDataValueMax
             self.fontSize = layer.fontSize
         }
     }

@@ -1,7 +1,7 @@
 import Foundation
 
 public struct GraffeineData: Equatable {
-    public var valueMax: Double
+    public var valueMax: Double?
     public var valuesHi: [Double?]
     public var valuesLo: [Double?]
     public var labels: [String?]
@@ -12,18 +12,13 @@ public struct GraffeineData: Equatable {
     }
 
     public init() {
-        valueMax = 100.0
+        valueMax = nil
         valuesHi = []
         valuesLo = []
         labels = []
     }
 
-    public init(labels: [String?]) {
-        self.init()
-        self.labels = labels
-    }
-
-    public init(valueMax: Double,
+    public init(valueMax: Double?,
                 valuesHi: [Double?],
                 valuesLo: [Double?] = [],
                 labels: [String?] = []) {
@@ -33,17 +28,52 @@ public struct GraffeineData: Equatable {
         self.labels = labels
     }
 
-    public init(valueMax: Double, values: [Double?]) {
+    public init(values: [Double?]) {
+        self.init(valueMax: nil, values: values)
+    }
+
+    public init(valueMax: Double?, values: [Double?]) {
         self.init(valueMax: valueMax, valuesHi: values)
     }
 
-    public init(valueMax: Double,
-                values: [Double?],
-                labels: [String?]) {
+    public init(valueMax: Double?, values: [Double?], labels: [String?]) {
         self.init(valueMax: valueMax,
                   valuesHi: values,
                   valuesLo: [],
                   labels: labels)
+    }
+
+    public init(values: [Double?], labels: [String?]) {
+        self.init(valueMax: nil, values: values, labels: labels)
+    }
+
+    public init(labels: [String?]) {
+        self.init()
+        self.labels = labels
+    }
+
+    public var highest: Double {
+        return valuesHi.map({ $0 ?? 0 }).max() ?? 0
+    }
+
+    public var sum: Double {
+        return sumHi
+    }
+
+    public var sumHi: Double {
+        return valuesHi.reduce(Double(0)) { $0 + ($1 ?? 0) }
+    }
+
+    public var sumLo: Double {
+        return valuesLo.reduce(Double(0)) { $0 + ($1 ?? 0) }
+    }
+
+    public var valueMaxOrSum: Double {
+        return valueMax ?? sum
+    }
+
+    public var valueMaxOrHighest: Double {
+        return valueMax ?? highest
     }
 
     public func loValueOrZero(_ idx: Int) -> Double {

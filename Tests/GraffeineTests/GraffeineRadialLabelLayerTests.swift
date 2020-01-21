@@ -28,7 +28,7 @@ class GraffeineRadialLabelLayerTests: XCTestCase {
 
     func test_correct_number_of_labels() {
         subject.diameter = .explicit(100)
-        sampleData.applyPieSlices(to: graffeineView)
+        sampleData.applyPieSlicesWithMaxValue(to: graffeineView)
         graffeineView.layoutIfNeeded()
         let labels = subjectLabels
         XCTAssertEqual(labels.count, 3)

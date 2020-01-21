@@ -38,7 +38,7 @@ extension GraffeineLineLayer {
                          containerSize: CGSize) -> CGPath {
             guard (!data.values.isEmpty) else { return CGPath(rect: .zero, transform: nil) }
 
-            let maxValue = data.valueMax
+            let maxValue = data.valueMaxOrHighest
 
             let path = UIBezierPath()
 

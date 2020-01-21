@@ -20,9 +20,10 @@ extension GraffeineGridLineLayer {
             }
 
             let translatedContainerSize = translatedSize(containerSize)
+            let maxVal = data.valueMaxOrHighest
 
-            let valPercentInverted: CGFloat = (value <= data.valueMax)
-                ? 1.0 - CGFloat(value / data.valueMax)
+            let valPercentInverted: CGFloat = (value <= maxVal)
+                ? 1.0 - CGFloat(value / maxVal)
                 : 0.0
 
             let yPos: CGFloat = translatedContainerSize.height * valPercentInverted
