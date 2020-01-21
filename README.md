@@ -118,7 +118,7 @@ Out-of-the-box, there are three label options: horizontal, vertical, and radial.
 
 ##### Horizontal and Vertical Labels
 
-![sample_2](docs/sample_6.png)
+![sample_2](docs/sample_2.png)
 
 Both `GraffeineHorizontalLabelLayer` and `GraffeineVerticalLabelLayer` are designed to
 be used in the gutter region, where they can be configured to align with the units
