@@ -89,19 +89,21 @@ intended to be placed in one of the gutter regions.
 <br />
 
 
-### Setting Data
+## Interaction
 
-![sample_6](docs/sample_6.png)
+### Setting Data
 
 `GraffeineData` is the vehicle with which to pass data into Graffeine.
 It's easy to apply new data to a specific layer by **assignment**:
 
-    graffeineView.layer(id: "pie")?.data = GraffeineData(valueMax: 20, values: [1, 1, 2, 3, 5, 8, 13, 21, 34])
+    graffeineView.layer(id: "pie")?.data = GraffeineData(valueMax: 100, values: [1, 1, 2, 3, 5, 8, 13, 21, 34])
                                              
 Or if you want it to **animate** whenever the data changes:
 
-    graffeineView.layer(id: "pie")?.setData(GraffeineData(valueMax: 20, values: [1, 1, 2, 3, 5, 8, 13, 21, 34]), 
-                        animator: GraffeineDataAnimators.Pie.Spin(duration: 1.2, timing: .easeInEaseOut))
+    graffeineView.layer(id: "pie")?
+        .setData(GraffeineData(valueMax: 100, values: [1, 1, 2, 3, 5, 8, 13, 21, 34]), 
+                 animator: GraffeineDataAnimators.Pie.Spin(duration: 1.2,
+                                                           timing: .easeInEaseOut))
 
 *There are a handful of data animators included with the library, out-of-box, or you can
 create your own, so long as it conforms to `GraffeineDataAnimating`.*
@@ -109,7 +111,41 @@ create your own, so long as it conforms to `GraffeineDataAnimating`.*
 <br />
 
 
-### Selection
+### Showing Value Labels
+
+Out-of-the-box, there are three label options: horizontal, vertical, and radial.
+
+
+##### Horizontal and Vertical Labels
+
+![sample_2](docs/sample_6.png)
+
+Both `GraffeineHorizontalLabelLayer` and `GraffeineVerticalLabelLayer` are designed to
+be used in the gutter region, where they can be configured to align with the units
+displayed in the main region. This is important for things like bar and line charts,
+where the labels need to line up exactly with the grid.
+
+When using the horizontal or vertical label layers, you can choose how their unit
+alignment gets distributed. Their horizontal/vertical label alignment properties
+are relative to the unit, or column-width in which they are bound. So setting a label
+to be `.center` means it will center itself **to the column**. Setting
+`.centerLeftRight` will cause the first and last labels to be left/right aligned,
+but all other labels will be centered.
+
+
+##### Radial Labels
+
+![sample_6](docs/sample_6.png)
+
+The `GraffeineRadialLabelLayer` is primarily designed to be used in conjunction with
+pie and donut charts, although they do work independently. For all intents and
+purposes, positioning labels in the radial label layer works just like positioning
+the pie slices.
+
+<br />
+
+
+### Handling Selection Events
 
 Selection in Graffeine is ~~MIA~~ *WIP*, but it does currently invoke an `onSelect`
 handler when the view receives a touch interaction. This is rudimentary at best, but
