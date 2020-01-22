@@ -1,8 +1,10 @@
 import UIKit
 
 extension GraffeineLayer {
+    public typealias SelectionResult = (point: CGPoint, index: Int?)
 
     public struct Selection {
+        public var isEnabled: Bool = false
         public var fill:   Fill   = Fill()
         public var line:   Line   = Line()
         public var text:   Text   = Text()
@@ -14,6 +16,7 @@ extension GraffeineLayer {
 
         public struct Line {
             public var color: UIColor? = nil
+            public var thickness: CGFloat? = nil
         }
 
         public struct Text {

@@ -145,11 +145,59 @@ the pie slices.
 <br />
 
 
-### Handling Selection Events
+### Handling Selection
 
-Selection in Graffeine is ~~MIA~~ *WIP*, but it does currently invoke an `onSelect`
-handler when the view receives a touch interaction. This is rudimentary at best, but
-will eventually be expanded upon to be more useful.
+Selection is divided into two parts, that of receiving user interaction, and that
+of rendering the selection state.
+
+##### Receiving touch events
+All selection events are raised through `GraffeineView` via the `onSelect` handler.
+By assigning a handler to this, you will start receiving events whenever the user
+taps on the view.
+
+In order to receive more granular events, you first need to tell it which layer(s)
+you want to receive touch events for. Do this by setting the layer's
+`selection.isEnabled` property to `true`:
+
+    graffeineView.layer(id: "bars")?.selection.isEnabled = true
+
+This only affects whether or not the layer will respond to user touch. If enabled,
+and the user's touch hits one of the items shown by that layer, then the
+`onSelect` handler will include `SelectionResults` containing both the view
+coordinate and the selected index.
+
+`SelectionResult.index` should match that of the item in the values array that it
+was last given. If the user tapped the view, but not on an "item", then this value
+will be nil. You can interpret this as "deselection".
+
+`SelectionResult.point` is the view coordinate of the item that was selected. This is
+useful in case you wish to present some kind of pop-up UI and would like to attach
+any stems or other elements to this point.
+
+##### Rendering selection
+
+In order to render the selection changes, you need to first enable some overrides:
+
+    graffeineView.layer(id: "bars")?.selection.fill.color = .green
+    graffeineView.layer(id: "bars")?.selection.line.color = .black
+    graffeineView.layer(id: "bars")?.selection.line.thickness = 3.0
+
+Then, just include the `selectedIndex` whenever you set the data.
+
+For example, if you just want to immediately display selection when the user taps
+on something in the graph, you can do that in the `onSelect` handler like so:
+
+    graffeineView.onSelect = { selection in
+        if let barLayer = graffeineView.layer(id: "bar") {
+            var barData = barLayer.data
+            barData.selectedIndex = selection.index
+            barLayer.setData(barData, animator: barAnimator)
+        }
+    }
+
+NOTE: Selection in Graffeine is still incomplete as it is WIP.
+It works as advertised, but not all layers recognize the selection overrides,
+and there are still many possible overrides yet to be included. Coming soon...
 
 <br />
 

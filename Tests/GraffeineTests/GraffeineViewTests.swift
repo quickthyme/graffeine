@@ -149,7 +149,7 @@ class GraffeineViewTests: XCTestCase {
     func test_given_onSelect_when_it_is_touched_then_it_invokes_onSelect() {
         var didSelect: Bool = false
         subject.layers = [GraffeineBarLayer(id: "mainRegion")]
-        subject.onSelect = ({ didSelect = true })
+        subject.onSelect = ({ _ in didSelect = true })
         simulateTouch(subject)
         XCTAssertTrue(didSelect)
     }
@@ -157,7 +157,7 @@ class GraffeineViewTests: XCTestCase {
     func test_given_onSelect_when_touch_cancelled_then_it_does_not_invoke_onSelect() {
         var didSelect: Bool = false
         subject.layers = [GraffeineBarLayer(id: "mainRegion")]
-        subject.onSelect = ({ didSelect = true })
+        subject.onSelect = ({ _ in didSelect = true })
         simulateCancelledTouch(subject)
         XCTAssertFalse(didSelect)
     }
@@ -165,7 +165,7 @@ class GraffeineViewTests: XCTestCase {
     func test_given_onSelect_when_more_than_1_touch_is_used_then_it_does_not_invoke_onSelect() {
         var didSelect: Bool = false
         subject.layers = [GraffeineBarLayer(id: "mainRegion")]
-        subject.onSelect = ({ didSelect = true })
+        subject.onSelect = ({ _ in didSelect = true })
         simulateMultiTouch(subject)
         XCTAssertFalse(didSelect)
     }

@@ -41,7 +41,8 @@ open class GraffeinePieLayer: GraffeineLayer {
 
             if (data.selectedIndex == index) {
                 if let color = selection.fill.color { slice.fillColor = color.cgColor }
-                if let color = selection.line.color { slice.fillColor = color.cgColor }
+                if let color = selection.line.color { slice.strokeColor = color.cgColor }
+                if let thickness = selection.line.thickness { slice.lineWidth = thickness }
                 if let selectedDiameter = selection.radial.diameter {
                     let selectedRadius = resolveRadius(selectedDiameter)
                     let radDelta = selectedRadius - radius

@@ -2,7 +2,7 @@ import UIKit
 
 open class GraffeineView: UIView {
 
-    public typealias OnSelect = () -> ()
+    public typealias OnSelect = (GraffeineLayer.SelectionResult?) -> ()
 
     public typealias Region = GraffeineLayer.Region
 
@@ -93,9 +93,34 @@ open class GraffeineView: UIView {
 
     override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        if (touchBeganInside && touches.count == 1) {
-            self.onSelect?()
+        if (touchBeganInside && touches.count == 1),
+            let touch = touches.first {
+            handleUserSelection(touch.location(in: self))
         }
         touchBeganInside = false
+    }
+
+    private func handleUserSelection(_ point: CGPoint) {
+        let selectables = findSelectableLayers()
+        let results = findSelected(point, selectables)
+        self.onSelect?(results.first)
+    }
+
+    private func findSelectableLayers() -> [GraffeineLayer] {
+        return layers.filter({ $0.selection.isEnabled })
+    }
+
+    private func findSelected(_ point: CGPoint, _ layers: [GraffeineLayer]) -> [GraffeineLayer.SelectionResult] {
+        return layers.compactMap({ layer in
+            let point = self.layer.convert(point, to: layer)
+            guard let selected = layer.findSelected(point) else { return nil }
+
+            let converted = self.layer.convert(selected.point, from: layer)
+
+            return (
+                point: normalized(converted),
+                index: selected.index
+            )
+        })
     }
 }
