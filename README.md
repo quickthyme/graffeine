@@ -147,6 +147,8 @@ the pie slices.
 
 ### Handling Selection
 
+![sample_selection_1](docs/sample_selection_1.png)
+
 Selection is divided into two parts, that of receiving user interaction, and that
 of rendering the selection state.
 
