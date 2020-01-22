@@ -169,4 +169,26 @@ class GraffeineViewTests: XCTestCase {
         simulateMultiTouch(subject)
         XCTAssertFalse(didSelect)
     }
+
+    func test_given_layer_has_selection_enabled_when_touch_hits_then_it_calls_onSelect_with_result() {
+        subject.layers = [
+            GraffeineHorizontalLabelLayer(id: "top", height: 20, region: .topGutter),
+            GraffeineBarLayer(id: "bar", region: .main).apply {
+                $0.colors = [.red]
+                $0.selection.isEnabled = true
+                $0.data = GraffeineData(values: [10, 2], selectedIndex: nil)
+            }
+        ]
+        subject.layoutSublayers(of: subject.layer)
+
+        var result: GraffeineLayer.SelectionResult? = nil
+        subject.onSelect = { result = $0 }
+
+        subject.handleUserSelection(CGPoint(x: 50, y: 50))
+
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result!.data.selectedIndex, 0)
+        XCTAssertEqual(result!.data.values[result!.data.selectedIndex!], 10)
+        XCTAssertEqual(result!.point, CGPoint(x: 74, y: 110))
+    }
 }

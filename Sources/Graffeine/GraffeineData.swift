@@ -88,6 +88,13 @@ public struct GraffeineData: Equatable {
     }
 
     public init(values: [Double?],
+                selectedIndex: Int?) {
+        self.init(valueMax: nil,
+                  values: values,
+                  selectedIndex: selectedIndex)
+    }
+
+    public init(values: [Double?],
                 labels: [String?]) {
         self.init(valueMax: nil,
                   values: values,

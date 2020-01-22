@@ -44,27 +44,6 @@ open class GraffeineLayer: CALayer {
         return colors[(idx % colors.count)].cgColor
     }
 
-    open func findSelected(_ point: CGPoint) -> SelectionResult? {
-        guard (self.selection.isEnabled),
-            let sublayers = self.sublayers
-            else { return nil }
-
-        for (index, layer) in sublayers.enumerated() {
-
-            if let shape = layer as? CAShapeLayer,
-                let shapeFrame = shape.path?.boundingBoxOfPath,
-                (shapeFrame.contains(point)) {
-                let shapeCenter = CGPoint(x: shapeFrame.origin.x + (shapeFrame.size.width  / 2),
-                                          y: shapeFrame.origin.y + (shapeFrame.size.height / 2))
-                return (
-                    point: shapeCenter,
-                    index: index
-                )
-            }
-        }
-        return nil
-    }
-
     override public init() {
         super.init()
     }

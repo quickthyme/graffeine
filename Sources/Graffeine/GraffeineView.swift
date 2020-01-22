@@ -100,7 +100,7 @@ open class GraffeineView: UIView {
         touchBeganInside = false
     }
 
-    private func handleUserSelection(_ point: CGPoint) {
+    internal func handleUserSelection(_ point: CGPoint) {
         let selectables = findSelectableLayers()
         let results = findSelected(point, selectables)
         self.onSelect?(results.first)
@@ -112,14 +112,15 @@ open class GraffeineView: UIView {
 
     private func findSelected(_ point: CGPoint, _ layers: [GraffeineLayer]) -> [GraffeineLayer.SelectionResult] {
         return layers.compactMap({ layer in
-            let point = self.layer.convert(point, to: layer)
-            guard let selected = layer.findSelected(point) else { return nil }
 
-            let converted = self.layer.convert(selected.point, from: layer)
+            let pointConvertedTo = self.layer.convert(point, to: layer)
+            guard let selected = layer.findSelected(pointConvertedTo) else { return nil }
 
-            return (
-                point: normalized(converted),
-                index: selected.index
+            let pointConvertedFrom = self.layer.convert(selected.point, from: layer)
+
+            return GraffeineLayer.SelectionResult(
+                point: normalized(pointConvertedFrom),
+                data: selected.data
             )
         })
     }

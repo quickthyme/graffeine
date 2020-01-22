@@ -12,7 +12,9 @@
 
 It's like, graphing... with caffeine.
 
-Graffeine is an iOS library that uses CoreAnimation to render various types of data graphs and charts. It is highly extendable and features a declarative interface, multiple layers, configuration binding, and auto-layout.
+Graffeine is an iOS library that uses CoreAnimation to render various types of data
+graphs and charts. It is highly extendable and features a declarative interface,
+modular layers, configuration binding, and auto-layout.
 
 <br />
 
@@ -22,7 +24,8 @@ Graffeine is an iOS library that uses CoreAnimation to render various types of d
 
 ### GraffeineView
 
-Subclass of UIView that manages and provides the rendering context for the various graphing layers, which are divided into 5 *regions*:
+Subclass of UIView that manages and provides the rendering context for the various
+graphing layers, which are divided into 5 *regions*:
 
                Top Gutter
             +---------------+
@@ -32,9 +35,12 @@ Subclass of UIView that manages and provides the rendering context for the vario
               Bottom Gutter
 
 
-Whenever a layer exists belonging to one of the regions, its positioning and size will automatically be managed by the view, which includes responding to layout changes or resizing events.
+Whenever a layer exists belonging to one of the regions, its positioning and size will
+automatically be managed by the view, which includes responding to layout changes or
+resizing events.
 
-By default, `GraffeineView` contains no layers. You must add layers to it by setting the `layers` property, like so:
+By default, `GraffeineView` contains no layers. You must add layers to it by setting
+the `layers` property, like so:
 
     graffeineView.layers = [
             GraffeineHorizontalLabelLayer(id: "top", height: 16, region: .topGutter),
@@ -55,7 +61,9 @@ By default, `GraffeineView` contains no layers. You must add layers to it by set
 
 ### GraffeineLayer 
 
-*(abstract)* Container-like "graphing layer" used to represent a particular graph component. By combining layers, you can dial in exactly the layout you want and render amazing graphs.
+*(abstract)* Container-like "graphing layer" used to represent a particular graph
+component. By combining layers, you can dial in exactly the layout you want and
+render amazing graphs.
 
 Out of the box, there are a handful of ready-to-go graphing layers:
 
@@ -70,12 +78,14 @@ Out of the box, there are a handful of ready-to-go graphing layers:
 | `GraffeinePieLayer`              |   segmented pies and donuts     |
 | `GraffeinePlotLayer`             |   individual plots (points)     |
 
-When constructing a `GraffeineLayer`, you typically provide it with an `id` and a `region`.
+When constructing a `GraffeineLayer`, you typically provide it with an `id` and
+a `region`.
 
 
 ##### id
 
-The id is used to identify and access the layer after it has been added to a `GraffeineView`:
+The id is used to identify and access the layer after it has been added to a
+`GraffeineView`:
 
     let pieLayer = graffeineView.layer(id: "pie")
 
@@ -83,35 +93,13 @@ The id is used to identify and access the layer after it has been added to a `Gr
 ##### region
 
 You can use any layer with any region, although some are more intended for certain
-regions than others. For example, the horizontal and vertical label layers are generally
-intended to be placed in one of the gutter regions.
+regions than others. For example, the horizontal and vertical label layers are
+generally intended to be placed in one of the gutter regions.
 
 <br />
 
 
-## Interaction
-
-### Setting Data
-
-`GraffeineData` is the vehicle with which to pass data into Graffeine.
-It's easy to apply new data to a specific layer by **assignment**:
-
-    graffeineView.layer(id: "pie")?.data = GraffeineData(valueMax: 100, values: [1, 1, 2, 3, 5, 8, 13, 21, 34])
-                                             
-Or if you want it to **animate** whenever the data changes:
-
-    graffeineView.layer(id: "pie")?
-        .setData(GraffeineData(valueMax: 100, values: [1, 1, 2, 3, 5, 8, 13, 21, 34]), 
-                 animator: GraffeineDataAnimators.Pie.Spin(duration: 1.2,
-                                                           timing: .easeInEaseOut))
-
-*There are a handful of data animators included with the library, out-of-box, or you can
-create your own, so long as it conforms to `GraffeineDataAnimating`.*
-
-<br />
-
-
-### Showing Value Labels
+### Value Labels
 
 Out-of-the-box, there are three label options: horizontal, vertical, and radial.
 
@@ -145,6 +133,28 @@ the pie slices.
 <br />
 
 
+## Interaction
+
+### Setting Data
+
+`GraffeineData` is the vehicle with which to pass data into Graffeine.
+It's easy to apply new data to a specific layer by **assignment**:
+
+    graffeineView.layer(id: "bar")?.data = GraffeineData(values: [1, 2, 3])
+                                             
+Or if you want it to **animate** whenever the data changes:
+
+    graffeineView.layer(id: "pie")?
+        .setData(GraffeineData(values: [1, 1, 2, 3, 5, 8, 13, 21]), 
+                 animator: GraffeineDataAnimators.Pie.Spin(duration: 1.2,
+                                                           timing: .easeInEaseOut))
+
+*There are a handful of data animators included with the library, out-of-box, or you can
+create your own, so long as it conforms to `GraffeineDataAnimating`.*
+
+<br />
+
+
 ### Handling Selection
 
 ![sample_selection_1](docs/sample_selection_1.png)
@@ -164,17 +174,18 @@ you want to receive touch events for. Do this by setting the layer's
     graffeineView.layer(id: "bars")?.selection.isEnabled = true
 
 This only affects whether or not the layer will respond to user touch. If enabled,
-and the user's touch hits one of the items shown by that layer, then the
-`onSelect` handler will include `SelectionResults` containing both the view
-coordinate and the selected index.
+then the `onSelect` handler will include `SelectionResults` containing both the
+view coordinate `point` and the selected layer's `data`, with the updated
+`selectedIndex`. 
 
-`SelectionResult.index` should match that of the item in the values array that it
-was last given. If the user tapped the view, but not on an "item", then this value
-will be nil. You can interpret this as "deselection".
+If either the `SelectionResult` or the `data.selectedIndex` is nil, we
+can interpret it as "deselection".
 
-`SelectionResult.point` is the view coordinate of the item that was selected. This is
-useful in case you wish to present some kind of pop-up UI and would like to attach
-any stems or other elements to this point.
+The `point` is the view coordinate of the item that was selected, (in the
+coordinate-space of the `GraffeineView`).
+This is useful in case you wish to present some kind of pop-up UI and would
+like to attach any stems or other such elements to this point.
+
 
 ##### Rendering selection
 
