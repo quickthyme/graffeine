@@ -209,12 +209,6 @@ In order to render the selection changes, you need to first enable some override
 
 Then, just include the `selectedIndex` whenever you set the data.
 
-For example, if you just want to immediately display selection when the user taps
-on something in the graph, you can do that in the `onSelect` handler like so:
-
-    graffeineView.onSelect = { selection in
-        selection?.layer.setData(selection!.data, animator: barAnimator)
-    }
 
 NOTE: Selection in Graffeine is still incomplete as it is WIP.
 It works as advertised, but not all layers recognize the selection overrides,
