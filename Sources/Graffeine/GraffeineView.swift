@@ -120,7 +120,8 @@ open class GraffeineView: UIView {
 
             return GraffeineLayer.SelectionResult(
                 point: normalized(pointConvertedFrom),
-                data: selected.data
+                data: selected.data,
+                layer: selected.layer
             )
         })
     }

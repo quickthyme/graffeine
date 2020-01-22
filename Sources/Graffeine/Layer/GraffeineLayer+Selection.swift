@@ -5,8 +5,9 @@ extension GraffeineLayer {
     public struct SelectionResult {
         public let point: CGPoint
         public let data: GraffeineData
-        public init(point: CGPoint, data: GraffeineData) {
-            self.point = point; self.data = data
+        public let layer: GraffeineLayer
+        public init(point: CGPoint, data: GraffeineData, layer: GraffeineLayer) {
+            self.point = point; self.data = data; self.layer = layer
         }
     }
 
@@ -57,7 +58,8 @@ extension GraffeineLayer {
 
                 result = SelectionResult(
                     point: shapeCenter,
-                    data: selectionData
+                    data: selectionData,
+                    layer: self
                 )
             }
         }

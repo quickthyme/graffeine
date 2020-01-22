@@ -190,5 +190,6 @@ class GraffeineViewTests: XCTestCase {
         XCTAssertEqual(result!.data.selectedIndex, 0)
         XCTAssertEqual(result!.data.values[result!.data.selectedIndex!], 10)
         XCTAssertEqual(result!.point, CGPoint(x: 74, y: 110))
+        XCTAssert(result!.layer === subject.layer(id: "bar"))
     }
 }
