@@ -79,7 +79,7 @@ class SampleConfig: GraffeineViewConfig {
                 .apply ({
                     $0.unitFill.colors = [.black]
                     $0.unitMargin = unitMargin
-                    $0.plotDiameter = 8.0
+                    $0.diameter = .explicit(8.0)
                     $0.unitLine.thickness = 2.0
                     $0.unitLine.colors = [.brown]
                 }),

@@ -5,7 +5,7 @@ open class GraffeinePlotLayer: GraffeineLayer {
     public var unitWidth: GraffeineLayer.DimensionalUnit = .relative
     public var unitMargin: CGFloat = 4.0
 
-    public var plotDiameter: CGFloat = 0.0
+    public var diameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
 
     override open func generateSublayer() -> CALayer {
         return Plot()
@@ -17,13 +17,15 @@ open class GraffeinePlotLayer: GraffeineLayer {
 
         for (index, plot) in sublayers.enumerated() {
             guard let plot = plot as? Plot, index < numberOfUnits else { continue }
-            plot.diameter = plotDiameter
+
+            plot.diameter = resolveDiameter(diameter: diameter, bounds: bounds)
 
             unitFill.apply(to: plot)
             unitLine.apply(to: plot)
             unitShadow.apply(to: plot)
 
             applySelectionState(plot, index: index)
+            applyRadialSelectionState(plot, index: index)
 
             plot.reposition(for: index,
                             in: data,
@@ -31,6 +33,14 @@ open class GraffeinePlotLayer: GraffeineLayer {
                             unitMargin: unitMargin,
                             containerSize: bounds.size,
                             animator: animator as? GraffeinePlotDataAnimating)
+        }
+    }
+
+    open func applyRadialSelectionState(_ plot: Plot, index: Int) {
+        if (data.selectedIndex == index) {
+            if let selectedDiameter = selection.radial.diameter {
+                plot.diameter = resolveDiameter(diameter: selectedDiameter, bounds: bounds)
+            }
         }
     }
 
@@ -54,7 +64,7 @@ open class GraffeinePlotLayer: GraffeineLayer {
         if let layer = layer as? Self {
             self.unitWidth = layer.unitWidth
             self.unitMargin = layer.unitMargin
-            self.plotDiameter = layer.plotDiameter
+            self.diameter = layer.diameter
         }
     }
 
