@@ -4,7 +4,6 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
 
     public var columnWidth: GraffeineLayer.DimensionalUnit = .relative
     public var columnMargin: CGFloat = 4.0
-    public var fontSize: CGFloat = 10.0
     public var unitText: UnitText = UnitText()
 
     public var labelHPadding: CGFloat = 4.0
@@ -68,7 +67,6 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
         if let layer = layer as? Self {
             self.columnWidth = layer.columnWidth
             self.columnMargin = layer.columnMargin
-            self.fontSize = layer.fontSize
             self.unitText = layer.unitText
             self.labelHPadding = layer.labelHPadding
             self.labelVPadding = layer.labelVPadding

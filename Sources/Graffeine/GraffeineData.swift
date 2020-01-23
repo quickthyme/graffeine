@@ -135,4 +135,8 @@ public struct GraffeineData: Equatable {
             ? valuesLo[idx] ?? 0.0
             : 0.0
     }
+
+    public func labelValue(_ index: Int) -> String {
+        return (index < labels.count) ? (labels[index] ?? "") : ("")
+    }
 }

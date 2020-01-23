@@ -5,7 +5,6 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
     public var clockwise: Bool = true
     public var rotation: UInt = 0
     public var diameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
-    public var fontSize: CGFloat = 10.0
     public var unitText: UnitText = UnitText()
 
     override open func generateSublayer() -> CALayer {
@@ -22,7 +21,7 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
 
         for (index, label) in sublayers.enumerated() {
             guard let label = label as? Label, index < numberOfLabels else { continue }
-            let text = labelValue(index, data)
+            let text = data.labelValue(index)
             label.clockwise = clockwise
             label.rotation = rotation
             label.radius = radius
@@ -42,10 +41,6 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
                              centerPoint: centerPoint,
                              animator: animator as? GraffeineRadialLabelDataAnimating)
         }
-    }
-
-    private func labelValue(_ index: Int, _ data: GraffeineData) -> String {
-        return (data.labels.count >= index) ? (data.labels[index] ?? "") : ("")
     }
 
     open func applyRadialSelectionState(_ label: Label, index: Int) {
@@ -77,7 +72,6 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             self.clockwise = layer.clockwise
             self.rotation = layer.rotation
             self.diameter = layer.diameter
-            self.fontSize = layer.fontSize
             self.unitText = layer.unitText
         }
     }

@@ -64,4 +64,13 @@ class GraffeineHorizontalLabelLayerTests: XCTestCase {
         XCTAssertEqual(labels[1].alignmentMode, .center)
         XCTAssertEqual(labels.last?.alignmentMode, .right)
     }
+
+    func test_given_fontSize_when_positioned_then_they_all_have_correct_fontSize_applied() {
+        subject.unitText.fontSize = 16
+        graffeineView.layoutIfNeeded()
+        let labels = subjectLabels
+        XCTAssertEqual(labels.first?.fontSize, 16)
+        XCTAssertEqual(labels[1].fontSize, 16)
+        XCTAssertEqual(labels.last?.fontSize, 16)
+    }
 }

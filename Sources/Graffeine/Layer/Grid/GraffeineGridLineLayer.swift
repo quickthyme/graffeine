@@ -39,8 +39,6 @@ open class GraffeineGridLineLayer: GraffeineLayer {
 
     override public init(layer: Any) {
         super.init(layer: layer)
-//        if let layer = layer as? Self {
-//        }
     }
 
     @discardableResult
