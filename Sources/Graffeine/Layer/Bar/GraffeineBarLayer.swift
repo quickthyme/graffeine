@@ -3,7 +3,6 @@ import UIKit
 open class GraffeineBarLayer: GraffeineLayer {
 
     public var unitWidth: GraffeineLayer.DimensionalUnit = .relative
-    public var unitMargin: CGFloat = 4.0
     public var unitSubdivision: GraffeineLayer.UnitSubdivision? = nil
     public var roundedEnds: RoundedEnds = .none
 
@@ -80,7 +79,6 @@ open class GraffeineBarLayer: GraffeineLayer {
         super.init(layer: layer)
         if let layer = layer as? Self {
             self.unitWidth = layer.unitWidth
-            self.unitMargin = layer.unitMargin
             self.unitSubdivision = layer.unitSubdivision
             self.roundedEnds = layer.roundedEnds
             self.clipLoEdge = layer.clipLoEdge

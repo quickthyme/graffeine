@@ -6,6 +6,7 @@ open class GraffeinePieLayer: GraffeineLayer {
     public var rotation: UInt = 0
     public var diameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
     public var holeDiameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
+    public var centerOffsetDiameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
 
     override open func generateSublayer() -> CALayer {
         return PieSlice()
@@ -19,6 +20,7 @@ open class GraffeinePieLayer: GraffeineLayer {
         let percentages = data.values.map { CGFloat( ($0 ?? 0) / total ) }
         let radius = resolveRadius(diameter: diameter, bounds: bounds)
         let holeRadius = resolveRadius(diameter: holeDiameter, bounds: bounds)
+        let centerOffsetRadius = resolveRadius(diameter: centerOffsetDiameter, bounds: bounds)
 
         for (index, slice) in sublayers.enumerated() {
             guard let slice = slice as? PieSlice, index < numberOfSlices else { continue }
@@ -27,6 +29,7 @@ open class GraffeinePieLayer: GraffeineLayer {
             slice.rotation = rotation
             slice.radius = radius
             slice.holeRadius = holeRadius
+            slice.centerOffsetRadius = centerOffsetRadius
             unitFill.apply(to: slice, index: index)
             unitLine.apply(to: slice, index: index)
             unitShadow.apply(to: slice)
@@ -49,6 +52,10 @@ open class GraffeinePieLayer: GraffeineLayer {
 
             if let selectedHoleDiameter = selection.radial.holeDiameter {
                 slice.holeRadius = resolveRadius(diameter: selectedHoleDiameter, bounds: bounds)
+            }
+
+            if let selectedCenterOffsetDiameter = selection.radial.centerOffsetDiameter {
+                slice.centerOffsetRadius = resolveRadius(diameter: selectedCenterOffsetDiameter, bounds: bounds)
             }
         }
     }
@@ -75,6 +82,7 @@ open class GraffeinePieLayer: GraffeineLayer {
             self.rotation = layer.rotation
             self.diameter = layer.diameter
             self.holeDiameter = layer.holeDiameter
+            self.centerOffsetDiameter = layer.centerOffsetDiameter
         }
     }
 

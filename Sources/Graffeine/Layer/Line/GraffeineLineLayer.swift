@@ -3,7 +3,6 @@ import UIKit
 open class GraffeineLineLayer: GraffeineLayer {
 
     public var unitWidth: GraffeineLayer.DimensionalUnit = .relative
-    public var unitMargin: CGFloat = 4.0
 
     override open var expectedNumberOfSublayers: Int {
         return 1
@@ -51,7 +50,6 @@ open class GraffeineLineLayer: GraffeineLayer {
         super.init(layer: layer)
         if let layer = layer as? Self {
             self.unitWidth = layer.unitWidth
-            self.unitMargin = layer.unitMargin
         }
     }
 

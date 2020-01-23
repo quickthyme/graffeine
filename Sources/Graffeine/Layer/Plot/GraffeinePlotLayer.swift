@@ -3,7 +3,6 @@ import UIKit
 open class GraffeinePlotLayer: GraffeineLayer {
 
     public var unitWidth: GraffeineLayer.DimensionalUnit = .relative
-    public var unitMargin: CGFloat = 4.0
 
     public var diameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
 
@@ -63,7 +62,6 @@ open class GraffeinePlotLayer: GraffeineLayer {
         super.init(layer: layer)
         if let layer = layer as? Self {
             self.unitWidth = layer.unitWidth
-            self.unitMargin = layer.unitMargin
             self.diameter = layer.diameter
         }
     }

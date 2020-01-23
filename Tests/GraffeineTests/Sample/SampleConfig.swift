@@ -34,7 +34,7 @@ class SampleConfig: GraffeineViewConfig {
 
             GraffeineVerticalLabelLayer(id: ID.leftGutter, width: 64, region: .leftGutter)
                 .apply ({
-                    $0.rowMargin = unitMargin
+                    $0.unitMargin = unitMargin
                     $0.unitText.colors = Self.colorValues
                     $0.data = GraffeineData(labels: Self.colorNames)
                 }),

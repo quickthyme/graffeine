@@ -3,7 +3,6 @@ import UIKit
 open class GraffeineVerticalLabelLayer: GraffeineLayer {
 
     public var rowHeight: GraffeineLayer.DimensionalUnit = .relative
-    public var rowMargin: CGFloat = 4.0
     public var unitText: UnitText = UnitText()
 
     public var labelHPadding: CGFloat = 4.0
@@ -41,7 +40,7 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
             label.reposition(for: index,
                              in: data.labels,
                              rowHeight: rowHeight,
-                             rowMargin: rowMargin,
+                             rowMargin: unitMargin,
                              containerSize: bounds.size)
         }
     }
@@ -66,7 +65,6 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
         super.init(layer: layer)
         if let layer = layer as? Self {
             self.rowHeight = layer.rowHeight
-            self.rowMargin = layer.rowMargin
             self.unitText = layer.unitText
             self.labelHPadding = layer.labelHPadding
             self.labelVPadding = layer.labelVPadding

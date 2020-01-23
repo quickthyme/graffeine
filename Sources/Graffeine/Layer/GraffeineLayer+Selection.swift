@@ -15,9 +15,10 @@ extension GraffeineLayer {
         public var isEnabled: Bool = false
         public var fill:   Fill   = Fill()
         public var line:   Line   = Line()
-        public var text:   Text   = Text()
         public var radial: Radial = Radial()
         public var shadow: Shadow = Shadow()
+        public var text:   Text   = Text()
+        public var unitMargin: CGFloat? = nil
 
         public struct Fill {
             public var color: UIColor? = nil
@@ -32,13 +33,10 @@ extension GraffeineLayer {
             public var cap: CAShapeLayerLineCap? = nil
         }
 
-        public struct Text {
-            public var color: UIColor? = nil
-        }
-
         public struct Radial {
             public var diameter: DimensionalUnit? = nil
             public var holeDiameter: DimensionalUnit? = nil
+            public var centerOffsetDiameter: DimensionalUnit? = nil
         }
 
         public struct Shadow {
@@ -46,6 +44,10 @@ extension GraffeineLayer {
             public var opacity: CGFloat? = nil
             public var radius:  CGFloat? = nil
             public var offset:  CGSize? = nil
+        }
+
+        public struct Text {
+            public var color: UIColor? = nil
         }
     }
 

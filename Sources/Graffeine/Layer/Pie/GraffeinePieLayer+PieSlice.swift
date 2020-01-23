@@ -8,6 +8,7 @@ extension GraffeinePieLayer {
         public var rotation: UInt = 0
         public var radius: CGFloat = 0
         public var holeRadius: CGFloat = 0
+        public var centerOffsetRadius: CGFloat = 0
 
         private var _angles: GraffeineAnglePair = .zero
         public var angles: GraffeineAnglePair { return _angles }
@@ -17,7 +18,7 @@ extension GraffeinePieLayer {
                              centerPoint: CGPoint,
                              animator: GraffeinePieDataAnimating?) {
             let rotAngle = rotationAngle()
-            let pctAngle = percentAngle(percentages[index])
+            let pctAngle = PercentageToRadians(percentages[index], clockwise)
             let startAngle = startingAngle(for: index, in: percentages) + rotAngle
             let newAngles = GraffeineAnglePair(start: startAngle, end: startAngle + pctAngle)
             if (self.angles == .zero) {
@@ -38,34 +39,36 @@ extension GraffeinePieLayer {
         }
 
         private func rotationAngle() -> CGFloat {
-            return percentAngle( CGFloat(rotation % 360) / 360 )
-        }
-
-        private func percentAngle(_ pct: CGFloat) -> CGFloat {
-            let angle = (pct * CGFloat.pi * 2.0)
-            return ((clockwise) ? angle : (0 - angle))
+            return PercentageToRadians( CGFloat(rotation % 360) / 360 , clockwise)
         }
 
         private func startingAngle(for index: Int, in percentages: [CGFloat]) -> CGFloat {
             let startingPercentage = percentages[0..<index].reduce(CGFloat(0)) { $0 + $1 }
-            let angle = (startingPercentage * CGFloat.pi * 2.0)
+            let angle = PercentageToRadians(startingPercentage, clockwise)
             return ((clockwise) ? angle : (0 - angle))
         }
 
         open func constructPath(centerPoint: CGPoint, angles: GraffeineAnglePair) -> CGPath {
 
-            let path = UIBezierPath(arcCenter: centerPoint,
-                                    radius: radius,
+            let offsetCenter = GraffeineAnglePair.point(for: angles.middle,
+                                                        center: centerPoint,
+                                                        radius: centerOffsetRadius)
+            let offsetRadius = radius - centerOffsetRadius
+
+            let path = UIBezierPath(arcCenter: offsetCenter,
+                                    radius: offsetRadius,
                                     startAngle: angles.start,
                                     endAngle: angles.end,
                                     clockwise: clockwise)
             if holeRadius == 0 {
-                path.addLine(to: centerPoint)
+                path.addLine(to: offsetCenter)
                 path.close()
             } else {
-                let holePoints = angles.points(center: centerPoint, radius: holeRadius)
+                let offsetHoleRadius = holeRadius - centerOffsetRadius
+                let holePoints = angles.points(center: offsetCenter, radius: offsetHoleRadius)
                 path.addLine(to: holePoints.end)
-                path.addArc(withCenter: centerPoint, radius: holeRadius,
+                path.addArc(withCenter: offsetCenter,
+                            radius: offsetHoleRadius,
                             startAngle: angles.end,
                             endAngle: angles.start,
                             clockwise: !clockwise)
@@ -96,6 +99,7 @@ extension GraffeinePieLayer {
                 self.rotation = layer.rotation
                 self.radius = layer.radius
                 self.holeRadius = layer.holeRadius
+                self.centerOffsetRadius = layer.centerOffsetRadius
                 self._angles = layer.angles
             }
         }

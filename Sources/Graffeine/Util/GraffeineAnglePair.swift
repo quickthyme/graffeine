@@ -26,7 +26,9 @@ public struct GraffeineAnglePair: Equatable {
     }
 
     public static func point(for angle: CGFloat, center: CGPoint, radius: CGFloat) -> CGPoint {
-        return CGPoint(x: center.x + radius * cos(angle),
-                       y: center.y + radius * sin(angle))
+        return (radius <= 0)
+            ? center
+            : CGPoint(x: center.x + radius * cos(angle),
+                      y: center.y + radius * sin(angle))
     }
 }
