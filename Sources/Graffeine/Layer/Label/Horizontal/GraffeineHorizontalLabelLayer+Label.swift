@@ -39,12 +39,13 @@ extension GraffeineHorizontalLabelLayer {
                                                               fontSize: fontSize,
                                                               padding: vPadding,
                                                               within: containerSize.height)
+            var frameSize = preferredFrameSize()
+            frameSize.width = width
 
             performWithoutAnimation {
                 self.string = labelValue
                 self.alignmentMode = horizontalAlignmentMode.textAlignment(for: index, in: labels)
-                self.frame.size.height = containerSize.height
-                self.frame.size.width = width
+                self.frame.size = frameSize
                 self.position = CGPoint(x: xPos, y: yPos)
             }
         }

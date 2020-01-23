@@ -42,11 +42,13 @@ extension GraffeineVerticalLabelLayer {
             let yPos = (CGFloat(index) * (height + rowMargin)) + yOffset
             let xPos = (alignmentMode == .left) ? hPadding : 0.0
 
+            var frameSize = preferredFrameSize()
+            frameSize.width = containerSize.width - hPadding
+
             performWithoutAnimation {
                 self.alignmentMode = horizontalAlignmentMode.textAlignment(for: index, in: labels)
                 self.string = labelValue
-                self.frame.size.height = height
-                self.frame.size.width = containerSize.width - hPadding
+                self.frame.size = frameSize
                 self.position = CGPoint(x: xPos, y: yPos)
             }
         }
