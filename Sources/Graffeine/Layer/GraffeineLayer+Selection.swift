@@ -17,6 +17,7 @@ extension GraffeineLayer {
         public var line:   Line   = Line()
         public var text:   Text   = Text()
         public var radial: Radial = Radial()
+        public var shadow: Shadow = Shadow()
 
         public struct Fill {
             public var color: UIColor? = nil
@@ -25,6 +26,10 @@ extension GraffeineLayer {
         public struct Line {
             public var color: UIColor? = nil
             public var thickness: CGFloat? = nil
+            public var dashPattern: [NSNumber]? = nil
+            public var dashPhase: CGFloat? = nil
+            public var join: CAShapeLayerLineJoin? = nil
+            public var cap: CAShapeLayerLineCap? = nil
         }
 
         public struct Text {
@@ -35,6 +40,13 @@ extension GraffeineLayer {
             public var diameter: DimensionalUnit? = nil
             public var holeDiameter: DimensionalUnit? = nil
         }
+
+        public struct Shadow {
+            public var color:   UIColor? = nil
+            public var opacity: CGFloat? = nil
+            public var radius:  CGFloat? = nil
+            public var offset:  CGSize? = nil
+        }
     }
 
     public func applySelectionState(_ layer: CALayer, index: Int) {
@@ -42,8 +54,13 @@ extension GraffeineLayer {
 
         if let shape = layer as? CAShapeLayer {
             if let color = selection.fill.color { shape.fillColor = color.cgColor }
+
             if let color = selection.line.color { shape.strokeColor = color.cgColor }
             if let thickness = selection.line.thickness { shape.lineWidth = thickness }
+            if let dashPattern = selection.line.dashPattern { shape.lineDashPattern = dashPattern }
+            if let dashPhase = selection.line.dashPhase { shape.lineDashPhase = dashPhase }
+            if let join = selection.line.join { shape.lineJoin = join }
+            if let cap = selection.line.cap { shape.lineCap = cap }
         }
 
         if let text = layer as? CATextLayer {
@@ -52,6 +69,11 @@ extension GraffeineLayer {
             if let color = selection.text.color { text.foregroundColor = color.cgColor }
             if let thickness = selection.line.thickness { text.borderWidth = thickness }
         }
+
+        if let color = selection.shadow.color { layer.shadowColor = color.cgColor }
+        if let opacity = selection.shadow.opacity { layer.shadowOpacity = Float(opacity) }
+        if let radius = selection.shadow.radius { layer.shadowRadius = radius }
+        if let offset = selection.shadow.offset { layer.shadowOffset = offset }
     }
 
     public func findSelected(_ point: CGPoint) -> SelectionResult? {

@@ -73,6 +73,7 @@
 		DCF3C77E23C6997A00F5F92F /* GraffeineLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FD423C5B590008338EB /* GraffeineLineLayer.swift */; };
 		DCF3C77F23C6997A00F5F92F /* GraffeineLineLayer+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9A1FD523C5B590008338EB /* GraffeineLineLayer+Line.swift */; };
 		DCF3C78623C69AE200F5F92F /* libGraffeine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF3C76A23C6993A00F5F92F /* libGraffeine.a */; };
+		DCF5561523D989CB00C55556 /* GraffeineLayer+ColorIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF5561423D989CB00C55556 /* GraffeineLayer+ColorIndex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +169,7 @@
 		DCF0C99923D1A1DD00EDD4E4 /* GraffeinePieLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeinePieLayerTests.swift; sourceTree = "<group>"; };
 		DCF3C76423C6963800F5F92F /* SampleConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleConfig.swift; sourceTree = "<group>"; };
 		DCF3C76A23C6993A00F5F92F /* libGraffeine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGraffeine.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCF5561423D989CB00C55556 /* GraffeineLayer+ColorIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLayer+ColorIndex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				DC612E7E23B444A900C08AB5 /* GraffeineLayer.swift */,
+				DCF5561423D989CB00C55556 /* GraffeineLayer+ColorIndex.swift */,
 				DC612E8723B4774000C08AB5 /* GraffeineLayer+DimensionalUnit.swift */,
 				DC7F221F23C83F94009629DD /* GraffeineLayer+LabelAlignment.swift */,
 				DC43354823D6CD820094BEE3 /* GraffeineLayer+Region.swift */,
@@ -593,6 +596,7 @@
 				DCE3CEAB23D3E6080028F0B7 /* GraffeineDataAnimators_Bar.swift in Sources */,
 				DCCF82E823D8062400CEA48F /* GraffeineDataAnimators_Pie_Morph.swift in Sources */,
 				DCF3C77B23C6997000F5F92F /* GraffeineHorizontalLabelLayer+Label.swift in Sources */,
+				DCF5561523D989CB00C55556 /* GraffeineLayer+ColorIndex.swift in Sources */,
 				DC45D59823D65A7C000B9A35 /* GraffeineBarLayer+Bar.swift in Sources */,
 				DC43354923D6CD830094BEE3 /* GraffeineLayer+Region.swift in Sources */,
 				DCE3CEAC23D3E6080028F0B7 /* GraffeineDataAnimators_Bar_Grow.swift in Sources */,

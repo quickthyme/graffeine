@@ -10,17 +10,12 @@ extension GraffeineLayer {
             self.colors = colors
         }
 
-        public func indexedColor(_ idx: Int) -> CGColor? {
-            guard (!colors.isEmpty) else { return nil }
-            return colors[(idx % colors.count)].cgColor
-        }
-
         public func apply(to target: CAShapeLayer, index: Int = 0) {
-            target.fillColor = indexedColor(index)
+            target.fillColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
         }
 
         public func apply(to target: CATextLayer, index: Int = 0) {
-            target.backgroundColor = indexedColor(index)
+            target.backgroundColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
         }
     }
 }
