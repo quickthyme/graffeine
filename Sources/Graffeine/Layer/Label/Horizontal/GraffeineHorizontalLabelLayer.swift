@@ -32,6 +32,8 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
             label.horizontalAlignmentMode = labelHorizontalAlignmentMode
             label.verticalAlignmentMode = labelVerticalAlignmentMode
 
+            unitFill.apply(to: label, index: index)
+            unitLine.apply(to: label, index: index)
             unitText.apply(to: label, index: index)
             unitShadow.apply(to: label)
 

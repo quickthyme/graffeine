@@ -28,6 +28,8 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             label.radius = radius
             label.string = text
 
+            unitFill.apply(to: label, index: index)
+            unitLine.apply(to: label, index: index)
             unitText.apply(to: label, index: index)
             unitShadow.apply(to: label)
 

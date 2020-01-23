@@ -37,6 +37,7 @@ extension GraffeineLayer {
 
         public func apply(to target: CATextLayer, index: Int = 0) {
             target.borderColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
+            target.borderWidth = self.thickness
         }
     }
 }
