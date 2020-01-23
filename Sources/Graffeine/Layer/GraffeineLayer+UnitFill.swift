@@ -15,13 +15,11 @@ extension GraffeineLayer {
             return colors[(idx % colors.count)].cgColor
         }
 
-        public func apply(to target: CAShapeLayer, index: Int? = nil) {
-            let index = index ?? 0
+        public func apply(to target: CAShapeLayer, index: Int = 0) {
             target.fillColor = indexedColor(index)
         }
 
-        public func apply(to target: CATextLayer, index: Int? = nil) {
-            let index = index ?? 0
+        public func apply(to target: CATextLayer, index: Int = 0) {
             target.backgroundColor = indexedColor(index)
         }
     }

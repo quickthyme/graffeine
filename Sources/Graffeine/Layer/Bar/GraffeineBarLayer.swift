@@ -26,9 +26,7 @@ open class GraffeineBarLayer: GraffeineLayer {
             unitLine.apply(to: bar, index: index)
             unitShadow.apply(to: bar)
 
-            if (data.selectedIndex == index) {
-                if let color = selection.fill.color { bar.fillColor = color.cgColor }
-            }
+            applySelectionState(bar, index: index)
 
             bar.reposition(for: index,
                            in: data,

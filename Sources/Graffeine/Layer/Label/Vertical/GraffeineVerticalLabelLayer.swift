@@ -35,6 +35,8 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
             unitText.apply(to: label, index: index)
             unitShadow.apply(to: label)
 
+            applySelectionState(label, index: index)
+
             label.reposition(for: index,
                              in: data.labels,
                              rowHeight: rowHeight,

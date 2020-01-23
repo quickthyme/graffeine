@@ -37,6 +37,23 @@ extension GraffeineLayer {
         }
     }
 
+    open func applySelectionState(_ layer: CALayer, index: Int) {
+        guard (data.selectedIndex == index) else { return }
+
+        if let shape = layer as? CAShapeLayer {
+            if let color = selection.fill.color { shape.fillColor = color.cgColor }
+            if let color = selection.line.color { shape.strokeColor = color.cgColor }
+            if let thickness = selection.line.thickness { shape.lineWidth = thickness }
+        }
+
+        if let text = layer as? CATextLayer {
+            if let color = selection.fill.color { text.backgroundColor = color.cgColor }
+            if let color = selection.line.color { text.borderColor = color.cgColor }
+            if let color = selection.text.color { text.foregroundColor = color.cgColor }
+            if let thickness = selection.line.thickness { text.borderWidth = thickness }
+        }
+    }
+
     open func findSelected(_ point: CGPoint) -> SelectionResult? {
         guard (self.selection.isEnabled),
             let sublayers = self.sublayers

@@ -16,8 +16,7 @@ extension GraffeineLayer {
             return colors[(idx % colors.count)].cgColor
         }
 
-        public func apply(to target: CATextLayer, index: Int? = nil) {
-            let index = index ?? 0
+        public func apply(to target: CATextLayer, index: Int = 0) {
             target.foregroundColor = indexedColor(index)
             target.fontSize = self.fontSize
         }

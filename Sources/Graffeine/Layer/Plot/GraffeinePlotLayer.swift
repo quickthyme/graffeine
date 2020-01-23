@@ -23,6 +23,8 @@ open class GraffeinePlotLayer: GraffeineLayer {
             unitLine.apply(to: plot)
             unitShadow.apply(to: plot)
 
+            applySelectionState(plot, index: index)
+
             plot.reposition(for: index,
                             in: data,
                             unitWidth: unitWidth,

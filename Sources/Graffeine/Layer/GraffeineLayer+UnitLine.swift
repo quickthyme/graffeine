@@ -27,8 +27,7 @@ extension GraffeineLayer {
             return colors[(idx % colors.count)].cgColor
         }
 
-        public func apply(to target: CAShapeLayer, index: Int? = nil) {
-            let index = index ?? 0
+        public func apply(to target: CAShapeLayer, index: Int = 0) {
             target.strokeColor = indexedColor(index)
             target.lineWidth = self.thickness
             target.lineDashPattern = self.dashPattern
@@ -37,8 +36,7 @@ extension GraffeineLayer {
             target.lineCap = self.cap
         }
 
-        public func apply(to target: CATextLayer, index: Int? = nil) {
-            let index = index ?? 0
+        public func apply(to target: CATextLayer, index: Int = 0) {
             target.borderColor = indexedColor(index)
         }
     }

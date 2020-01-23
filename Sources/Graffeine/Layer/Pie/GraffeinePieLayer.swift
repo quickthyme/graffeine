@@ -17,8 +17,8 @@ open class GraffeinePieLayer: GraffeineLayer {
         let numberOfSlices = data.values.count
         let total = data.valueMaxOrSum
         let percentages = data.values.map { CGFloat( ($0 ?? 0) / total ) }
-        let radius = resolveRadius(diameter)
-        let holeRadius = resolveRadius(holeDiameter)
+        let radius = resolveRadius(diameter: diameter, bounds: bounds)
+        let holeRadius = resolveRadius(diameter: holeDiameter, bounds: bounds)
 
         for (index, slice) in sublayers.enumerated() {
             guard let slice = slice as? PieSlice, index < numberOfSlices else { continue }
@@ -31,10 +31,8 @@ open class GraffeinePieLayer: GraffeineLayer {
             unitLine.apply(to: slice, index: index)
             unitShadow.apply(to: slice)
 
-            resolveSelection(slice: slice,
-                             index: index,
-                             origRadius: radius,
-                             origHoleRadius: holeRadius)
+            applySelectionState(slice, index: index)
+            applyRadialSelectionState(slice, index: index)
 
             slice.reposition(for: index,
                              in: percentages,
@@ -43,10 +41,16 @@ open class GraffeinePieLayer: GraffeineLayer {
         }
     }
 
-    internal func resolveRadius(_ diameter: GraffeineLayer.DimensionalUnit) -> CGFloat {
-        let diameterBounds = min(bounds.size.width, bounds.size.height)
-        let realDiameter = diameter.resolved(within: diameterBounds)
-        return (realDiameter / 2)
+    open func applyRadialSelectionState(_ slice: PieSlice, index: Int) {
+        if (data.selectedIndex == index) {
+            if let selectedDiameter = selection.radial.diameter {
+                slice.radius = resolveRadius(diameter: selectedDiameter, bounds: bounds)
+            }
+
+            if let selectedHoleDiameter = selection.radial.holeDiameter {
+                slice.holeRadius = resolveRadius(diameter: selectedHoleDiameter, bounds: bounds)
+            }
+        }
     }
 
     override public init() {

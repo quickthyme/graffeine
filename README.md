@@ -54,6 +54,8 @@ the `layers` property, like so:
                 })
         ]
 
+<br />
+
 
 ### GraffeineLayer 
 
@@ -91,6 +93,20 @@ a `region`.
 You can use any layer with any region, although some are more intended for certain
 regions than others. For example, the horizontal and vertical label layers are
 generally intended to be placed in one of the gutter regions.
+
+
+##### Dimensional Unit
+
+Certain properties, such as `unitWidth` or `diameter`, are defined as a
+`DimensionalUnit`. This is an abstract unit type *(enum)*, that affects sizing
+and positioning depending on which you specify:
+
+ `.explicit( val )`   - literal number of pixels/points *(22.0 == 22px)*
+ 
+ `.percentage( val )` - ratio size:container; fractional *(1.0 == 100%)*
+ 
+ `.relative`          - automatic sizing based on the number
+                        of units sharing the same container
 
 <br />
 
@@ -204,11 +220,6 @@ In order to render the selection changes, you need to first enable some override
     graffeineView.layer(id: "bars")?.selection.line.thickness = 3.0
 
 Then, just include the `selectedIndex` whenever you set the data.
-
-
-NOTE: Selection in Graffeine is still incomplete as it is WIP.
-It works as advertised, but not all layers recognize the selection overrides,
-and there are still many possible overrides yet to be included. Coming soon...
 
 <br />
 

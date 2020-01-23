@@ -21,6 +21,10 @@ open class GraffeineLineLayer: GraffeineLayer {
         unitLine.apply(to: line)
         unitShadow.apply(to: line)
 
+        if let selectedIndex = data.selectedIndex {
+            applySelectionState(line, index: selectedIndex)
+        }
+
         line.reposition(data: data,
                         unitWidth: unitWidth,
                         unitMargin: unitMargin,
