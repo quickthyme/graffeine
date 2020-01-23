@@ -8,6 +8,8 @@ open class GraffeineLayer: CALayer {
 
     open var id: AnyHashable = Int(0)
 
+    public var unitFill:   UnitFill   = UnitFill()
+    public var unitLine:   UnitLine   = UnitLine()
     public var unitShadow: UnitShadow = UnitShadow()
 
     public var selection: Selection = Selection()
@@ -33,17 +35,6 @@ open class GraffeineLayer: CALayer {
         }
     }
 
-    public var colors: [UIColor] = []
-
-    open func safeIndexedColor(_ idx: Int) -> CGColor {
-        return safeIndexedColor(idx, colors: self.colors)
-    }
-
-    internal func safeIndexedColor(_ idx: Int, colors: [UIColor]) -> CGColor {
-        guard (!colors.isEmpty) else { return UIColor.black.cgColor }
-        return colors[(idx % colors.count)].cgColor
-    }
-
     override public init() {
         super.init()
     }
@@ -60,7 +51,8 @@ open class GraffeineLayer: CALayer {
             self.id = layer.id
             self.flipXY = layer.flipXY
             self.data = layer.data
-            self.colors = layer.colors
+            self.unitFill = layer.unitFill
+            self.unitLine = layer.unitLine
             self.unitShadow = layer.unitShadow
             self.selection = layer.selection
         }

@@ -29,11 +29,11 @@ class GraffeineLineLayerTests: XCTestCase {
     func test_line_properties_pass_through_to_line_shape_layer() {
         sampleData.applyGreenLine(to: graffeineView)
         subject.apply {
-            $0.thickness = 10
-            $0.dashPattern = [2, 4]
-            $0.dashPhase = 2
-            $0.lineJoin = .round
-            $0.lineCap = .square
+            $0.unitLine.thickness = 10
+            $0.unitLine.dashPattern = [2, 4]
+            $0.unitLine.dashPhase = 2
+            $0.unitLine.join = .round
+            $0.unitLine.cap = .square
         }
         graffeineView.layoutIfNeeded()
         let lineShape = subject.sublayers!.first as! GraffeineLineLayer.Line

@@ -2,13 +2,15 @@ import UIKit
 
 open class GraffeineVerticalLabelLayer: GraffeineLayer {
 
-    open var rowHeight: GraffeineLayer.DimensionalUnit = .relative
-    open var rowMargin: CGFloat = 4.0
-    open var fontSize: CGFloat = 10.0
-    open var labelHPadding: CGFloat = 4.0
-    open var labelVPadding: CGFloat = 0.0
-    open var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .right
-    open var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .centerTopBottom
+    public var rowHeight: GraffeineLayer.DimensionalUnit = .relative
+    public var rowMargin: CGFloat = 4.0
+    public var fontSize: CGFloat = 10.0
+    public var unitText: UnitText = UnitText()
+
+    public var labelHPadding: CGFloat = 4.0
+    public var labelVPadding: CGFloat = 0.0
+    public var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .right
+    public var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .centerTopBottom
 
     override open var expectedNumberOfSublayers: Int {
         return self.data.labels.count
@@ -25,12 +27,12 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
         for (index, label) in sublayers.enumerated() {
             guard let label = label as? Label, index < numberOfUnits else { continue }
 
-            label.foregroundColor = safeIndexedColor(index)
-            label.fontSize = fontSize
             label.hPadding = labelHPadding
             label.vPadding = labelVPadding
             label.horizontalAlignmentMode = labelHorizontalAlignmentMode
             label.verticalAlignmentMode = labelVerticalAlignmentMode
+
+            unitText.apply(to: label, index: index)
             unitShadow.apply(to: label)
 
             label.reposition(for: index,
@@ -63,6 +65,7 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
             self.rowHeight = layer.rowHeight
             self.rowMargin = layer.rowMargin
             self.fontSize = layer.fontSize
+            self.unitText = layer.unitText
             self.labelHPadding = layer.labelHPadding
             self.labelVPadding = layer.labelVPadding
             self.labelHorizontalAlignmentMode = layer.labelHorizontalAlignmentMode

@@ -2,10 +2,6 @@ import UIKit
 
 open class GraffeineGridLineLayer: GraffeineLayer {
 
-    public var thickness: CGFloat = 0.5
-    public var dashPattern: [NSNumber]? = nil
-    public var dashPhase: CGFloat = 0
-
     override open func generateSublayer() -> CALayer {
         return GridLine()
     }
@@ -16,10 +12,8 @@ open class GraffeineGridLineLayer: GraffeineLayer {
         for (index, line) in sublayers.enumerated() {
             guard let line = line as? GridLine else { continue }
             line.flipXY = flipXY
-            line.strokeColor = safeIndexedColor(index)
-            line.lineWidth = thickness
-            line.lineDashPattern = dashPattern
-            line.lineDashPhase = dashPhase
+
+            unitLine.apply(to: line, index: index)
             unitShadow.apply(to: line)
 
             line.reposition(for: index,
@@ -45,11 +39,8 @@ open class GraffeineGridLineLayer: GraffeineLayer {
 
     override public init(layer: Any) {
         super.init(layer: layer)
-        if let layer = layer as? Self {
-            self.thickness = layer.thickness
-            self.dashPattern = layer.dashPattern
-            self.dashPhase = layer.dashPhase
-        }
+//        if let layer = layer as? Self {
+//        }
     }
 
     @discardableResult

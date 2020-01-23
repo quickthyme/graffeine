@@ -6,6 +6,7 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
     public var rotation: UInt = 0
     public var diameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
     public var fontSize: CGFloat = 10.0
+    public var unitText: UnitText = UnitText()
 
     override open func generateSublayer() -> CALayer {
         return Label()
@@ -25,9 +26,9 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             label.clockwise = clockwise
             label.rotation = rotation
             label.radius = radius
-            label.fontSize = fontSize
-            label.foregroundColor = safeIndexedColor(index)
             label.string = text
+
+            unitText.apply(to: label, index: index)
             unitShadow.apply(to: label)
 
             if (data.selectedIndex == index) {
@@ -77,6 +78,7 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             self.rotation = layer.rotation
             self.diameter = layer.diameter
             self.fontSize = layer.fontSize
+            self.unitText = layer.unitText
         }
     }
 

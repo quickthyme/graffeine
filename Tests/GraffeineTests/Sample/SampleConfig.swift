@@ -27,7 +27,7 @@ class SampleConfig: GraffeineViewConfig {
 
             GraffeineHorizontalLabelLayer(id: ID.bottomGutter, height: 26, region: .bottomGutter)
                 .apply ({
-                    $0.colors = [.purple]
+                    $0.unitText.colors = [.purple]
                     $0.labelHorizontalAlignmentMode = .centerLeftRight
                     $0.data = GraffeineData(labels: ["low", "medium", "high"])
                 }),
@@ -35,15 +35,15 @@ class SampleConfig: GraffeineViewConfig {
             GraffeineVerticalLabelLayer(id: ID.leftGutter, width: 64, region: .leftGutter)
                 .apply ({
                     $0.rowMargin = unitMargin
-                    $0.colors = Self.colorValues
+                    $0.unitText.colors = Self.colorValues
                     $0.data = GraffeineData(labels: Self.colorNames)
                 }),
 
             GraffeineGridLineLayer(id: ID.bgGrid)
                 .apply ({
-                    $0.colors = [.lightGray]
-                    $0.dashPattern = [1, 3]
-                    $0.thickness = 0.5
+                    $0.unitLine.colors = [.lightGray]
+                    $0.unitLine.dashPattern = [1, 3]
+                    $0.unitLine.thickness = 0.5
                     $0.data = GraffeineData(valueMax: 20, values: [2, 4, 6, 8, 12, 14, 16, 18])
                 }),
 
@@ -56,48 +56,48 @@ class SampleConfig: GraffeineViewConfig {
             GraffeineBarLayer(id: ID.descendingBars)
                 .apply ({
                     $0.unitMargin = unitMargin
-                    $0.colors = [.purple]
+                    $0.unitFill.colors = [.purple]
                 }),
 
             GraffeineLineLayer(id: ID.redLine)
                 .apply ({
-                    $0.colors = [.red]
+                    $0.unitLine.colors = [.red]
                     $0.unitMargin = unitMargin
-                    $0.thickness = 4.0
-                    $0.lineJoin = .miter
+                    $0.unitLine.thickness = 4.0
+                    $0.unitLine.join = .miter
                 }),
 
             GraffeineLineLayer(id: ID.greenLine)
                 .apply ({
-                    $0.colors = [.green]
+                    $0.unitLine.colors = [.green]
                     $0.unitMargin = unitMargin
-                    $0.thickness = 10.0
-                    $0.lineJoin = .round
+                    $0.unitLine.thickness = 10.0
+                    $0.unitLine.join = .round
                 }),
 
             GraffeinePlotLayer(id: ID.vectorPlots)
                 .apply ({
-                    $0.colors = [.black]
+                    $0.unitFill.colors = [.black]
                     $0.unitMargin = unitMargin
                     $0.plotDiameter = 8.0
-                    $0.plotBorderThickness = 2.0
-                    $0.plotBorderColors = [.brown]
+                    $0.unitLine.thickness = 2.0
+                    $0.unitLine.colors = [.brown]
                 }),
 
             GraffeinePieLayer(id: ID.pie)
                 .apply ({
-                    $0.colors = [.darkGray, .lightGray]
+                    $0.unitFill.colors = [.darkGray, .lightGray]
                 }),
 
             GraffeineRadialLabelLayer(id: ID.pieLabels)
                 .apply ({
-                    $0.colors = [.lightGray]
+                    $0.unitText.colors = [.lightGray]
                 }),
 
             GraffeineGridLineLayer(id: ID.fgGrid)
                 .apply ({
-                    $0.colors = [.darkGray]
-                    $0.thickness = 1.0
+                    $0.unitLine.colors = [.darkGray]
+                    $0.unitLine.thickness = 1.0
                     $0.data = GraffeineData(valueMax: 20, values: [0, 10, 20])
                 })
         ]

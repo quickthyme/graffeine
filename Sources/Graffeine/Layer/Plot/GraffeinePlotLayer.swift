@@ -6,8 +6,6 @@ open class GraffeinePlotLayer: GraffeineLayer {
     public var unitMargin: CGFloat = 4.0
 
     public var plotDiameter: CGFloat = 0.0
-    public var plotBorderColors: [UIColor] = []
-    public var plotBorderThickness: CGFloat = 0.0
 
     override open func generateSublayer() -> CALayer {
         return Plot()
@@ -20,9 +18,9 @@ open class GraffeinePlotLayer: GraffeineLayer {
         for (index, plot) in sublayers.enumerated() {
             guard let plot = plot as? Plot, index < numberOfUnits else { continue }
             plot.diameter = plotDiameter
-            plot.fillColor = safeIndexedColor(index)
-            plot.strokeColor = safeIndexedBorderColor(0)
-            plot.lineWidth = plotBorderThickness
+
+            unitFill.apply(to: plot)
+            unitLine.apply(to: plot)
             unitShadow.apply(to: plot)
 
             plot.reposition(for: index,
@@ -32,10 +30,6 @@ open class GraffeinePlotLayer: GraffeineLayer {
                             containerSize: bounds.size,
                             animator: animator as? GraffeinePlotDataAnimating)
         }
-    }
-
-    open func safeIndexedBorderColor(_ idx: Int) -> CGColor {
-        return safeIndexedColor(idx, colors: self.plotBorderColors)
     }
 
     override public init() {
@@ -59,8 +53,6 @@ open class GraffeinePlotLayer: GraffeineLayer {
             self.unitWidth = layer.unitWidth
             self.unitMargin = layer.unitMargin
             self.plotDiameter = layer.plotDiameter
-            self.plotBorderColors = layer.plotBorderColors
-            self.plotBorderThickness = layer.plotBorderThickness
         }
     }
 

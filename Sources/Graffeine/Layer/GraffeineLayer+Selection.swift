@@ -33,6 +33,7 @@ extension GraffeineLayer {
 
         public struct Radial {
             public var diameter: DimensionalUnit? = nil
+            public var holeDiameter: DimensionalUnit? = nil
         }
     }
 

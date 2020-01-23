@@ -15,7 +15,7 @@ class SampleData {
             layer.data = GraffeineData(valueMax: 20,
                                              valuesHi: [10.5, 11, 12, 13, 14, 15, 16, nil, 18, 19, 20],
                                              valuesLo: [9.5, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
-            layer.colors = SampleConfig.colorValues
+            layer.unitFill.colors = SampleConfig.colorValues
         }
     }
 

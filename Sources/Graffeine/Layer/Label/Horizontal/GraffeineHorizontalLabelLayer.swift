@@ -2,13 +2,15 @@ import UIKit
 
 open class GraffeineHorizontalLabelLayer: GraffeineLayer {
 
-    open var columnWidth: GraffeineLayer.DimensionalUnit = .relative
-    open var columnMargin: CGFloat = 4.0
-    open var fontSize: CGFloat = 10.0
-    open var labelHPadding: CGFloat = 4.0
-    open var labelVPadding: CGFloat = 0.0
-    open var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .centerLeftRight
-    open var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .center
+    public var columnWidth: GraffeineLayer.DimensionalUnit = .relative
+    public var columnMargin: CGFloat = 4.0
+    public var fontSize: CGFloat = 10.0
+    public var unitText: UnitText = UnitText()
+
+    public var labelHPadding: CGFloat = 4.0
+    public var labelVPadding: CGFloat = 0.0
+    public var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .centerLeftRight
+    public var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .center
 
     override open var expectedNumberOfSublayers: Int {
         return self.data.labels.count
@@ -25,12 +27,12 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
         for (index, label) in sublayers.enumerated() {
             guard let label = label as? Label, index < numberOfUnits else { continue }
 
-            label.fontSize = fontSize
-            label.foregroundColor = safeIndexedColor(index)
             label.hPadding = labelHPadding
             label.vPadding = labelVPadding
             label.horizontalAlignmentMode = labelHorizontalAlignmentMode
             label.verticalAlignmentMode = labelVerticalAlignmentMode
+
+            unitText.apply(to: label, index: index)
             unitShadow.apply(to: label)
 
             label.reposition(for: index,
@@ -63,6 +65,7 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
             self.columnWidth = layer.columnWidth
             self.columnMargin = layer.columnMargin
             self.fontSize = layer.fontSize
+            self.unitText = layer.unitText
             self.labelHPadding = layer.labelHPadding
             self.labelVPadding = layer.labelVPadding
             self.labelHorizontalAlignmentMode = layer.labelHorizontalAlignmentMode

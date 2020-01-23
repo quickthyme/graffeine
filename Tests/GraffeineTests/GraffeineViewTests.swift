@@ -174,7 +174,7 @@ class GraffeineViewTests: XCTestCase {
         subject.layers = [
             GraffeineHorizontalLabelLayer(id: "top", height: 20, region: .topGutter),
             GraffeineBarLayer(id: "bar", region: .main).apply {
-                $0.colors = [.red]
+                $0.unitFill.colors = [.red]
                 $0.selection.isEnabled = true
                 $0.data = GraffeineData(values: [10, 2], selectedIndex: nil)
             }

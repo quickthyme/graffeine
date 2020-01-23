@@ -18,11 +18,13 @@ open class GraffeineBarLayer: GraffeineLayer {
         for (index, bar) in sublayers.enumerated() {
             guard let bar = bar as? Bar, index < numberOfUnits else { continue }
             bar.frame = self.bounds
-            bar.fillColor = safeIndexedColor(index)
-            unitShadow.apply(to: bar)
             bar.subdivision = unitSubdivision
             bar.roundedEnds = roundedEnds
             bar.flipXY = flipXY
+
+            unitFill.apply(to: bar, index: index)
+            unitLine.apply(to: bar, index: index)
+            unitShadow.apply(to: bar)
 
             if (data.selectedIndex == index) {
                 if let color = selection.fill.color { bar.fillColor = color.cgColor }

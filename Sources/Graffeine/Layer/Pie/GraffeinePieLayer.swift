@@ -7,11 +7,6 @@ open class GraffeinePieLayer: GraffeineLayer {
     public var diameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
     public var holeDiameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
 
-    public var borderColors: [UIColor] = []
-    public var borderThickness: CGFloat = 0.0
-    public var borderDashPattern: [NSNumber]? = nil
-    public var borderDashPhase: CGFloat = 0
-
     override open func generateSublayer() -> CALayer {
         return PieSlice()
     }
@@ -27,29 +22,19 @@ open class GraffeinePieLayer: GraffeineLayer {
 
         for (index, slice) in sublayers.enumerated() {
             guard let slice = slice as? PieSlice, index < numberOfSlices else { continue }
+            slice.frame = self.bounds
             slice.clockwise = clockwise
             slice.rotation = rotation
             slice.radius = radius
             slice.holeRadius = holeRadius
-            slice.frame = self.bounds
-            slice.fillColor = safeIndexedColor(index)
-            slice.strokeColor = safeIndexedBorderColor(index)
-            slice.lineWidth = borderThickness
-            slice.lineDashPattern = borderDashPattern
-            slice.lineDashPhase = borderDashPhase
+            unitFill.apply(to: slice, index: index)
+            unitLine.apply(to: slice, index: index)
             unitShadow.apply(to: slice)
 
-            if (data.selectedIndex == index) {
-                if let color = selection.fill.color { slice.fillColor = color.cgColor }
-                if let color = selection.line.color { slice.strokeColor = color.cgColor }
-                if let thickness = selection.line.thickness { slice.lineWidth = thickness }
-                if let selectedDiameter = selection.radial.diameter {
-                    let selectedRadius = resolveRadius(selectedDiameter)
-                    let radDelta = selectedRadius - radius
-                    slice.radius = radius + radDelta
-                    slice.holeRadius = holeRadius + radDelta
-                }
-            }
+            resolveSelection(slice: slice,
+                             index: index,
+                             origRadius: radius,
+                             origHoleRadius: holeRadius)
 
             slice.reposition(for: index,
                              in: percentages,
@@ -58,14 +43,10 @@ open class GraffeinePieLayer: GraffeineLayer {
         }
     }
 
-    private func resolveRadius(_ diameter: GraffeineLayer.DimensionalUnit) -> CGFloat {
+    internal func resolveRadius(_ diameter: GraffeineLayer.DimensionalUnit) -> CGFloat {
         let diameterBounds = min(bounds.size.width, bounds.size.height)
         let realDiameter = diameter.resolved(within: diameterBounds)
         return (realDiameter / 2)
-    }
-
-    open func safeIndexedBorderColor(_ idx: Int) -> CGColor {
-        return safeIndexedColor(idx, colors: self.borderColors)
     }
 
     override public init() {
@@ -90,10 +71,6 @@ open class GraffeinePieLayer: GraffeineLayer {
             self.rotation = layer.rotation
             self.diameter = layer.diameter
             self.holeDiameter = layer.holeDiameter
-            self.borderColors = layer.borderColors
-            self.borderThickness = layer.borderThickness
-            self.borderDashPattern = layer.borderDashPattern
-            self.borderDashPhase = layer.borderDashPhase
         }
     }
 
