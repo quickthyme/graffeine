@@ -8,6 +8,16 @@ open class GraffeineView: UIView {
 
     @IBInspectable public var configClass: String = ""
 
+    public var shouldRasterize: Bool {
+        get { return self.layer.shouldRasterize }
+        set { self.layer.shouldRasterize = newValue }
+    }
+
+    public var rasterizationScale: CGFloat {
+        get { return self.layer.rasterizationScale }
+        set { self.layer.rasterizationScale = newValue }
+    }
+
     public var onSelect: OnSelect? = nil
 
     public var layers: [GraffeineLayer] {
@@ -43,6 +53,20 @@ open class GraffeineView: UIView {
                 sublayer.layoutSublayers()
             }
         }
+    }
+
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    required public init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    public convenience init(frame: CGRect, configClass: String) {
+        self.init(frame: frame)
+        self.configClass = configClass
+        loadConfig()
     }
 
     override open func awakeFromNib() {

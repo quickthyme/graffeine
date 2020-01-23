@@ -55,10 +55,6 @@ the `layers` property, like so:
         ]
 
 
-
-<br />
-
-
 ### GraffeineLayer 
 
 *(abstract)* Container-like "graphing layer" used to represent a particular graph
@@ -78,19 +74,19 @@ Out of the box, there are a handful of ready-to-go graphing layers:
 | `GraffeinePieLayer`              |   segmented pies and donuts     |
 | `GraffeinePlotLayer`             |   individual plots (points)     |
 
+
+##### Constructing
+
 When constructing a `GraffeineLayer`, you typically provide it with an `id` and
 a `region`.
 
-
-##### id
-
-The id is used to identify and access the layer after it has been added to a
+**id** is used to identify and access the layer after it has been added to a
 `GraffeineView`:
 
     let pieLayer = graffeineView.layer(id: "pie")
 
 
-##### region
+**region** is the target area of the view to place the layer *(see GraffeineView)*
 
 You can use any layer with any region, although some are more intended for certain
 regions than others. For example, the horizontal and vertical label layers are
