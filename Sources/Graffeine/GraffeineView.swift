@@ -139,7 +139,6 @@ open class GraffeineView: UIView {
 
             let pointConvertedTo = self.layer.convert(point, to: layer)
             guard let selected = layer.findSelected(pointConvertedTo) else { return nil }
-
             let pointConvertedFrom = self.layer.convert(selected.point, from: layer)
 
             return GraffeineLayer.SelectionResult(

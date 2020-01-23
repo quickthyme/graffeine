@@ -37,7 +37,7 @@ extension GraffeineLayer {
         }
     }
 
-    open func applySelectionState(_ layer: CALayer, index: Int) {
+    public func applySelectionState(_ layer: CALayer, index: Int) {
         guard (data.selectedIndex == index) else { return }
 
         if let shape = layer as? CAShapeLayer {
@@ -54,34 +54,44 @@ extension GraffeineLayer {
         }
     }
 
-    open func findSelected(_ point: CGPoint) -> SelectionResult? {
+    public func findSelected(_ point: CGPoint) -> SelectionResult? {
         guard (self.selection.isEnabled),
-            let sublayers = self.sublayers
+            let foundIndex = findSublayerIndex(for: point),
+            let layerCenter = centerPointForLayer(at: foundIndex)
             else { return nil }
 
-        var result: SelectionResult? = nil
+        var selectionData = self.data
+        selectionData.selectedIndex = foundIndex
 
-        for (index, layer) in sublayers.enumerated() {
+        return SelectionResult(
+            point: layerCenter,
+            data: selectionData,
+            layer: self
+        )
+    }
 
-            if let shape = layer as? CAShapeLayer,
-                let shapePath = shape.path,
-                (shapePath.contains(point)) {
+    internal func findSublayerIndex(for point: CGPoint) -> Int? {
+        return (sublayers ?? []).enumerated().first(where: {
+            (($0.element as? CAShapeLayer)?.path?.contains(point) ?? false)
+                || (($0.element as? CATextLayer)?.frame.contains(point) ?? false)
+            })?.offset
+    }
 
-                let shapeFrame = shapePath.boundingBoxOfPath
-                let shapeCenter = CGPoint(x: shapeFrame.origin.x + (shapeFrame.size.width  / 2),
-                                          y: shapeFrame.origin.y + (shapeFrame.size.height / 2))
+    internal func centerPointForLayer(at index: Int) -> CGPoint? {
+        guard let sublayers = self.sublayers,
+            (index < sublayers.count) else { return nil }
 
-                var selectionData = self.data
-                selectionData.selectedIndex = index
-
-                result = SelectionResult(
-                    point: shapeCenter,
-                    data: selectionData,
-                    layer: self
-                )
-            }
+        if let layer = sublayers[index] as? CAShapeLayer,
+            let shapeFrame = layer.path?.boundingBoxOfPath {
+            return CGPoint(x: shapeFrame.origin.x + (shapeFrame.size.width  / 2),
+                           y: shapeFrame.origin.y + (shapeFrame.size.height / 2))
         }
 
-        return result
+        if let layer = sublayers[index] as? CATextLayer {
+            return CGPoint(x: layer.frame.origin.x + (layer.frame.size.width  / 2),
+                           y: layer.frame.origin.y + (layer.frame.size.height / 2))
+        }
+
+        return nil
     }
 }
