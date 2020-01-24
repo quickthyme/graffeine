@@ -6,7 +6,7 @@ open class GraffeineBarLayer: GraffeineLayer {
     public var unitSubdivision: GraffeineLayer.UnitSubdivision? = nil
     public var roundedEnds: RoundedEnds = .none
 
-    public var clipLoEdge: Bool = true
+    public var clipLoEdge: Bool = false
 
     override open func generateSublayer() -> CALayer {
         return Bar()
@@ -43,6 +43,7 @@ open class GraffeineBarLayer: GraffeineLayer {
     open func applyLoEdgeClippingMaskIfEnabled() {
         guard (clipLoEdge) else { return }
         let mask = CAShapeLayer()
+        mask.contentsScale = UIScreen.main.scale
         mask.path = UIBezierPath(rect: rectForLoEdgeClippingMask).cgPath
         mask.fillColor = UIColor.black.cgColor
         self.mask = mask
