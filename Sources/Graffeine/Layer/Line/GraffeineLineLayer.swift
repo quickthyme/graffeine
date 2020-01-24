@@ -2,7 +2,12 @@ import UIKit
 
 open class GraffeineLineLayer: GraffeineLayer {
 
+    public enum Smoothing {
+        case none, catmullRom(Int)
+    }
+
     public var unitWidth: GraffeineLayer.DimensionalUnit = .relative
+    public var smoothing: Smoothing = .none
 
     override open var expectedNumberOfSublayers: Int {
         return 1
@@ -28,6 +33,7 @@ open class GraffeineLineLayer: GraffeineLayer {
                         unitWidth: unitWidth,
                         unitMargin: unitMargin,
                         containerSize: bounds.size,
+                        smoothing: smoothing,
                         animator: animator as? GraffeineLineDataAnimating)
     }
 
@@ -50,6 +56,7 @@ open class GraffeineLineLayer: GraffeineLayer {
         super.init(layer: layer)
         if let layer = layer as? Self {
             self.unitWidth = layer.unitWidth
+            self.smoothing = layer.smoothing
         }
     }
 

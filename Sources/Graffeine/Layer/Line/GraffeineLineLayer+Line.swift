@@ -5,16 +5,18 @@ extension GraffeineLineLayer {
     open class Line: CAShapeLayer {
 
         open func reposition(data: GraffeineData,
-                             unitWidth: GraffeineLayer.DimensionalUnit,
+                             unitWidth: DimensionalUnit,
                              unitMargin: CGFloat,
                              containerSize: CGSize,
+                             smoothing: Smoothing,
                              animator: GraffeineLineDataAnimating?) {
             self.frame.size = containerSize
 
-            let newPath = pathForLine(data: data,
-                                      unitWidth: unitWidth,
-                                      unitMargin: unitMargin,
-                                      containerSize: containerSize)
+            let newPath = constructPath(data: data,
+                                        unitWidth: unitWidth,
+                                        unitMargin: unitMargin,
+                                        containerSize: containerSize,
+                                        smoothing: smoothing)
 
             if let animator = animator {
                 let oldPath = self.presentation()?.path
@@ -32,10 +34,11 @@ extension GraffeineLineLayer {
             return (value < maxValue) ? CGFloat(value / maxValue) : 1.0
         }
 
-        func pathForLine(data: GraffeineData,
-                         unitWidth: GraffeineLayer.DimensionalUnit,
-                         unitMargin: CGFloat,
-                         containerSize: CGSize) -> CGPath {
+        func constructPath(data: GraffeineData,
+                           unitWidth: GraffeineLayer.DimensionalUnit,
+                           unitMargin: CGFloat,
+                           containerSize: CGSize,
+                           smoothing: Smoothing) -> CGPath {
             guard (!data.values.isEmpty) else { return CGPath(rect: .zero, transform: nil) }
 
             let maxValue = data.valueMaxOrHighest
@@ -70,7 +73,17 @@ extension GraffeineLineLayer {
                 }
             }
 
-            return path.cgPath
+            return applySmoothingIfDesired(smoothing, to: path).cgPath
+        }
+
+        func applySmoothingIfDesired(_ smoothing: Smoothing, to path: UIBezierPath) -> UIBezierPath {
+            switch (smoothing) {
+            case let .catmullRom(granularity):
+                return path.pathBySmoothing(method:
+                    LineSmoothingMethodCatmullRom(granularity: granularity))
+            default:
+                return path
+            }
         }
 
         override public init() {

@@ -44,4 +44,26 @@ class GraffeineLineLayerTests: XCTestCase {
         XCTAssertEqual(lineShape.lineCap, .square)
     }
 
+    func test_line_smoothing_applies_to_line_shape_layer() {
+        sampleData.applyGreenLine(to: graffeineView)
+        subject.apply {
+            $0.unitLine.join = .round
+            $0.smoothing = .catmullRom(6)
+        }
+        graffeineView.layoutIfNeeded()
+        let lineShape = subject.sublayers!.first as! GraffeineLineLayer.Line
+        let linePath = UIBezierPath.init(cgPath: lineShape.path!)
+        let testMethod = TestSmoothingMethod()
+        let linePoints = testMethod.extractPoints(from: linePath)
+        XCTAssertEqual(linePoints.count, 62)
+    }
+}
+
+extension GraffeineLineLayerTests {
+
+    class TestSmoothingMethod: LineSmoothingMethod {
+        func pathBySmoothing(in path: UIBezierPath) -> UIBezierPath {
+            return path
+        }
+    }
 }
