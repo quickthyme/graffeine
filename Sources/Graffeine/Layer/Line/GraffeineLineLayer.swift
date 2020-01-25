@@ -3,7 +3,9 @@ import UIKit
 open class GraffeineLineLayer: GraffeineLayer {
 
     public enum Smoothing {
-        case none, catmullRom(Int)
+        case none
+        case catmullRom(Int)
+        case custom(LineSmoothingMethod)
     }
 
     public var unitWidth: GraffeineLayer.DimensionalUnit = .relative

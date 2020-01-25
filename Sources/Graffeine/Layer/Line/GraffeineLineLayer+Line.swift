@@ -78,11 +78,15 @@ extension GraffeineLineLayer {
 
         func applySmoothingIfDesired(_ smoothing: Smoothing, to path: UIBezierPath) -> UIBezierPath {
             switch (smoothing) {
+            case .none:
+                return path
+
             case let .catmullRom(granularity):
                 return path.pathBySmoothing(method:
                     LineSmoothingMethodCatmullRom(granularity: granularity))
-            default:
-                return path
+
+            case let .custom(smoother):
+                return smoother.pathBySmoothing(in: path)
             }
         }
 

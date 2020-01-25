@@ -1,10 +1,10 @@
 import UIKit
 
-internal protocol LineSmoothingMethod {
+public protocol LineSmoothingMethod {
     func pathBySmoothing(in path: UIBezierPath) -> UIBezierPath
 }
 
-internal extension LineSmoothingMethod {
+public extension LineSmoothingMethod {
 
     func extractPoints(from path: UIBezierPath) -> [CGPoint] {
         var retPoints: NSMutableArray = []

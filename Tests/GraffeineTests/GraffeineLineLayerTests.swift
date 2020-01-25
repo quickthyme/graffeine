@@ -44,7 +44,8 @@ class GraffeineLineLayerTests: XCTestCase {
         XCTAssertEqual(lineShape.lineCap, .square)
     }
 
-    func test_line_smoothing_applies_to_line_shape_layer() {
+    func test_line_smoothing_with_catmullRom_applies_to_line_shape_layer() {
+        let mockSmoother = MockSmoother()
         sampleData.applyGreenLine(to: graffeineView)
         subject.apply {
             $0.unitLine.join = .round
@@ -53,16 +54,28 @@ class GraffeineLineLayerTests: XCTestCase {
         graffeineView.layoutIfNeeded()
         let lineShape = subject.sublayers!.first as! GraffeineLineLayer.Line
         let linePath = UIBezierPath.init(cgPath: lineShape.path!)
-        let testMethod = TestSmoothingMethod()
-        let linePoints = testMethod.extractPoints(from: linePath)
+        let linePoints = mockSmoother.extractPoints(from: linePath)
         XCTAssertEqual(linePoints.count, 62)
+    }
+
+    func test_line_smoothing_when_custom_then_used() {
+        let mockSmoother = MockSmoother()
+        sampleData.applyGreenLine(to: graffeineView)
+        subject.apply {
+            $0.unitLine.join = .round
+            $0.smoothing = .custom(mockSmoother)
+        }
+        graffeineView.layoutIfNeeded()
+        XCTAssertTrue(mockSmoother.didSmooth)
     }
 }
 
 extension GraffeineLineLayerTests {
 
-    class TestSmoothingMethod: LineSmoothingMethod {
+    class MockSmoother: LineSmoothingMethod {
+        var didSmooth: Bool = false
         func pathBySmoothing(in path: UIBezierPath) -> UIBezierPath {
+            didSmooth = true
             return path
         }
     }
