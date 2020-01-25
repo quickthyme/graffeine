@@ -92,7 +92,7 @@ extension GraffeineBarLayer.Bar {
             let translatedHeight = translatedContainerSize.height * (hiPercent - loPercent)
             let y = (flipXY)
                 ? translatedContainerSize.height * loPercentPositionMultiplier
-                : translatedContainerSize.height - translatedHeight
+                : (translatedContainerSize.height * loPercentPositionMultiplier) - translatedHeight
 
             return (y: y, height: translatedHeight)
         }
