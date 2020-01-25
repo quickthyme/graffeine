@@ -2,8 +2,8 @@ import UIKit
 
 open class GraffeineBarLayer: GraffeineLayer {
 
-    public var unitWidth: GraffeineLayer.DimensionalUnit = .relative
-    public var unitSubdivision: GraffeineLayer.UnitSubdivision? = nil
+    public var unitWidth: DimensionalUnit = .relative
+    public var unitSubdivision: UnitSubdivision = UnitSubdivision()
     public var roundedEnds: RoundedEnds = .none
 
     public var clipLoEdge: Bool = false

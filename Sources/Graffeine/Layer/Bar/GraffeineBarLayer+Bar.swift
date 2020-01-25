@@ -4,7 +4,7 @@ extension GraffeineBarLayer {
 
     open class Bar: CAShapeLayer {
 
-        public var subdivision: UnitSubdivision? = nil
+        public var subdivision: UnitSubdivision = UnitSubdivision()
         public var flipXY: Bool = false
         public var roundedEnds: RoundedEnds = .none
 
