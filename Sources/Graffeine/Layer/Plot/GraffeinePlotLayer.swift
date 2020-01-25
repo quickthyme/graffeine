@@ -16,6 +16,7 @@ open class GraffeinePlotLayer: GraffeineLayer {
 
         for (index, plot) in sublayers.enumerated() {
             guard let plot = plot as? Plot, index < numberOfUnits else { continue }
+            plot.frame = self.bounds
 
             plot.diameter = resolveDiameter(diameter: diameter, bounds: bounds)
 

@@ -17,16 +17,12 @@ extension GraffeineDataAnimators.Plot {
         }
 
         public func animate(plot: GraffeinePlotLayer.Plot,
-                     fromPosition: CGPoint,
-                     toPosition: CGPoint,
-                     fromShape: CGPath,
-                     toShape: CGPath) {
+                            fromPath: CGPath,
+                            toPath: CGPath) {
 
             plot.performWithoutAnimation {
                 plot.opacity = 0.0
-                plot.frame.size = toShape.boundingBoxOfPath.size
-                plot.path = toShape
-                plot.position = toPosition
+                plot.path = toPath
             }
 
             let delayKeyTime = NSNumber(value: delayRatio)

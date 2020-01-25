@@ -34,22 +34,21 @@ extension GraffeinePlotLayer {
                 y: containerSize.height - (containerSize.height * valPercent)
             )
 
-            let newShape = UIBezierPath(
-                roundedRect: CGRect(x: 0, y: 0, width: diameter, height: diameter),
-                cornerRadius: diameter / 2
-            ).cgPath
+            let newRadius = (diameter / 2)
+
+            let newPath = UIBezierPath(arcCenter: newPosition,
+                                       radius: newRadius,
+                                       startAngle: 0,
+                                       endAngle: DegreesToRadians(360),
+                                       clockwise: true).cgPath
 
             if let animator = animator {
                 animator.animate(plot: self,
-                                 fromPosition: position,
-                                 toPosition: newPosition,
-                                 fromShape: path ?? newShape,
-                                 toShape: newShape)
+                                 fromPath: self.path ?? newPath,
+                                 toPath: newPath)
             } else {
                 performWithoutAnimation {
-                    self.frame.size = newShape.boundingBoxOfPath.size
-                    self.path = newShape
-                    self.position = newPosition
+                    self.path = newPath
                     self.opacity = 1.0
                 }
             }
