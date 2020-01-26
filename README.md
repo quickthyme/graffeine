@@ -71,7 +71,8 @@ Out of the box, there are a handful of ready-to-go graphing layers:
 | `GraffeineGridLineLayer`         |   horizontal or vertical lines  |
 | `GraffeineHorizontalLabelLayer`  |   labels arranged horizontally  |
 | `GraffeineVerticalLabelLayer`    |   labels arranged vertically    |
-| `GraffeineRadialLabelLayer`      |   labels arranged circularly    |
+| `GraffeinePieLabelLayer`         |   labels arranged circularly    |
+| `GraffeinePlotLabelLayer`        |   labels arranged linearly      |
 | `GraffeineLineLayer`             |   bezier line connecting data   |
 | `GraffeinePieLayer`              |   segmented pies and donuts     |
 | `GraffeinePlotLayer`             |   individual plots (points)     |
@@ -137,7 +138,7 @@ but all other labels will be centered.
 
 ![sample_6](docs/sample_6.png)
 
-The `GraffeineRadialLabelLayer` is primarily designed to be used in conjunction with
+The `GraffeinePieLabelLayer` is primarily designed to be used in conjunction with
 pie and donut charts, although they do work independently. For all intents and
 purposes, positioning labels in the radial label layer works just like positioning
 the pie slices.

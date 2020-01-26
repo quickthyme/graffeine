@@ -1,12 +1,12 @@
 import XCTest
 @testable import Graffeine
 
-class GraffeineRadialLabelLayerTests: XCTestCase {
+class GraffeinePieLabelLayerTests: XCTestCase {
 
-    typealias Label = GraffeineRadialLabelLayer.Label
+    typealias Label = GraffeinePieLabelLayer.Label
 
     var graffeineView: GraffeineView!
-    var subject: GraffeineRadialLabelLayer!
+    var subject: GraffeinePieLabelLayer!
     var sampleData: SampleData!
 
     let graffeineViewFrame = CGRect(x: 0, y: 0, width: 200, height: 200)
@@ -18,7 +18,7 @@ class GraffeineRadialLabelLayerTests: XCTestCase {
     override func setUp() {
         graffeineView = GraffeineView(frame: graffeineViewFrame)
         let _ = SampleConfig(graffeineView)
-        subject = graffeineView.layer(id: SampleConfig.ID.pieLabels) as? GraffeineRadialLabelLayer
+        subject = graffeineView.layer(id: SampleConfig.ID.pieLabels) as? GraffeinePieLabelLayer
         sampleData = SampleData()
     }
 

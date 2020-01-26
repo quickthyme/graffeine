@@ -1,7 +1,7 @@
 import UIKit
 
-public protocol GraffeineRadialLabelDataAnimating: GraffeineDataAnimating {
-    func animate(label: GraffeineRadialLabelLayer.Label,
+public protocol GraffeinePieLabelDataAnimating: GraffeineDataAnimating {
+    func animate(label: GraffeinePieLabelLayer.Label,
                  fromAngles: GraffeineAnglePair,
                  toAngles: GraffeineAnglePair,
                  labelPoint: CGPoint,
@@ -10,7 +10,7 @@ public protocol GraffeineRadialLabelDataAnimating: GraffeineDataAnimating {
 
 extension GraffeineDataAnimators {
 
-    public struct RadialLabel {
+    public struct PieLabel {
         private init() {}
     }
 }

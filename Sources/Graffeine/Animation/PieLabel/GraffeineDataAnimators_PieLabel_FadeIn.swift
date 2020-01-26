@@ -1,8 +1,8 @@
 import UIKit
 
-extension GraffeineDataAnimators.RadialLabel {
+extension GraffeineDataAnimators.PieLabel {
 
-    public struct Move: GraffeineRadialLabelDataAnimating {
+    public struct FadeIn: GraffeinePieLabelDataAnimating {
 
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
@@ -16,22 +16,25 @@ extension GraffeineDataAnimators.RadialLabel {
             self.delayRatio = delayRatio
         }
 
-        public func animate(label: GraffeineRadialLabelLayer.Label,
+        public func animate(label: GraffeinePieLabelLayer.Label,
                             fromAngles: GraffeineAnglePair,
                             toAngles: GraffeineAnglePair,
                             labelPoint: CGPoint,
                             centerPoint: CGPoint) {
 
-            let currentPoint = label.presentation()?.position ?? centerPoint
+            label.performWithoutAnimation {
+                label.opacity = 0.0
+                label.position = labelPoint
+            }
 
             let delayKeyTime = NSNumber(value: delayRatio)
-            let animation = CAKeyframeAnimation(keyPath: "position")
+            let animation = CAKeyframeAnimation(keyPath: "opacity")
             animation.timingFunction  = CAMediaTimingFunction(name: timing)
             animation.duration = duration
-            animation.values = [currentPoint, currentPoint, labelPoint]
+            animation.values = [0.0, 0.0, 1.0]
             animation.keyTimes = [0.0, delayKeyTime, 1.0]
-            label.position = labelPoint
-            label.add(animation, forKey: "GraffeineDataAnimators.RadialLabel.Move")
+            label.opacity = 1.0
+            label.add(animation, forKey: "GraffeineDataAnimators.PieLabel.FadeIn")
         }
     }
 }

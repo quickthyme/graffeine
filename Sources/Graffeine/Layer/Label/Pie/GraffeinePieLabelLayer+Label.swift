@@ -1,6 +1,6 @@
 import UIKit
 
-extension GraffeineRadialLabelLayer {
+extension GraffeinePieLabelLayer {
 
     open class Label: CATextLayer {
 
@@ -14,7 +14,7 @@ extension GraffeineRadialLabelLayer {
         open func reposition(for index: Int,
                              in percentages: [CGFloat],
                              centerPoint: CGPoint,
-                             animator: GraffeineRadialLabelDataAnimating?) {
+                             animator: GraffeinePieLabelDataAnimating?) {
             let rotAngle = rotationAngle()
             let pctAngle = percentAngle(percentages[index])
             let startAngle = startingAngle(for: index, in: percentages) + rotAngle

@@ -1,6 +1,6 @@
 import UIKit
 
-open class GraffeineRadialLabelLayer: GraffeineLayer {
+open class GraffeinePieLabelLayer: GraffeineLayer {
 
     public var clockwise: Bool = true
     public var rotation: UInt = 0
@@ -39,7 +39,7 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             label.reposition(for: index,
                              in: percentages,
                              centerPoint: centerPoint,
-                             animator: animator as? GraffeineRadialLabelDataAnimating)
+                             animator: animator as? GraffeinePieLabelDataAnimating)
         }
     }
 
@@ -77,7 +77,7 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
     }
 
     @discardableResult
-    override open func apply(_ conf: (GraffeineRadialLabelLayer) -> ()) -> GraffeineRadialLabelLayer {
+    override open func apply(_ conf: (GraffeinePieLabelLayer) -> ()) -> GraffeinePieLabelLayer {
         conf(self)
         return self
     }
