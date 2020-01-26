@@ -32,5 +32,12 @@ extension GraffeineLayer {
             target.shadowOpacity = Float(self.opacity)
             target.shadowRadius = self.radius
         }
+
+        public func apply(to target: GraffeineLabel, index: Int = 0) {
+            target.shadowColor = self.color?.cgColor
+            target.shadowOffset = self.offset
+            target.shadowOpacity = Float(self.opacity)
+            target.shadowRadius = self.radius
+        }
     }
 }

@@ -30,39 +30,39 @@ class GraffeineHorizontalLabelLayerTests: XCTestCase {
     }
 
     func test_given_horizontal_alignment_mode_left_when_text_layers_are_positioned_then_they_are_all_left_aligned() {
-        subject.labelHorizontalAlignmentMode = .left
+        subject.labelAlignment.horizontal = .left
         graffeineView.layoutIfNeeded()
         let labels = subjectLabels
-        XCTAssertEqual(labels.first?.alignmentMode, .left)
-        XCTAssertEqual(labels[1].alignmentMode, .left)
-        XCTAssertEqual(labels.last?.alignmentMode, .left)
+        XCTAssertEqual(labels.first?.alignment.horizontal, .left)
+        XCTAssertEqual(labels[1].alignment.horizontal, .left)
+        XCTAssertEqual(labels.last?.alignment.horizontal, .left)
     }
 
     func test_given_label_alignment_mode_right_when_text_layers_are_positioned_then_they_are_all_right_aligned() {
-        subject.labelHorizontalAlignmentMode = .right
+        subject.labelAlignment.horizontal = .right
         graffeineView.layoutIfNeeded()
         let labels = subjectLabels
-        XCTAssertEqual(labels.first?.alignmentMode, .right)
-        XCTAssertEqual(labels[1].alignmentMode, .right)
-        XCTAssertEqual(labels.last?.alignmentMode, .right)
+        XCTAssertEqual(labels.first?.alignment.horizontal, .right)
+        XCTAssertEqual(labels[1].alignment.horizontal, .right)
+        XCTAssertEqual(labels.last?.alignment.horizontal, .right)
     }
 
     func test_given_label_alignment_mode_center_when_text_layers_are_positioned_then_they_are_all_centered() {
-        subject.labelHorizontalAlignmentMode = .center
+        subject.labelAlignment.horizontal = .center
         graffeineView.layoutIfNeeded()
         let labels = subjectLabels
-        XCTAssertEqual(labels.first?.alignmentMode, .center)
-        XCTAssertEqual(labels[1].alignmentMode, .center)
-        XCTAssertEqual(labels.last?.alignmentMode, .center)
+        XCTAssertEqual(labels.first?.alignment.horizontal, .center)
+        XCTAssertEqual(labels[1].alignment.horizontal, .center)
+        XCTAssertEqual(labels.last?.alignment.horizontal, .center)
     }
 
     func test_given_label_alignment_mode_centerLeftRight_when_text_layers_are_positioned_then_it_has_correct_label_alignments() {
-        subject.labelHorizontalAlignmentMode = .centerLeftRight
+        subject.labelAlignment.horizontal = .centerLeftRight
         graffeineView.layoutIfNeeded()
         let labels = subjectLabels
-        XCTAssertEqual(labels.first?.alignmentMode, .left)
-        XCTAssertEqual(labels[1].alignmentMode, .center)
-        XCTAssertEqual(labels.last?.alignmentMode, .right)
+        XCTAssertEqual(labels.first?.alignment.horizontal, .left)
+        XCTAssertEqual(labels[1].alignment.horizontal, .center)
+        XCTAssertEqual(labels.last?.alignment.horizontal, .right)
     }
 
     func test_given_fontSize_when_positioned_then_they_all_have_correct_fontSize_applied() {

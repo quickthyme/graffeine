@@ -1,12 +1,11 @@
 import UIKit
 
-open class GraffeineHorizontalLabelLayer: GraffeineLayer {
+open class GraffeineBarLabelLayer: GraffeineLayer {
 
     public var unitText: UnitText = UnitText()
 
-    public var labelPadding = GraffeineLabel.Padding()
-    public var labelAlignment = DistributedLabelAlignment(horizontal: .centerLeftRight,
-                                                          vertical: .center)
+    public var labelPadding: GraffeineLabel.Padding = .zero
+    public var labelAlignment: GraffeineLabel.Alignment = GraffeineLabel.Alignment()
 
     override open var expectedNumberOfSublayers: Int {
         return self.data.labels.count
@@ -22,10 +21,11 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
 
         for (index, label) in sublayers.enumerated() {
             guard let label = label as? Label, index < numberOfUnits else { continue }
-
+            label.flipXY = flipXY
             label.unitColumn = unitColumn
-            label.padding = labelPadding
-            label.alignment = labelAlignment.graffeineLabelAlignment(for: index, count: numberOfUnits)
+
+            let newPadding = labelPadding
+            let newAlignment = labelAlignment
 
             unitFill.apply(to: label, index: index)
             unitLine.apply(to: label, index: index)
@@ -35,8 +35,11 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
             applySelectionState(label, index: index)
 
             label.reposition(for: index,
-                             in: data.labels,
-                             containerSize: bounds.size)
+                             in: data,
+                             alignment: newAlignment,
+                             padding: newPadding,
+                             containerSize: bounds.size,
+                             animator: animator as? GraffeineLabelDataAnimating)
         }
     }
 
@@ -45,11 +48,10 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
         self.contentsScale = UIScreen.main.scale
     }
 
-    public convenience init(id: AnyHashable, height: CGFloat, region: Region = .bottomGutter) {
+    public convenience init(id: AnyHashable, region: Region = .main) {
         self.init()
         self.id = id
         self.region = region
-        self.frame = CGRect(x: 0, y: 0, width: 100, height: height)
     }
 
     required public init?(coder: NSCoder) {
@@ -66,7 +68,7 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
     }
 
     @discardableResult
-    override open func apply(_ conf: (GraffeineHorizontalLabelLayer) -> ()) -> GraffeineHorizontalLabelLayer {
+    override open func apply(_ conf: (GraffeineBarLabelLayer) -> ()) -> GraffeineBarLabelLayer {
         conf(self)
         return self
     }

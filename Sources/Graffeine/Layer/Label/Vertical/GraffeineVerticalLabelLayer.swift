@@ -6,10 +6,9 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
     public var rowMargin: CGFloat = 0.0
     public var unitText: UnitText = UnitText()
 
-    public var labelHPadding: CGFloat = 4.0
-    public var labelVPadding: CGFloat = 0.0
-    public var labelHorizontalAlignmentMode: LabelAlignment.HorizontalMode = .right
-    public var labelVerticalAlignmentMode: LabelAlignment.VerticalMode = .centerTopBottom
+    public var labelPadding = GraffeineLabel.Padding()
+    public var labelAlignment = DistributedLabelAlignment(horizontal: .right,
+                                                          vertical: .centerTopBottom)
 
     override public var unitColumn: GraffeineLayer.UnitColumn {
         get {
@@ -38,10 +37,9 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
         for (index, label) in sublayers.enumerated() {
             guard let label = label as? Label, index < numberOfUnits else { continue }
 
-            label.hPadding = labelHPadding
-            label.vPadding = labelVPadding
-            label.horizontalAlignmentMode = labelHorizontalAlignmentMode
-            label.verticalAlignmentMode = labelVerticalAlignmentMode
+            label.unitColumn = unitColumn
+            label.padding = labelPadding
+            label.alignment = labelAlignment.graffeineLabelAlignment(for: index, count: numberOfUnits)
 
             unitFill.apply(to: label, index: index)
             unitLine.apply(to: label, index: index)
@@ -80,10 +78,8 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
             self.rowHeight = layer.rowHeight
             self.rowMargin = layer.rowMargin
             self.unitText = layer.unitText
-            self.labelHPadding = layer.labelHPadding
-            self.labelVPadding = layer.labelVPadding
-            self.labelHorizontalAlignmentMode = layer.labelHorizontalAlignmentMode
-            self.labelVerticalAlignmentMode = layer.labelVerticalAlignmentMode
+            self.labelPadding = layer.labelPadding
+            self.labelAlignment = layer.labelAlignment
         }
     }
 

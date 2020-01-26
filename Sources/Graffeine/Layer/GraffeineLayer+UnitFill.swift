@@ -17,5 +17,9 @@ extension GraffeineLayer {
         public func apply(to target: CATextLayer, index: Int = 0) {
             target.backgroundColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
         }
+
+        public func apply(to target: GraffeineLabel, index: Int = 0) {
+            target.backgroundColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
+        }
     }
 }

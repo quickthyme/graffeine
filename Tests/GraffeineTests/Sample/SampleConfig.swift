@@ -28,7 +28,7 @@ class SampleConfig: GraffeineViewConfig {
             GraffeineHorizontalLabelLayer(id: ID.bottomGutter, height: 26, region: .bottomGutter)
                 .apply ({
                     $0.unitText.colors = [.purple]
-                    $0.labelHorizontalAlignmentMode = .centerLeftRight
+                    $0.labelAlignment.horizontal = .centerLeftRight
                     $0.data = GraffeineData(labels: ["low", "medium", "high"])
                 }),
 

@@ -15,5 +15,10 @@ extension GraffeineLayer {
             target.foregroundColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
             target.fontSize = self.fontSize
         }
+
+        public func apply(to target: GraffeineLabel, index: Int = 0) {
+            target.foregroundColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
+            target.fontSize = self.fontSize
+        }
     }
 }

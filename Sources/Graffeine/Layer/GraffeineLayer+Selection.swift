@@ -72,6 +72,13 @@ extension GraffeineLayer {
             if let thickness = selection.line.thickness { text.borderWidth = thickness }
         }
 
+        if let label = layer as? GraffeineLabel {
+            if let color = selection.fill.color { label.backgroundColor = color.cgColor }
+            if let color = selection.line.color { label.borderColor = color.cgColor }
+            if let color = selection.text.color { label.foregroundColor = color.cgColor }
+            if let thickness = selection.line.thickness { label.borderWidth = thickness }
+        }
+
         if let color = selection.shadow.color { layer.shadowColor = color.cgColor }
         if let opacity = selection.shadow.opacity { layer.shadowOpacity = Float(opacity) }
         if let radius = selection.shadow.radius { layer.shadowRadius = radius }
