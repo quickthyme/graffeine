@@ -8,8 +8,7 @@ open class GraffeineLayer: CALayer {
 
     open var id: AnyHashable = Int(0)
 
-    public var unitMargin: CGFloat = 0.0
-
+    public var unitColumn: UnitColumn = UnitColumn()
     public var unitFill:   UnitFill   = UnitFill()
     public var unitLine:   UnitLine   = UnitLine()
     public var unitShadow: UnitShadow = UnitShadow()
@@ -53,7 +52,7 @@ open class GraffeineLayer: CALayer {
             self.id = layer.id
             self.flipXY = layer.flipXY
             self.data = layer.data
-            self.unitMargin = layer.unitMargin
+            self.unitColumn = layer.unitColumn
             self.unitFill = layer.unitFill
             self.unitLine = layer.unitLine
             self.unitShadow = layer.unitShadow

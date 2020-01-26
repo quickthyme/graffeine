@@ -4,27 +4,22 @@ extension GraffeineBarLayer {
 
     open class Bar: CAShapeLayer {
 
-        public var subdivision: UnitSubdivision = UnitSubdivision()
+        public var unitColumn: UnitColumn = UnitColumn()
         public var flipXY: Bool = false
         public var roundedEnds: RoundedEnds = .none
 
         open func reposition(for index: Int,
                              in data: GraffeineData,
-                             unitWidth: GraffeineLayer.DimensionalUnit,
-                             unitMargin: CGFloat,
                              containerSize: CGSize,
                              animator: GraffeineBarDataAnimating?) {
 
-            let drawingInfo = Calc.drawingInfo(valueHi: data.valuesHi[index] ?? 0,
-                                               valueLo: data.loValueOrZero(index),
-                                               maxValue: data.valueMaxOrHighest,
-                                               unitIndex: index,
-                                               numberOfUnits: data.valuesHi.count,
-                                               unitWidth: unitWidth,
-                                               unitMargin: unitMargin,
-                                               subdivision: subdivision,
-                                               containerSize: containerSize,
-                                               flipXY: flipXY)
+            let drawingInfo = unitColumn.drawingInfo(valueHi: data.valuesHi[index] ?? 0,
+                                                     valueLo: data.loValueOrZero(index),
+                                                     maxValue: data.valueMaxOrHighest,
+                                                     unitIndex: index,
+                                                     numberOfUnits: data.valuesHi.count,
+                                                     containerSize: containerSize,
+                                                     flipXY: flipXY)
 
             let oldBarFrame: CGRect = self.path?.boundingBoxOfPath ?? .zero
             let oldOrigin = oldBarFrame.origin
@@ -71,7 +66,7 @@ extension GraffeineBarLayer {
         override public init(layer: Any) {
             super.init(layer: layer)
             if let layer = layer as? Self {
-                self.subdivision = layer.subdivision
+                self.unitColumn = layer.unitColumn
                 self.flipXY = layer.flipXY
                 self.roundedEnds = layer.roundedEnds
             }

@@ -4,17 +4,15 @@ extension GraffeineLineLayer {
 
     open class Line: CAShapeLayer {
 
+        public var unitColumn: UnitColumn = UnitColumn()
+
         open func reposition(data: GraffeineData,
-                             unitWidth: DimensionalUnit,
-                             unitMargin: CGFloat,
                              containerSize: CGSize,
                              smoothing: Smoothing,
                              animator: GraffeineLineDataAnimating?) {
             self.frame.size = containerSize
 
             let newPath = constructPath(data: data,
-                                        unitWidth: unitWidth,
-                                        unitMargin: unitMargin,
                                         containerSize: containerSize,
                                         smoothing: smoothing)
 
@@ -35,8 +33,6 @@ extension GraffeineLineLayer {
         }
 
         func constructPath(data: GraffeineData,
-                           unitWidth: GraffeineLayer.DimensionalUnit,
-                           unitMargin: CGFloat,
                            containerSize: CGSize,
                            smoothing: Smoothing) -> CGPath {
             guard (!data.values.isEmpty) else { return CGPath(rect: .zero, transform: nil) }
@@ -57,12 +53,12 @@ extension GraffeineLineLayer {
 
                 let numberOfUnitsAdjustedForLineOffset = data.values.count - 1
 
-                let width = unitWidth.resolved(within: containerSize.width,
-                                               numberOfUnits: numberOfUnitsAdjustedForLineOffset,
-                                               unitMargin: unitMargin)
+                let width = unitColumn.width.resolved(within: containerSize.width,
+                                                      numberOfUnits: numberOfUnitsAdjustedForLineOffset,
+                                                      unitMargin: unitColumn.margin)
 
                 let yPos = containerSize.height - (containerSize.height * valPercent)
-                let xPos = (CGFloat(index) * (width + unitMargin))
+                let xPos = (CGFloat(index) * (width + unitColumn.margin))
                 let point = CGPoint(x: xPos, y: yPos)
 
                 if (lastValueWasNil) {
@@ -106,6 +102,9 @@ extension GraffeineLineLayer {
 
         override public init(layer: Any) {
             super.init(layer: layer)
+            if let layer = layer as? Self {
+                self.unitColumn = layer.unitColumn
+            }
         }
     }
 }

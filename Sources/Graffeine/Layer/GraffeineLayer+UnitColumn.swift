@@ -1,23 +1,41 @@
 import UIKit
 
-extension GraffeineBarLayer.Bar {
+extension GraffeineLayer {
 
-    public typealias DrawingInfo = (origin: CGPoint, size: CGSize)
+    public struct UnitColumn {
 
-    internal struct Calc {
-        private init() {}
-        typealias Percentages = (hi: CGFloat, lo: CGFloat, loPositionMultiplier: CGFloat)
-        typealias Horizontal  = (x: CGFloat, width: CGFloat)
-        typealias Vertical    = (y: CGFloat, height: CGFloat)
+        public typealias DrawingInfo = (origin: CGPoint, size: CGSize)
+        public typealias Percentages = (hi: CGFloat, lo: CGFloat, loPositionMultiplier: CGFloat)
+        public typealias Horizontal  = (x: CGFloat, width: CGFloat)
+        public typealias Vertical    = (y: CGFloat, height: CGFloat)
 
-        static func drawingInfo(valueHi: Double,
+        public var width: DimensionalUnit = .relative
+        public var subdivision: UnitSubdivision = UnitSubdivision()
+        public var margin: CGFloat = 0.0
+
+        public init() {}
+
+        public init(width: DimensionalUnit, subdivision: UnitSubdivision, margin: CGFloat) {
+            self.width = width
+            self.subdivision = subdivision
+            self.margin = margin
+        }
+
+        public func resolvedWidth(within boundary: CGFloat, numberOfUnits: Int = 1) -> CGFloat {
+            return width.resolved(within: boundary,
+                                  numberOfUnits: numberOfUnits,
+                                  unitMargin: margin)
+        }
+
+        public func resolvedOffset(index: Int, actualWidth: CGFloat) -> CGFloat {
+            return (CGFloat(index) * (actualWidth + margin))
+        }
+
+        public func drawingInfo(valueHi: Double,
                                 valueLo: Double,
                                 maxValue: Double,
                                 unitIndex: Int,
                                 numberOfUnits: Int,
-                                unitWidth: GraffeineLayer.DimensionalUnit,
-                                unitMargin: CGFloat,
-                                subdivision: GraffeineLayer.UnitSubdivision,
                                 containerSize: CGSize,
                                 flipXY: Bool) -> DrawingInfo {
 
@@ -28,9 +46,6 @@ extension GraffeineBarLayer.Bar {
 
             let horz = horizontal(index: unitIndex,
                                   numberOfUnits: numberOfUnits,
-                                  unitWidth: unitWidth,
-                                  unitMargin: unitMargin,
-                                  subdivision: subdivision,
                                   containerSize: containerSize,
                                   flipXY: flipXY)
 
@@ -46,7 +61,7 @@ extension GraffeineBarLayer.Bar {
             )
         }
 
-        static func percentages(maxVal: Double,
+        public func percentages(maxVal: Double,
                                 valHi: Double,
                                 valLo: Double,
                                 flipXY: Bool) -> Percentages {
@@ -58,24 +73,21 @@ extension GraffeineBarLayer.Bar {
             return (hi: hiPercent, lo: loPercent, loPositionMultiplier: loPositionMultiplier)
         }
 
-        static func horizontal(index: Int,
+        public func horizontal(index: Int,
                                numberOfUnits: Int,
-                               unitWidth: GraffeineLayer.DimensionalUnit,
-                               unitMargin: CGFloat,
-                               subdivision: GraffeineLayer.UnitSubdivision,
                                containerSize: CGSize,
                                flipXY: Bool) -> Horizontal {
             let translatedContainerSize = translatedSize(containerSize, flipXY)
-            let width = unitWidth.resolved(within: translatedContainerSize.width,
-                                           numberOfUnits: numberOfUnits,
-                                           unitMargin: unitMargin)
-            let offset = (CGFloat(index) * (width + unitMargin))
-            let subdiv = subdivision.resolved(in: width)
+            let actualWidth = width.resolved(within: translatedContainerSize.width,
+                                             numberOfUnits: numberOfUnits,
+                                             unitMargin: margin)
+            let offset = (CGFloat(index) * (actualWidth + margin))
+            let subdiv = subdivision.resolved(in: actualWidth)
             return (x: offset + subdiv.offset,
                     width: subdiv.width)
         }
 
-        static func vertical(hiPercent: CGFloat,
+        public func vertical(hiPercent: CGFloat,
                              loPercent: CGFloat,
                              loPercentPositionMultiplier: CGFloat,
                              containerSize: CGSize,
@@ -89,13 +101,13 @@ extension GraffeineBarLayer.Bar {
             return (y: y, height: translatedHeight)
         }
 
-        static func translatedSize(_ size: CGSize, _ flipXY: Bool) -> CGSize {
+        internal func translatedSize(_ size: CGSize, _ flipXY: Bool) -> CGSize {
             return (flipXY)
                 ? CGSize(width: size.height, height: size.width)
                 : size
         }
 
-        static func translatedOrigin(_ point: CGPoint, _ flipXY: Bool) -> CGPoint {
+        internal func translatedOrigin(_ point: CGPoint, _ flipXY: Bool) -> CGPoint {
             return (flipXY)
                 ? CGPoint(x: point.y, y: point.x)
                 : point

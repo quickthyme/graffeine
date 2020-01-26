@@ -18,10 +18,11 @@ open class GraffeinePlotLayer: GraffeineLayer {
             guard let plot = plot as? Plot, index < numberOfUnits else { continue }
             plot.frame = self.bounds
 
+            plot.unitColumn = unitColumn
             plot.diameter = resolveDiameter(diameter: diameter, bounds: bounds)
 
-            unitFill.apply(to: plot)
-            unitLine.apply(to: plot)
+            unitFill.apply(to: plot, index: index)
+            unitLine.apply(to: plot, index: index)
             unitShadow.apply(to: plot)
 
             applySelectionState(plot, index: index)
@@ -29,8 +30,6 @@ open class GraffeinePlotLayer: GraffeineLayer {
 
             plot.reposition(for: index,
                             in: data,
-                            unitWidth: unitWidth,
-                            unitMargin: unitMargin,
                             containerSize: bounds.size,
                             animator: animator as? GraffeinePlotDataAnimating)
         }

@@ -1,8 +1,8 @@
 import UIKit
 
-extension GraffeinePlotLayer {
+extension GraffeinePlotLabelLayer {
 
-    open class Plot: CAShapeLayer {
+    open class Label: CATextLayer {
 
         public var unitColumn: UnitColumn = UnitColumn()
         public var diameter: CGFloat = 0.0
@@ -10,14 +10,19 @@ extension GraffeinePlotLayer {
         open func reposition(for index: Int,
                              in data: GraffeineData,
                              containerSize: CGSize,
-                             animator: GraffeinePlotDataAnimating?) {
+                             animator: GraffeinePlotLabelDataAnimating?) {
 
-            guard let value = data.values[index] else {
-                performWithoutAnimation {
-                    self.opacity = 0.0
-                    self.position = .zero
-                }
-                return
+            guard
+                (index < data.labels.count),
+                let value = data.values[index],
+                let labelValue = data.labels[index]
+                else {
+                    performWithoutAnimation {
+                        self.opacity = 0.0
+                        self.string = ""
+                        self.position = .zero
+                    }
+                    return
             }
 
             let valPercent: CGFloat = getPercent(of: value, in: data.valueMaxOrHighest)
@@ -28,25 +33,17 @@ extension GraffeinePlotLayer {
                                                  numberOfUnits: numberOfUnitsAdjustedForPlotOffset)
 
             let newPosition = CGPoint(
-                x: (CGFloat(index) * (width + unitColumn.margin)),
+                x: unitColumn.resolvedOffset(index: index, actualWidth: width),
                 y: containerSize.height - (containerSize.height * valPercent)
             )
 
-            let newRadius = (diameter / 2)
-
-            let newPath = UIBezierPath(arcCenter: newPosition,
-                                       radius: newRadius,
-                                       startAngle: 0,
-                                       endAngle: DegreesToRadians(360),
-                                       clockwise: true).cgPath
-
             if let animator = animator {
-                animator.animate(plot: self,
-                                 fromPath: self.path ?? newPath,
-                                 toPath: newPath)
+                animator.animate(label: self, toValue: labelValue, toPosition: newPosition)
             } else {
                 performWithoutAnimation {
-                    self.path = newPath
+                    self.string = labelValue
+                    self.frame.size = preferredFrameSize()
+                    self.position = newPosition
                     self.opacity = 1.0
                 }
             }
@@ -63,6 +60,7 @@ extension GraffeinePlotLayer {
             self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             self.position = .zero
             self.opacity = 0
+            self.alignmentMode = .center
         }
 
         required public init?(coder: NSCoder) {
@@ -71,7 +69,7 @@ extension GraffeinePlotLayer {
 
         override public init(layer: Any) {
             super.init(layer: layer)
-            if let layer = layer as? Plot {
+            if let layer = layer as? Label {
                 self.unitColumn = layer.unitColumn
                 self.diameter = layer.diameter
             }

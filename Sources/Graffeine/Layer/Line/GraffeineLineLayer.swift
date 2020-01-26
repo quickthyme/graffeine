@@ -23,6 +23,7 @@ open class GraffeineLineLayer: GraffeineLayer {
         guard let line = self.sublayers?.first(where: { $0 is Line }) as? Line
             else { return }
 
+        line.unitColumn = unitColumn
         unitFill.apply(to: line)
         unitLine.apply(to: line)
         unitShadow.apply(to: line)
@@ -32,8 +33,6 @@ open class GraffeineLineLayer: GraffeineLayer {
         }
 
         line.reposition(data: data,
-                        unitWidth: unitWidth,
-                        unitMargin: unitMargin,
                         containerSize: bounds.size,
                         smoothing: smoothing,
                         animator: animator as? GraffeineLineDataAnimating)

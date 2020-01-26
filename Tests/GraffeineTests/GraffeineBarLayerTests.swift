@@ -48,8 +48,8 @@ class GraffeineBarLayerTests: XCTestCase {
     }
 
     func test_given_subdivision_present_then_it_has_sublayers_positioned_correctly() {
-        subject.unitSubdivision.offset = .percentage(0.33)
-        subject.unitSubdivision.width = .percentage(0.33)
+        subject.unitColumn.subdivision.offset = .percentage(0.33)
+        subject.unitColumn.subdivision.width = .percentage(0.33)
         sampleData.applyDescendingBars(to: graffeineView)
         graffeineView.layoutIfNeeded()
         let bars = subject.sublayers as! [GraffeineBarLayer.Bar]

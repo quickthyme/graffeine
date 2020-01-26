@@ -2,8 +2,6 @@ import UIKit
 
 open class GraffeineBarLayer: GraffeineLayer {
 
-    public var unitWidth: DimensionalUnit = .relative
-    public var unitSubdivision: UnitSubdivision = UnitSubdivision()
     public var roundedEnds: RoundedEnds = .none
 
     public var clipLoEdge: Bool = false
@@ -21,7 +19,7 @@ open class GraffeineBarLayer: GraffeineLayer {
             bar.frame = self.bounds
             applyLoEdgeClippingMaskIfEnabled()
 
-            bar.subdivision = unitSubdivision
+            bar.unitColumn = unitColumn
             bar.roundedEnds = roundedEnds
             bar.flipXY = flipXY
 
@@ -33,8 +31,6 @@ open class GraffeineBarLayer: GraffeineLayer {
 
             bar.reposition(for: index,
                            in: data,
-                           unitWidth: unitWidth,
-                           unitMargin: unitMargin,
                            containerSize: bounds.size,
                            animator: animator as? GraffeineBarDataAnimating)
         }
@@ -79,8 +75,6 @@ open class GraffeineBarLayer: GraffeineLayer {
     override public init(layer: Any) {
         super.init(layer: layer)
         if let layer = layer as? Self {
-            self.unitWidth = layer.unitWidth
-            self.unitSubdivision = layer.unitSubdivision
             self.roundedEnds = layer.roundedEnds
             self.clipLoEdge = layer.clipLoEdge
         }

@@ -2,7 +2,6 @@ import UIKit
 
 open class GraffeineHorizontalLabelLayer: GraffeineLayer {
 
-    public var columnWidth: GraffeineLayer.DimensionalUnit = .relative
     public var unitText: UnitText = UnitText()
 
     public var labelHPadding: CGFloat = 4.0
@@ -25,6 +24,7 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
         for (index, label) in sublayers.enumerated() {
             guard let label = label as? Label, index < numberOfUnits else { continue }
 
+            label.unitColumn = unitColumn
             label.hPadding = labelHPadding
             label.vPadding = labelVPadding
             label.horizontalAlignmentMode = labelHorizontalAlignmentMode
@@ -39,8 +39,6 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
 
             label.reposition(for: index,
                              in: data.labels,
-                             columnWidth: columnWidth,
-                             columnMargin: unitMargin,
                              containerSize: bounds.size)
         }
     }
@@ -64,7 +62,6 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
     override public init(layer: Any) {
         super.init(layer: layer)
         if let layer = layer as? Self {
-            self.columnWidth = layer.columnWidth
             self.unitText = layer.unitText
             self.labelHPadding = layer.labelHPadding
             self.labelVPadding = layer.labelVPadding

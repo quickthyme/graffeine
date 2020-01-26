@@ -34,7 +34,7 @@ class SampleConfig: GraffeineViewConfig {
 
             GraffeineVerticalLabelLayer(id: ID.leftGutter, width: 64, region: .leftGutter)
                 .apply ({
-                    $0.unitMargin = unitMargin
+                    $0.rowMargin = unitMargin
                     $0.unitText.colors = Self.colorValues
                     $0.data = GraffeineData(labels: Self.colorNames)
                 }),
@@ -50,19 +50,19 @@ class SampleConfig: GraffeineViewConfig {
             GraffeineBarLayer(id: ID.colorBars)
                 .apply ({
                     $0.flipXY = true
-                    $0.unitMargin = unitMargin
+                    $0.unitColumn.margin = unitMargin
                 }),
 
             GraffeineBarLayer(id: ID.descendingBars)
                 .apply ({
-                    $0.unitMargin = unitMargin
+                    $0.unitColumn.margin = unitMargin
                     $0.unitFill.colors = [.purple]
                 }),
 
             GraffeineLineLayer(id: ID.redLine)
                 .apply ({
                     $0.unitLine.colors = [.red]
-                    $0.unitMargin = unitMargin
+                    $0.unitColumn.margin = unitMargin
                     $0.unitLine.thickness = 4.0
                     $0.unitLine.join = .miter
                 }),
@@ -70,7 +70,7 @@ class SampleConfig: GraffeineViewConfig {
             GraffeineLineLayer(id: ID.greenLine)
                 .apply ({
                     $0.unitLine.colors = [.green]
-                    $0.unitMargin = unitMargin
+                    $0.unitColumn.margin = unitMargin
                     $0.unitLine.thickness = 10.0
                     $0.unitLine.join = .round
                 }),
@@ -78,7 +78,7 @@ class SampleConfig: GraffeineViewConfig {
             GraffeinePlotLayer(id: ID.vectorPlots)
                 .apply ({
                     $0.unitFill.colors = [.black]
-                    $0.unitMargin = unitMargin
+                    $0.unitColumn.margin = unitMargin
                     $0.diameter = .explicit(8.0)
                     $0.unitLine.thickness = 2.0
                     $0.unitLine.colors = [.brown]

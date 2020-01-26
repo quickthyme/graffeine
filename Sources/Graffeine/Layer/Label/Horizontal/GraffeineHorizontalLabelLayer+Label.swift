@@ -4,15 +4,14 @@ extension GraffeineHorizontalLabelLayer {
 
     open class Label: CATextLayer {
 
-        open var hPadding: CGFloat = 4.0
-        open var vPadding: CGFloat = 0.0
-        open var horizontalAlignmentMode: LabelAlignment.HorizontalMode = .centerLeftRight
-        open var verticalAlignmentMode: LabelAlignment.VerticalMode = .center
+        public var unitColumn: UnitColumn = UnitColumn()
+        public var hPadding: CGFloat = 4.0
+        public var vPadding: CGFloat = 0.0
+        public var horizontalAlignmentMode: LabelAlignment.HorizontalMode = .centerLeftRight
+        public var verticalAlignmentMode: LabelAlignment.VerticalMode = .center
 
         open func reposition(for index: Int,
                              in labels: [String?],
-                             columnWidth: GraffeineLayer.DimensionalUnit,
-                             columnMargin: CGFloat,
                              containerSize: CGSize) {
 
             let labelsCount = labels.count
@@ -29,11 +28,10 @@ extension GraffeineHorizontalLabelLayer {
                     return
             }
 
-            let width = columnWidth.resolved(within: containerSize.width,
-                                             numberOfUnits: labels.count,
-                                             unitMargin: columnMargin)
+            let width = unitColumn.resolvedWidth(within: containerSize.width,
+                                                 numberOfUnits: labels.count)
+            let xPos = unitColumn.resolvedOffset(index: index, actualWidth: width) + calculateXPaddingOffset()
 
-            let xPos = (CGFloat(index) * (width + columnMargin)) + calculateXPaddingOffset()
             let yPos = verticalAlignmentMode.calculateYOffset(for: index,
                                                               in: labels,
                                                               fontSize: fontSize,
@@ -77,6 +75,7 @@ extension GraffeineHorizontalLabelLayer {
         override public init(layer: Any) {
             super.init(layer: layer)
             if let layer = layer as? Self {
+                self.unitColumn = layer.unitColumn
                 self.hPadding = layer.hPadding
                 self.vPadding = layer.vPadding
                 self.horizontalAlignmentMode = layer.horizontalAlignmentMode
