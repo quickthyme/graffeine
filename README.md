@@ -63,19 +63,20 @@ the `layers` property, like so:
 component. By combining layers, you can dial in exactly the layout you want and
 render amazing graphs.
 
-Out of the box, there are a handful of ready-to-go graphing layers:
+Out of the box, there are a handful of ready-to-go layers:
 
-| GraffeineLayer                   | Displays                        |
+| Drawing Layers                   | Displays                        |
 |----------------------------------|---------------------------------|
 | `GraffeineBarLayer`              |   vertical or horizontal bars   |
 | `GraffeineGridLineLayer`         |   horizontal or vertical lines  |
-| `GraffeineHorizontalLabelLayer`  |   labels arranged horizontally  |
-| `GraffeineVerticalLabelLayer`    |   labels arranged vertically    |
-| `GraffeinePieLabelLayer`         |   labels arranged circularly    |
-| `GraffeinePlotLabelLayer`        |   labels arranged linearly      |
 | `GraffeineLineLayer`             |   bezier line connecting data   |
 | `GraffeinePieLayer`              |   segmented pies and donuts     |
 | `GraffeinePlotLayer`             |   individual plots (points)     |
+| `GraffeineHorizontalLabelLayer`  |   labels arranged horizontally  |
+| `GraffeineVerticalLabelLayer`    |   labels arranged vertically    |
+| `GraffeineBarLabelLayer`         |   labels arranged like bars     |
+| `GraffeinePieLabelLayer`         |   labels arranged circularly    |
+| `GraffeinePlotLabelLayer`        |   labels arranged linearly      |
 
 
 ##### Constructing
@@ -114,10 +115,11 @@ and positioning depending on which you specify:
 
 ### Value Labels
 
-Out-of-the-box, there are three label options: horizontal, vertical, and radial.
+Out-of-the-box, there are several label options: horizontal, vertical, bar,
+plot, and pie. All labels support vertical/horizontal alignment and padding.
 
 
-##### Horizontal and Vertical Labels
+##### Gutter Labels
 
 ![sample_2](docs/sample_2.png)
 
@@ -134,14 +136,22 @@ to be `.center` means it will center itself **to the column**. Setting
 but all other labels will be centered.
 
 
-##### Radial Labels
+##### Pie Labels
 
 ![sample_6](docs/sample_6.png)
 
 The `GraffeinePieLabelLayer` is primarily designed to be used in conjunction with
-pie and donut charts, although they do work independently. For all intents and
-purposes, positioning labels in the radial label layer works just like positioning
-the pie slices.
+pie and donut charts.
+
+<br />
+
+
+##### Plot Labels
+
+![sample_4](docs/sample_4.png)
+
+The `GraffeinePlotLabelLayer` is primarily designed to be used in conjunction with
+line and plot layers.
 
 <br />
 

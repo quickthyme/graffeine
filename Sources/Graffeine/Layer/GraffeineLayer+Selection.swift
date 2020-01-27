@@ -18,10 +18,10 @@ extension GraffeineLayer {
         public var radial: Radial = Radial()
         public var shadow: Shadow = Shadow()
         public var text:   Text   = Text()
-        public var unitMargin: CGFloat? = nil
 
         public struct Fill {
             public var color: UIColor? = nil
+            public var opacity: CGFloat? = nil
         }
 
         public struct Line {
@@ -79,6 +79,7 @@ extension GraffeineLayer {
             if let thickness = selection.line.thickness { label.borderWidth = thickness }
         }
 
+        if let opacity = selection.fill.opacity { layer.opacity = Float(opacity) }
         if let color = selection.shadow.color { layer.shadowColor = color.cgColor }
         if let opacity = selection.shadow.opacity { layer.shadowOpacity = Float(opacity) }
         if let radius = selection.shadow.radius { layer.shadowRadius = radius }

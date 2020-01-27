@@ -35,18 +35,32 @@ public struct GraffeineData: Equatable {
 
     public init(valueMax: Double?,
                 valuesHi: [Double?],
+                valuesLo: [Double?],
+                selectedIndex: Int?) {
+
+        self.init(valueMax: valueMax,
+                  valuesHi: valuesHi,
+                  valuesLo: valuesLo,
+                  labels: [],
+                  selectedIndex: selectedIndex)
+    }
+
+    public init(valueMax: Double?,
+                valuesHi: [Double?],
                 valuesLo: [Double?]) {
-        self.valueMax = valueMax
-        self.valuesHi = valuesHi
-        self.valuesLo = valuesLo
-        self.labels = []
-        self.selectedIndex = nil
+
+        self.init(valueMax: valueMax,
+                  valuesHi: valuesHi,
+                  valuesLo: valuesLo,
+                  labels: [],
+                  selectedIndex: nil)
     }
 
     public init(valueMax: Double?,
                 values: [Double?],
                 labels: [String?],
                 selectedIndex: Int?) {
+
         self.init(valueMax: valueMax,
                   valuesHi: values,
                   valuesLo: [],
@@ -57,6 +71,7 @@ public struct GraffeineData: Equatable {
     public init(valueMax: Double?,
                 values: [Double?],
                 labels: [String?]) {
+
         self.init(valueMax: valueMax,
                   valuesHi: values,
                   valuesLo: [],
@@ -67,6 +82,7 @@ public struct GraffeineData: Equatable {
     public init(valueMax: Double?,
                 values: [Double?],
                 selectedIndex: Int?) {
+
         self.init(valueMax: valueMax,
                   valuesHi: values,
                   valuesLo: [],
@@ -76,6 +92,7 @@ public struct GraffeineData: Equatable {
 
     public init(valueMax: Double?,
                 values: [Double?]) {
+
         self.init(valueMax: valueMax,
                   values: values,
                   labels: [],
@@ -83,12 +100,14 @@ public struct GraffeineData: Equatable {
     }
 
     public init(values: [Double?]) {
+
         self.init(valueMax: nil,
                   values: values)
     }
 
     public init(values: [Double?],
                 selectedIndex: Int?) {
+
         self.init(valueMax: nil,
                   values: values,
                   selectedIndex: selectedIndex)
@@ -96,6 +115,7 @@ public struct GraffeineData: Equatable {
 
     public init(values: [Double?],
                 labels: [String?]) {
+
         self.init(valueMax: nil,
                   values: values,
                   labels: labels)
