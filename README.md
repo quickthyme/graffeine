@@ -43,16 +43,20 @@ By default, `GraffeineView` contains no layers. You must add layers to it by set
 the `layers` property, like so:
 
     graffeineView.layers = [
-            GraffeineHorizontalLabelLayer(id: "top", height: 16, region: .topGutter),
-            
-            GraffeineHorizontalLabelLayer(id: "bottom", height: 26, region: .bottomGutter),
-            
-            GraffeineBarLayer(id: "bars")
-                .apply ({
-                    $0.unitMargin = 5
-                    $0.colors = [.blue, .orange]
-                })
-        ]
+        GraffeineHorizontalLabelLayer(id: "top", 
+                                      height: 16,
+                                      region: .topGutter),
+        
+        GraffeineHorizontalLabelLayer(id: "bottom",
+                                      height: 26,
+                                      region: .bottomGutter),
+        
+        GraffeineBarLayer(id: "bars")
+            .apply ({
+                $0.unitColumn.margin = 5
+                $0.colors = [.blue, .orange]
+            })
+    ]
 
 <br />
 
@@ -136,6 +140,16 @@ to be `.center` means it will center itself **to the column**. Setting
 but all other labels will be centered.
 
 
+##### Bar Labels
+
+![sample_bar_label](docs/sample_bar_label.png)
+
+The `GraffeineBarLabelLayer` is primarily designed to be used in conjunction with
+bar graphs.
+
+<br />
+
+
 ##### Pie Labels
 
 ![sample_6](docs/sample_6.png)
@@ -151,7 +165,7 @@ pie and donut charts.
 ![sample_4](docs/sample_4.png)
 
 The `GraffeinePlotLabelLayer` is primarily designed to be used in conjunction with
-line and plot layers.
+line and plot graphs.
 
 <br />
 
@@ -167,10 +181,11 @@ It's easy to apply new data to a specific layer by **assignment**:
                                              
 Or if you want it to **animate** whenever the data changes:
 
-    graffeineView.layer(id: "pie")?
-        .setData(GraffeineData(values: [1, 1, 2, 3, 5, 8, 13, 21]), 
-                 animator: GraffeineDataAnimators.Pie.Spin(duration: 1.2,
-                                                           timing: .easeInEaseOut))
+    let data = GraffeineData(values: [1, 2, 3])
+    let animator = GraffeineDataAnimators.Pie.Spin(duration: 1.2,
+                                                   timing: .easeInEaseOut)
+    
+    graffeineView.layer(id: "pie")?.setData(data, animator: animator)
 
 *There are a handful of data animators included with the library, out-of-box, or you can
 create your own, so long as it conforms to `GraffeineDataAnimating`.*
