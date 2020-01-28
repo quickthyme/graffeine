@@ -1,5 +1,7 @@
 import UIKit
 
+private let SelectionAnimationKey = "GraffeineLayer.Selection.Animation"
+
 extension GraffeineLayer {
 
     public struct SelectionResult {
@@ -18,6 +20,8 @@ extension GraffeineLayer {
         public var radial: Radial = Radial()
         public var shadow: Shadow = Shadow()
         public var text:   Text   = Text()
+
+        public var animation: CAAnimation? = nil
 
         public struct Fill {
             public var color: UIColor? = nil
@@ -84,6 +88,8 @@ extension GraffeineLayer {
         if let opacity = selection.shadow.opacity { layer.shadowOpacity = Float(opacity) }
         if let radius = selection.shadow.radius { layer.shadowRadius = radius }
         if let offset = selection.shadow.offset { layer.shadowOffset = offset }
+
+        if let animation = selection.animation { layer.add(animation, forKey: SelectionAnimationKey) }
     }
 
     public func findSelected(_ point: CGPoint) -> SelectionResult? {

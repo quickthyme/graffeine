@@ -15,6 +15,7 @@ open class GraffeineGridLineLayer: GraffeineLayer {
 
             unitLine.apply(to: line, index: index)
             unitShadow.apply(to: line)
+            unitAnimation.apply(to: line)
 
             line.reposition(for: index,
                             in: data,

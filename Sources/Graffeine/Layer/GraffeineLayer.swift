@@ -12,6 +12,7 @@ open class GraffeineLayer: CALayer {
     public var unitFill:   UnitFill   = UnitFill()
     public var unitLine:   UnitLine   = UnitLine()
     public var unitShadow: UnitShadow = UnitShadow()
+    public var unitAnimation: UnitAnimation = UnitAnimation()
 
     public var selection: Selection = Selection()
 
@@ -56,6 +57,7 @@ open class GraffeineLayer: CALayer {
             self.unitFill = layer.unitFill
             self.unitLine = layer.unitLine
             self.unitShadow = layer.unitShadow
+            self.unitAnimation = layer.unitAnimation
             self.selection = layer.selection
         }
     }

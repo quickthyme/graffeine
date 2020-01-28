@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC1B828C23E01F17005E379E /* GraffeineLayer+UnitAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1B828B23E01F17005E379E /* GraffeineLayer+UnitAnimation.swift */; };
+		DC1B828E23E01FBC005E379E /* UnitAnimationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1B828D23E01FBC005E379E /* UnitAnimationTests.swift */; };
 		DC2FA27523CEAB3900E88807 /* GraffeinePlotLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2FA27423CEAB3900E88807 /* GraffeinePlotLayerTests.swift */; };
 		DC2FA27623CEAB5A00E88807 /* GraffeinePlotLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2FA27323CEA9DB00E88807 /* GraffeinePlotLayer.swift */; };
 		DC2FA27723CEAB5A00E88807 /* GraffeinePlotLayer+Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2FA27223CEA9DB00E88807 /* GraffeinePlotLayer+Plot.swift */; };
@@ -112,6 +114,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DC1B828B23E01F17005E379E /* GraffeineLayer+UnitAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeineLayer+UnitAnimation.swift"; sourceTree = "<group>"; };
+		DC1B828D23E01FBC005E379E /* UnitAnimationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitAnimationTests.swift; sourceTree = "<group>"; };
 		DC2FA27223CEA9DB00E88807 /* GraffeinePlotLayer+Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraffeinePlotLayer+Plot.swift"; sourceTree = "<group>"; };
 		DC2FA27323CEA9DB00E88807 /* GraffeinePlotLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeinePlotLayer.swift; sourceTree = "<group>"; };
 		DC2FA27423CEAB3900E88807 /* GraffeinePlotLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraffeinePlotLayerTests.swift; sourceTree = "<group>"; };
@@ -314,6 +318,7 @@
 			children = (
 				DC612E5D23B43CCB00C08AB5 /* Info.plist */,
 				DC7F21B623C6BE0A009629DD /* DimensionalUnitTests.swift */,
+				DC1B828D23E01FBC005E379E /* UnitAnimationTests.swift */,
 				DCE3CEC723D43A960028F0B7 /* GraffeineAnglePairTests.swift */,
 				DC7F21B423C6B490009629DD /* GraffeineBarLayerTests.swift */,
 				DC7F21BD23C6C360009629DD /* GraffeineGridLineLayerTests.swift */,
@@ -361,6 +366,7 @@
 				DC7F221F23C83F94009629DD /* GraffeineLayer+DistributedLabelAlignment.swift */,
 				DC43354823D6CD820094BEE3 /* GraffeineLayer+Region.swift */,
 				DC43354C23D6DA450094BEE3 /* GraffeineLayer+Selection.swift */,
+				DC1B828B23E01F17005E379E /* GraffeineLayer+UnitAnimation.swift */,
 				DC336CD623DD7D700029316E /* GraffeineLayer+UnitColumn.swift */,
 				DCA7C09923D9512C00B722E4 /* GraffeineLayer+UnitFill.swift */,
 				DCA7C09B23D9513900B722E4 /* GraffeineLayer+UnitLine.swift */,
@@ -648,6 +654,7 @@
 				DC7F220623C711FF009629DD /* GraffeineHorizontalLabelLayerTests.swift in Sources */,
 				DC8E260F23D58013004DD5CE /* GraffeinePieLabelLayerTests.swift in Sources */,
 				DC612E7423B4410400C08AB5 /* StoryboardLoader.swift in Sources */,
+				DC1B828E23E01FBC005E379E /* UnitAnimationTests.swift in Sources */,
 				DC2FA27523CEAB3900E88807 /* GraffeinePlotLayerTests.swift in Sources */,
 				DC7F21BE23C6C360009629DD /* GraffeineGridLineLayerTests.swift in Sources */,
 				DCF0C99A23D1A1DD00EDD4E4 /* GraffeinePieLayerTests.swift in Sources */,
@@ -700,6 +707,7 @@
 				DC336CDD23DD7DE50029316E /* GraffeineDataAnimators_PlotLabel.swift in Sources */,
 				DCE3CEBD23D3E7C20028F0B7 /* GraffeineLayer+UnitSubdivision.swift in Sources */,
 				DC336CDB23DD7DDB0029316E /* GraffeinePlotLabelLayer.swift in Sources */,
+				DC1B828C23E01F17005E379E /* GraffeineLayer+UnitAnimation.swift in Sources */,
 				DCE3CEB223D3E6080028F0B7 /* GraffeineDataAnimators_Pie.swift in Sources */,
 				DCF3C77523C6996000F5F92F /* GraffeineLayer+DimensionalUnit.swift in Sources */,
 				DCCF82EA23D8064000CEA48F /* GraffeineDataAnimators_PieLabel_FadeIn.swift in Sources */,

@@ -24,9 +24,11 @@ open class GraffeineLineLayer: GraffeineLayer {
             else { return }
 
         line.unitColumn = unitColumn
+
         unitFill.apply(to: line)
         unitLine.apply(to: line)
         unitShadow.apply(to: line)
+        unitAnimation.apply(to: line)
 
         if let selectedIndex = data.selectedIndex {
             applySelectionState(line, index: selectedIndex)

@@ -24,6 +24,7 @@ open class GraffeinePlotLayer: GraffeineLayer {
             unitFill.apply(to: plot, index: index)
             unitLine.apply(to: plot, index: index)
             unitShadow.apply(to: plot)
+            unitAnimation.apply(to: plot)
 
             applySelectionState(plot, index: index)
             applyRadialSelectionState(plot, index: index)

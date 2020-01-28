@@ -26,6 +26,7 @@ open class GraffeineBarLayer: GraffeineLayer {
             unitFill.apply(to: bar, index: index)
             unitLine.apply(to: bar, index: index)
             unitShadow.apply(to: bar)
+            unitAnimation.apply(to: bar)
 
             applySelectionState(bar, index: index)
 

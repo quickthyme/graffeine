@@ -30,9 +30,11 @@ open class GraffeinePieLayer: GraffeineLayer {
             slice.radius = radius
             slice.holeRadius = holeRadius
             slice.centerOffsetRadius = centerOffsetRadius
+
             unitFill.apply(to: slice, index: index)
             unitLine.apply(to: slice, index: index)
             unitShadow.apply(to: slice)
+            unitAnimation.apply(to: slice)
 
             applySelectionState(slice, index: index)
             applyRadialSelectionState(slice, index: index)
