@@ -74,12 +74,13 @@ Out of the box, there are a handful of ready-to-go layers:
 | `GraffeineBarLayer`              |   vertical or horizontal bars   |
 | `GraffeineGridLineLayer`         |   horizontal or vertical lines  |
 | `GraffeineLineLayer`             |   bezier line connecting data   |
-| `GraffeinePieLayer`              |   segmented pies and donuts     |
+| `GraffeineRadialLineLayer`       |   lines outward from center     |
+| `GraffeineRadialSegmentLayer`    |   segmented pies and donuts     |
 | `GraffeinePlotLayer`             |   individual plots (points)     |
 | `GraffeineHorizontalLabelLayer`  |   labels arranged horizontally  |
 | `GraffeineVerticalLabelLayer`    |   labels arranged vertically    |
 | `GraffeineBarLabelLayer`         |   labels arranged like bars     |
-| `GraffeinePieLabelLayer`         |   labels arranged circularly    |
+| `GraffeineRadialLabelLayer`      |   labels arranged circularly    |
 | `GraffeinePlotLabelLayer`        |   labels arranged linearly      |
 
 
@@ -120,7 +121,7 @@ and positioning depending on which you specify:
 ### Value Labels
 
 Out-of-the-box, there are several label options: horizontal, vertical, bar,
-plot, and pie. All labels support vertical/horizontal alignment and padding.
+plot, and radial. All labels support vertical/horizontal alignment and padding.
 
 
 ##### Gutter Labels
@@ -150,11 +151,11 @@ bar graphs.
 <br />
 
 
-##### Pie Labels
+##### Radial Labels
 
 ![sample_6](docs/sample_6.png)
 
-The `GraffeinePieLabelLayer` is primarily designed to be used in conjunction with
+The `GraffeineRadialLabelLayer` is primarily designed to be used in conjunction with
 pie and donut charts.
 
 <br />
@@ -182,8 +183,8 @@ It's easy to apply new data to a specific layer by **assignment**:
 Or if you want it to **animate** whenever the data changes:
 
     let data = GraffeineData(values: [1, 2, 3])
-    let animator = GraffeineAnimation.Data.Pie.Spin(duration: 1.2,
-                                                    timing: .easeInEaseOut)
+    let animator = GraffeineAnimation.Data.RadialSegment.Spin(duration: 1.2,
+                                                              timing: .easeInEaseOut)
     
     graffeineView.layer(id: "pie")?.setData(data, animator: animator)
 

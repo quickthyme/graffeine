@@ -1,7 +1,7 @@
 import UIKit
 
-public protocol GraffeinePieDataAnimating: GraffeineDataAnimating {
-    func animate(pieSlice: GraffeinePieLayer.PieSlice,
+public protocol GraffeineRadialSegmentDataAnimating: GraffeineDataAnimating {
+    func animate(pieSlice: GraffeineRadialSegmentLayer.Segment,
                  fromAngles: GraffeineAnglePair,
                  toAngles: GraffeineAnglePair,
                  centerPoint: CGPoint)
@@ -9,7 +9,7 @@ public protocol GraffeinePieDataAnimating: GraffeineDataAnimating {
 
 extension GraffeineAnimation.Data {
 
-    public struct Pie {
+    public struct RadialSegment {
         private init() {}
 
         public static func equalizeAngles(_ startAngles: [CGFloat], _ endAngles: [CGFloat]) -> (start: [CGFloat], end: [CGFloat]) {

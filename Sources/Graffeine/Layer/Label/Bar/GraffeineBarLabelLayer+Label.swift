@@ -14,8 +14,7 @@ extension GraffeineBarLabelLayer {
                              containerSize: CGSize,
                              animator: GraffeineLabelDataAnimating?) {
 
-            let labelsCount = data.labels.count
-            let labelValue = (index < labelsCount) ? (data.labels[index] ?? "") : ""
+            let labelValue = data.preferredLabelValue(index)
             let drawingInfo = unitColumn.drawingInfo(valueHi: data.valuesHi[index] ?? 0,
                                                      valueLo: data.loValueOrZero(index),
                                                      maxValue: data.valueMaxOrHighest,

@@ -1,13 +1,13 @@
 import UIKit
 
-extension GraffeinePieLayer {
+extension GraffeineRadialSegmentLayer {
 
-    open class PieSlice: CAShapeLayer {
+    open class Segment: CAShapeLayer {
 
         public var clockwise: Bool = true
         public var rotation: UInt = 0
-        public var radius: CGFloat = 0
-        public var holeRadius: CGFloat = 0
+        public var outerRadius: CGFloat = 0
+        public var innerRadius: CGFloat = 0
         public var centerOffsetRadius: CGFloat = 0
 
         private var _angles: GraffeineAnglePair = .zero
@@ -16,7 +16,7 @@ extension GraffeinePieLayer {
         open func reposition(for index: Int,
                              in percentages: [CGFloat],
                              centerPoint: CGPoint,
-                             animator: GraffeinePieDataAnimating?) {
+                             animator: GraffeineRadialSegmentDataAnimating?) {
             let rotAngle = rotationAngle()
             let pctAngle = PercentageToRadians(percentages[index], clockwise)
             let startAngle = startingAngle(for: index, in: percentages) + rotAngle
@@ -53,22 +53,22 @@ extension GraffeinePieLayer {
             let offsetCenter = GraffeineAnglePair.point(for: angles.middle,
                                                         center: centerPoint,
                                                         radius: centerOffsetRadius)
-            let offsetRadius = radius - centerOffsetRadius
+            let offsetRadius = outerRadius - centerOffsetRadius
 
             let path = UIBezierPath(arcCenter: offsetCenter,
                                     radius: offsetRadius,
                                     startAngle: angles.start,
                                     endAngle: angles.end,
                                     clockwise: clockwise)
-            if holeRadius == 0 {
+            if innerRadius == 0 {
                 path.addLine(to: offsetCenter)
                 path.close()
             } else {
-                let offsetHoleRadius = holeRadius - centerOffsetRadius
-                let holePoints = angles.points(center: offsetCenter, radius: offsetHoleRadius)
-                path.addLine(to: holePoints.end)
+                let offsetInnerRadius = innerRadius - centerOffsetRadius
+                let innerPoints = angles.points(center: offsetCenter, radius: offsetInnerRadius)
+                path.addLine(to: innerPoints.end)
                 path.addArc(withCenter: offsetCenter,
-                            radius: offsetHoleRadius,
+                            radius: offsetInnerRadius,
                             startAngle: angles.end,
                             endAngle: angles.start,
                             clockwise: !clockwise)
@@ -81,7 +81,6 @@ extension GraffeinePieLayer {
 
         override public init() {
             super.init()
-            self.masksToBounds = true
             self.contentsScale = UIScreen.main.scale
             self.backgroundColor = UIColor.clear.cgColor
             self.frame = CGRect(x: 0, y: 0, width: 10.0, height: 10.0)
@@ -97,8 +96,8 @@ extension GraffeinePieLayer {
             if let layer = layer as? Self {
                 self.clockwise = layer.clockwise
                 self.rotation = layer.rotation
-                self.radius = layer.radius
-                self.holeRadius = layer.holeRadius
+                self.outerRadius = layer.outerRadius
+                self.innerRadius = layer.innerRadius
                 self.centerOffsetRadius = layer.centerOffsetRadius
                 self._angles = layer.angles
             }

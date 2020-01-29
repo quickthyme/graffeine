@@ -12,11 +12,8 @@ extension GraffeinePlotLabelLayer {
                              containerSize: CGSize,
                              animator: GraffeinePlotLabelDataAnimating?) {
 
-            guard
-                (index < data.labels.count),
-                let value = data.values[index],
-                let labelValue = data.labels[index]
-                else {
+            guard (0..<data.labels.count ~= index),
+                let value = data.values[index] else {
                     performWithoutAnimation {
                         self.opacity = 0.0
                         self.string = ""
@@ -24,6 +21,8 @@ extension GraffeinePlotLabelLayer {
                     }
                     return
             }
+
+            let labelValue = data.preferredLabelValue(index)
 
             let valPercent: CGFloat = getPercent(of: value, in: data.valueMaxOrHighest)
 

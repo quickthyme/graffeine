@@ -141,8 +141,8 @@ class GraffeineViewTests: XCTestCase {
         XCTAssert(subject.layers[ 7] is GraffeineLineLayer)
         XCTAssert(subject.layers[ 8] is GraffeineLineLayer)
         XCTAssert(subject.layers[ 9] is GraffeinePlotLayer)
-        XCTAssert(subject.layers[10] is GraffeinePieLayer)
-        XCTAssert(subject.layers[11] is GraffeinePieLabelLayer)
+        XCTAssert(subject.layers[10] is GraffeineRadialSegmentLayer)
+        XCTAssert(subject.layers[11] is GraffeineRadialLabelLayer)
         XCTAssert(subject.layers[12] is GraffeineGridLineLayer)
     }
 

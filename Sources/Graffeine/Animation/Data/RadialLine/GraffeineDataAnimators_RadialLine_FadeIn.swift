@@ -1,8 +1,8 @@
 import UIKit
 
-extension GraffeineAnimation.Data.PieLabel {
+extension GraffeineAnimation.Data.RadialLine {
 
-    public struct Move: GraffeinePieLabelDataAnimating {
+    public struct FadeIn: GraffeineRadialLineDataAnimating {
 
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
@@ -16,22 +16,27 @@ extension GraffeineAnimation.Data.PieLabel {
             self.delayRatio = delayRatio
         }
 
-        public func animate(label: GraffeinePieLabelLayer.Label,
+        public func animate(line: GraffeineRadialLineLayer.Line,
                             fromAngles: GraffeineAnglePair,
                             toAngles: GraffeineAnglePair,
-                            labelPoint: CGPoint,
-                            centerPoint: CGPoint) {
+                            outerPoint: CGPoint,
+                            innerPoint: CGPoint) {
 
-            let currentPoint = label.presentation()?.position ?? centerPoint
+            let toPath = line.constructPath(outerPoint: outerPoint, innerPoint: innerPoint, angles: toAngles)
+
+            line.performWithoutAnimation {
+                line.opacity = 0.0
+                line.path = toPath
+            }
 
             let delayKeyTime = NSNumber(value: delayRatio)
-            let animation = CAKeyframeAnimation(keyPath: "position")
+            let animation = CAKeyframeAnimation(keyPath: "opacity")
             animation.timingFunction  = CAMediaTimingFunction(name: timing)
             animation.duration = duration
-            animation.values = [currentPoint, currentPoint, labelPoint]
+            animation.values = [0.0, 0.0, 1.0]
             animation.keyTimes = [0.0, delayKeyTime, 1.0]
-            label.position = labelPoint
-            label.add(animation, forKey: "GraffeineAnimation.Data.PieLabel.Move")
+            line.opacity = 1.0
+            line.add(animation, forKey: "GraffeineAnimation.Data.RadialLine.FadeIn")
         }
     }
 }

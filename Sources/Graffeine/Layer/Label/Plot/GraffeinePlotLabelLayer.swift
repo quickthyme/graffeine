@@ -39,7 +39,9 @@ open class GraffeinePlotLabelLayer: GraffeineLayer {
 
     open func applyRadialSelectionState(_ label: Label, index: Int) {
         if (data.selectedIndex == index) {
-            if let selectedDiameter = selection.radial.diameter {
+            if let selectedDiameter = selection.radial.outerDiameter {
+                label.diameter = resolveDiameter(diameter: selectedDiameter, bounds: bounds)
+            } else if let selectedDiameter = selection.radial.innerDiameter {
                 label.diameter = resolveDiameter(diameter: selectedDiameter, bounds: bounds)
             }
         }

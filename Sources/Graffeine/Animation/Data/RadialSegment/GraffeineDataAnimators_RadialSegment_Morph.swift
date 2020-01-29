@@ -1,10 +1,10 @@
 import UIKit
 
-extension GraffeineAnimation.Data.Pie {
+extension GraffeineAnimation.Data.RadialSegment {
 
-    public struct Morph: GraffeinePieDataAnimating {
+    public struct Morph: GraffeineRadialSegmentDataAnimating {
 
-        let equalizeAngles = GraffeineAnimation.Data.Pie.equalizeAngles
+        let equalizeAngles = GraffeineAnimation.Data.RadialSegment.equalizeAngles
 
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
@@ -14,7 +14,10 @@ extension GraffeineAnimation.Data.Pie {
             self.timing = timing
         }
 
-        public func animate(pieSlice: GraffeinePieLayer.PieSlice, fromAngles: GraffeineAnglePair, toAngles: GraffeineAnglePair, centerPoint: CGPoint) {
+        public func animate(pieSlice: GraffeineRadialSegmentLayer.Segment,
+                            fromAngles: GraffeineAnglePair,
+                            toAngles: GraffeineAnglePair,
+                            centerPoint: CGPoint) {
 
             let fromPath = pieSlice.presentation()?.path
                 ?? pieSlice.constructPath(centerPoint: centerPoint, angles: fromAngles)
@@ -26,7 +29,7 @@ extension GraffeineAnimation.Data.Pie {
             animation.fromValue = fromPath
             animation.toValue = toPath
             pieSlice.path = toPath
-            pieSlice.add(animation, forKey: "GraffeineAnimation.Data.Pie.Morph")
+            pieSlice.add(animation, forKey: "GraffeineAnimation.Data.RadialSegment.Morph")
         }
     }
 }

@@ -38,8 +38,8 @@ extension GraffeineLayer {
         }
 
         public struct Radial {
-            public var diameter: DimensionalUnit? = nil
-            public var holeDiameter: DimensionalUnit? = nil
+            public var outerDiameter: DimensionalUnit? = nil
+            public var innerDiameter: DimensionalUnit? = nil
             public var centerOffsetDiameter: DimensionalUnit? = nil
         }
 
@@ -70,9 +70,9 @@ extension GraffeineLayer {
         }
 
         if let text = layer as? CATextLayer {
-            if let color = selection.fill.color { text.backgroundColor = color.cgColor }
-            if let color = selection.line.color { text.borderColor = color.cgColor }
-            if let color = selection.text.color { text.foregroundColor = color.cgColor }
+            if let color   = selection.fill.color   { text.backgroundColor = color.cgColor }
+            if let color   = selection.line.color   { text.borderColor = color.cgColor }
+            if let color   = selection.text.color   { text.foregroundColor = color.cgColor }
             if let thickness = selection.line.thickness { text.borderWidth = thickness }
         }
 

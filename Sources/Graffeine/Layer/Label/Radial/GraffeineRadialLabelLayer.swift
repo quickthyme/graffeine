@@ -1,6 +1,6 @@
 import UIKit
 
-open class GraffeinePieLabelLayer: GraffeineLayer {
+open class GraffeineRadialLabelLayer: GraffeineLayer {
 
     public var clockwise: Bool = true
     public var rotation: UInt = 0
@@ -21,7 +21,7 @@ open class GraffeinePieLabelLayer: GraffeineLayer {
 
         for (index, label) in sublayers.enumerated() {
             guard let label = label as? Label, index < numberOfLabels else { continue }
-            let text = data.labelValue(index)
+            let text = data.preferredLabelValue(index)
             label.clockwise = clockwise
             label.rotation = rotation
             label.radius = radius
@@ -40,13 +40,15 @@ open class GraffeinePieLabelLayer: GraffeineLayer {
             label.reposition(for: index,
                              in: percentages,
                              centerPoint: centerPoint,
-                             animator: animator as? GraffeinePieLabelDataAnimating)
+                             animator: animator as? GraffeineRadialLabelDataAnimating)
         }
     }
 
     open func applyRadialSelectionState(_ label: Label, index: Int) {
         if (data.selectedIndex == index) {
-            if let selectedDiameter = selection.radial.diameter {
+            if let selectedDiameter = selection.radial.outerDiameter {
+                label.radius = resolveRadius(diameter: selectedDiameter, bounds: bounds)
+            } else if let selectedDiameter = selection.radial.innerDiameter {
                 label.radius = resolveRadius(diameter: selectedDiameter, bounds: bounds)
             }
         }
@@ -78,7 +80,7 @@ open class GraffeinePieLabelLayer: GraffeineLayer {
     }
 
     @discardableResult
-    override open func apply(_ conf: (GraffeinePieLabelLayer) -> ()) -> GraffeinePieLabelLayer {
+    override open func apply(_ conf: (GraffeineRadialLabelLayer) -> ()) -> GraffeineRadialLabelLayer {
         conf(self)
         return self
     }

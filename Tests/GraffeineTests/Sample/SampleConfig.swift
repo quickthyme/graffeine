@@ -84,12 +84,12 @@ class SampleConfig: GraffeineViewConfig {
                     $0.unitLine.colors = [.brown]
                 }),
 
-            GraffeinePieLayer(id: ID.pie)
+            GraffeineRadialSegmentLayer(id: ID.pie)
                 .apply ({
                     $0.unitFill.colors = [.darkGray, .lightGray]
                 }),
 
-            GraffeinePieLabelLayer(id: ID.pieLabels)
+            GraffeineRadialLabelLayer(id: ID.pieLabels)
                 .apply ({
                     $0.unitText.colors = [.lightGray]
                 }),
