@@ -8,7 +8,7 @@ public protocol GraffeineBarDataAnimating: GraffeineDataAnimating {
                  toSize: CGSize)
 }
 
-extension GraffeineDataAnimators {
+extension GraffeineAnimation.Data {
 
     public struct Bar {
         private init() {}

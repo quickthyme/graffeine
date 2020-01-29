@@ -1,8 +1,8 @@
 import UIKit
 
-extension GraffeineDataAnimators.PlotLabel {
+extension GraffeineAnimation.Data.Plot {
 
-    public struct FadeIn: GraffeinePlotLabelDataAnimating {
+    public struct FadeIn: GraffeinePlotDataAnimating {
 
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
@@ -16,15 +16,13 @@ extension GraffeineDataAnimators.PlotLabel {
             self.delayRatio = delayRatio
         }
 
-        public func animate(label: GraffeinePlotLabelLayer.Label,
-                            toValue: String,
-                            toPosition: CGPoint) {
+        public func animate(plot: GraffeinePlotLayer.Plot,
+                            fromPath: CGPath,
+                            toPath: CGPath) {
 
-            label.performWithoutAnimation {
-                label.opacity = 0.0
-                label.string = toValue
-                label.frame.size = label.preferredFrameSize()
-                label.position = toPosition
+            plot.performWithoutAnimation {
+                plot.opacity = 0.0
+                plot.path = toPath
             }
 
             let delayKeyTime = NSNumber(value: delayRatio)
@@ -33,8 +31,8 @@ extension GraffeineDataAnimators.PlotLabel {
             animation.duration = duration
             animation.values = [0.0, 0.0, 1.0]
             animation.keyTimes = [0.0, delayKeyTime, 1.0]
-            label.opacity = 1.0
-            label.add(animation, forKey: "GraffeineDataAnimators.PlotLabel.FadeIn")
+            plot.opacity = 1.0
+            plot.add(animation, forKey: "GraffeineAnimation.Data.Plot.FadeIn")
         }
     }
 }

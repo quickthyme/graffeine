@@ -1,10 +1,10 @@
 import UIKit
 
-extension GraffeineDataAnimators.Pie {
+extension GraffeineAnimation.Data.Pie {
 
     public struct Morph: GraffeinePieDataAnimating {
 
-        let equalizeAngles = GraffeineDataAnimators.Pie.equalizeAngles
+        let equalizeAngles = GraffeineAnimation.Data.Pie.equalizeAngles
 
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
@@ -26,7 +26,7 @@ extension GraffeineDataAnimators.Pie {
             animation.fromValue = fromPath
             animation.toValue = toPath
             pieSlice.path = toPath
-            pieSlice.add(animation, forKey: "GraffeineDataAnimators.Pie.Morph")
+            pieSlice.add(animation, forKey: "GraffeineAnimation.Data.Pie.Morph")
         }
     }
 }

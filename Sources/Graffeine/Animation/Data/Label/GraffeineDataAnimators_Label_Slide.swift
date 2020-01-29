@@ -1,6 +1,6 @@
 import UIKit
 
-extension GraffeineDataAnimators.Label {
+extension GraffeineAnimation.Data.Label {
 
     public struct Slide: GraffeineLabelDataAnimating {
 
@@ -60,8 +60,8 @@ extension GraffeineDataAnimators.Label {
             label.alignment = toAlignment
             label.padding = toPadding
 
-            label.text.add(animateInternalPosition, forKey: "GraffeineDataAnimators.Label.Slide")
-            label.add(animation, forKey: "GraffeineDataAnimators.Label.Slide")
+            label.text.add(animateInternalPosition, forKey: "GraffeineAnimation.Data.Label.Slide")
+            label.add(animation, forKey: "GraffeineAnimation.Data.Label.Slide")
         }
     }
 }

@@ -1,6 +1,6 @@
 import UIKit
 
-extension GraffeineDataAnimators.Bar {
+extension GraffeineAnimation.Data.Bar {
 
     public struct Grow: GraffeineBarDataAnimating {
 
@@ -28,7 +28,7 @@ extension GraffeineDataAnimators.Bar {
             animation.fromValue = fromPath
             animation.toValue = toPath
             bar.path = toPath
-            bar.add(animation, forKey: "GraffeineDataAnimators.Bar.Grow")
+            bar.add(animation, forKey: "GraffeineAnimation.Data.Bar.Grow")
         }
     }
 }

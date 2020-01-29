@@ -6,7 +6,7 @@ public protocol GraffeinePlotLabelDataAnimating: GraffeineDataAnimating {
                  toPosition: CGPoint)
 }
 
-extension GraffeineDataAnimators {
+extension GraffeineAnimation.Data {
 
     public struct PlotLabel {
         private init() {}

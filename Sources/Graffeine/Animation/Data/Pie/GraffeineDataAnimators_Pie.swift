@@ -7,7 +7,7 @@ public protocol GraffeinePieDataAnimating: GraffeineDataAnimating {
                  centerPoint: CGPoint)
 }
 
-extension GraffeineDataAnimators {
+extension GraffeineAnimation.Data {
 
     public struct Pie {
         private init() {}

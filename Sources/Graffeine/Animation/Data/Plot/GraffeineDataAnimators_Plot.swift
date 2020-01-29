@@ -7,7 +7,7 @@ public protocol GraffeinePlotDataAnimating: GraffeineDataAnimating {
                  toPath: CGPath)
 }
 
-extension GraffeineDataAnimators {
+extension GraffeineAnimation.Data {
 
     public struct Plot {
         private init() {}

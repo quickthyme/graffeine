@@ -8,7 +8,7 @@ public protocol GraffeinePieLabelDataAnimating: GraffeineDataAnimating {
                  centerPoint: CGPoint)
 }
 
-extension GraffeineDataAnimators {
+extension GraffeineAnimation.Data {
 
     public struct PieLabel {
         private init() {}

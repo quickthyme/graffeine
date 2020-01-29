@@ -8,7 +8,7 @@ public protocol GraffeineLabelDataAnimating: GraffeineDataAnimating {
                  toPadding: GraffeineLabel.Padding)
 }
 
-extension GraffeineDataAnimators {
+extension GraffeineAnimation.Data {
 
     public struct Label {
         private init() {}

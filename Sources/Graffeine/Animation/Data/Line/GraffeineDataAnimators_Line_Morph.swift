@@ -1,6 +1,6 @@
 import UIKit
 
-extension GraffeineDataAnimators.Line {
+extension GraffeineAnimation.Data.Line {
 
     public struct Morph: GraffeineLineDataAnimating {
 
@@ -24,7 +24,7 @@ extension GraffeineDataAnimators.Line {
             animation.fromValue = from
             animation.toValue = to
             line.path = to
-            line.add(animation, forKey: "GraffeineDataAnimators.Line.Morph")
+            line.add(animation, forKey: "GraffeineAnimation.Data.Line.Morph")
         }
     }
 }

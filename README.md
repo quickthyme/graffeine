@@ -4,13 +4,13 @@
 [![Build Status](https://travis-ci.com/quickthyme/graffeine.svg?branch=master)](https://travis-ci.com/quickthyme/graffeine)
 ![license](https://img.shields.io/github/license/quickthyme/graffeine.svg?color=black)
 
-**Graffeine** /'gra•feen/ - *n* - Simple, declarative graphs for iOS.
+**Graffeine** /gra•**feen**/ - *n* - Simple, modular graphs for iOS.
 
 ## Introduction
 
 ![sample_1](docs/sample_1.png)
 
-It's like, graphing... with caffeine.
+**It's like, graphing... with caffeine.**
 
 Graffeine is an iOS library that uses CoreAnimation to render various types of data
 graphs and charts. It is highly extendable and features a declarative interface,
@@ -182,8 +182,8 @@ It's easy to apply new data to a specific layer by **assignment**:
 Or if you want it to **animate** whenever the data changes:
 
     let data = GraffeineData(values: [1, 2, 3])
-    let animator = GraffeineDataAnimators.Pie.Spin(duration: 1.2,
-                                                   timing: .easeInEaseOut)
+    let animator = GraffeineAnimation.Data.Pie.Spin(duration: 1.2,
+                                                    timing: .easeInEaseOut)
     
     graffeineView.layer(id: "pie")?.setData(data, animator: animator)
 

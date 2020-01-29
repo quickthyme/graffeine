@@ -1,10 +1,10 @@
 import UIKit
 
-extension GraffeineDataAnimators.Pie {
+extension GraffeineAnimation.Data.Pie {
 
     public struct Spin: GraffeinePieDataAnimating {
 
-        let equalizeAngles = GraffeineDataAnimators.Pie.equalizeAngles
+        let equalizeAngles = GraffeineAnimation.Data.Pie.equalizeAngles
 
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
@@ -23,7 +23,7 @@ extension GraffeineDataAnimators.Pie {
                                                 toAngles: toAngles,
                                                 centerPoint: centerPoint)
             pieSlice.path = pieSlice.constructPath(centerPoint: centerPoint, angles: toAngles)
-            pieSlice.add(animation, forKey: "GraffeineDataAnimators.Pie.Spin")
+            pieSlice.add(animation, forKey: "GraffeineAnimation.Data.Pie.Spin")
         }
 
         private func interpolatePaths(pieSlice: GraffeinePieLayer.PieSlice,

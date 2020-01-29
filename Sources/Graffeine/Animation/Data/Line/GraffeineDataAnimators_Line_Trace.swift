@@ -1,6 +1,6 @@
 import UIKit
 
-extension GraffeineDataAnimators.Line {
+extension GraffeineAnimation.Data.Line {
 
     public struct Trace: GraffeineLineDataAnimating {
 
@@ -8,7 +8,7 @@ extension GraffeineDataAnimators.Line {
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
 
-        public let animationKey: String = "GraffeineDataAnimators.Line.Trace"
+        public let animationKey: String = "GraffeineAnimation.Data.Line.Trace"
 
         internal var animationDelegate: AnimationDelegate = AnimationDelegate()
 
