@@ -1,6 +1,7 @@
 import UIKit
 
 internal let OneDegreeInRadians = (CGFloat.pi / 180)
+internal let HalfDegreeInRadians = (OneDegreeInRadians / 2)
 
 internal let DegreesToRadians: (CGFloat) -> (CGFloat) = {
     return $0 * OneDegreeInRadians

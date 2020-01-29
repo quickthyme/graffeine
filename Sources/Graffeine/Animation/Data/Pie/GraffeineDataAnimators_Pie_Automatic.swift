@@ -30,8 +30,8 @@ extension GraffeineAnimation.Data.Pie {
                                       fromAngles: GraffeineAnglePair,
                                       toAngles: GraffeineAnglePair,
                                       centerPoint: CGPoint) -> [CGPath] {
-            let startStep: CGFloat = (fromAngles.start < toAngles.start) ? OneDegreeInRadians : -OneDegreeInRadians
-            let endStep: CGFloat = (fromAngles.end < toAngles.end) ? OneDegreeInRadians : -OneDegreeInRadians
+            let startStep: CGFloat = (fromAngles.start < toAngles.start) ? HalfDegreeInRadians : -HalfDegreeInRadians
+            let endStep: CGFloat = (fromAngles.end < toAngles.end) ? HalfDegreeInRadians : -HalfDegreeInRadians
             let eqAngles = equalizeAngles(
                 [fromAngles.start]
                     + Array<CGFloat>(stride(from: fromAngles.start,
