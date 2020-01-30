@@ -29,7 +29,7 @@ extension GraffeineLineLayer {
         }
 
         func getPercent(of value: Double, in maxValue: Double) -> CGFloat {
-            return (value < maxValue) ? CGFloat(value / maxValue) : 1.0
+            return CGFloat(value / maxValue)
         }
 
         func constructPath(data: GraffeineData,
