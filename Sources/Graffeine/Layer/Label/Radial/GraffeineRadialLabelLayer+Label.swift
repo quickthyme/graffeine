@@ -2,11 +2,12 @@ import UIKit
 
 extension GraffeineRadialLabelLayer {
 
-    open class Label: CATextLayer {
+    open class Label: GraffeineLabel {
 
         public var clockwise: Bool = true
         public var rotation: UInt = 0
         public var radius: CGFloat = 0
+        public var distributedAlignment = DistributedLabelAlignment(horizontal: .center, vertical: .center)
 
         private var _angles: GraffeineAnglePair = .zero
         public var angles: GraffeineAnglePair { return _angles }
@@ -26,6 +27,10 @@ extension GraffeineRadialLabelLayer {
             let labelPoint = GraffeineAnglePair.point(for: newAngles.middle,
                                                       center: centerPoint,
                                                       radius: radius)
+
+            self.alignment = distributedAlignment.graffeineRadialLabelAlignment(labelPoint: labelPoint,
+                                                                                centerPoint: centerPoint)
+            self.anchorPoint = deriveAnchorPoint()
 
             if let animator = animator {
                 animator.animate(label: self,
@@ -56,6 +61,22 @@ extension GraffeineRadialLabelLayer {
             return ((clockwise) ? angle : (0 - angle))
         }
 
+        private func deriveAnchorPoint() -> CGPoint {
+            let x: CGFloat
+            switch self.alignment.horizontal {
+            case .left:     x = 0
+            case .right:    x = 1
+            case .center:   x = 0.5
+            }
+            let y: CGFloat
+            switch self.alignment.vertical {
+            case .top:      y = 0
+            case .bottom:   y = 1
+            case .center:   y = 0.5
+            }
+            return CGPoint(x: x, y: y)
+        }
+
         override public init() {
             super.init()
             self.contentsScale = UIScreen.main.scale
@@ -64,7 +85,6 @@ extension GraffeineRadialLabelLayer {
             self.frame = CGRect(x: 0, y: 0, width: 10.0, height: 10.0)
             self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             self.fontSize = 12
-            self.alignmentMode = .center
             self.string = ""
         }
 
@@ -78,6 +98,7 @@ extension GraffeineRadialLabelLayer {
                 self.clockwise = layer.clockwise
                 self.rotation = layer.rotation
                 self.radius = layer.radius
+                self.distributedAlignment = layer.distributedAlignment
                 self._angles = layer.angles
             }
         }

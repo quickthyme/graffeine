@@ -13,6 +13,13 @@ extension GraffeineLayer {
             )
         }
 
+        public func graffeineRadialLabelAlignment(labelPoint: CGPoint, centerPoint: CGPoint) -> GraffeineLabel.Alignment {
+            return GraffeineLabel.Alignment(
+                horizontal: horizontal.radialLabelAlignment(labelPoint: labelPoint, centerPoint: centerPoint),
+                vertical: vertical.radialLabelAlignment(labelPoint: labelPoint, centerPoint: centerPoint)
+            )
+        }
+
         public init(horizontal: Horizontal, vertical: Vertical) {
             self.horizontal = horizontal
             self.vertical = vertical
@@ -39,12 +46,30 @@ extension GraffeineLayer {
                     ?? centerLeftRightLabelAlignment(for: index, count: count)
             }
 
+            public func radialLabelAlignment(labelPoint: CGPoint, centerPoint: CGPoint) -> GraffeineLabel.Alignment.Horizontal {
+                return DistributedLabelAlignment.horizontalLabelAlignmentMap[self]
+                    ?? radialCenterLeftRightLabelAlignment(labelPoint: labelPoint, centerPoint: centerPoint)
+            }
+
             internal func centerLeftRightLabelAlignment(for index: Int, count: Int) -> GraffeineLabel.Alignment.Horizontal {
                 switch true {
                 case (index == 0):
                     return .left
                 case (index == count - 1):
                     return .right
+                default:
+                    return .center
+                }
+            }
+
+            internal func radialCenterLeftRightLabelAlignment(labelPoint: CGPoint, centerPoint: CGPoint) -> GraffeineLabel.Alignment.Horizontal {
+                switch true {
+                case (labelPoint.x < centerPoint.x - 22):
+                    return .right
+
+                case (labelPoint.x > centerPoint.x + 22):
+                    return .left
+
                 default:
                     return .center
                 }
@@ -60,12 +85,30 @@ extension GraffeineLayer {
                     ?? centerTopBottomLabelAlignment(for: index, count: count)
             }
 
+            public func radialLabelAlignment(labelPoint: CGPoint, centerPoint: CGPoint) -> GraffeineLabel.Alignment.Vertical {
+                return DistributedLabelAlignment.verticalLabelAlignmentMap[self]
+                    ?? radialCenterTopBottomLabelAlignment(labelPoint: labelPoint, centerPoint: centerPoint)
+            }
+
             internal func centerTopBottomLabelAlignment(for index: Int, count: Int) -> GraffeineLabel.Alignment.Vertical {
                 switch true {
                 case (index == 0):
                     return .top
                 case (index == count - 1):
                     return .bottom
+                default:
+                    return .center
+                }
+            }
+
+            internal func radialCenterTopBottomLabelAlignment(labelPoint: CGPoint, centerPoint: CGPoint) -> GraffeineLabel.Alignment.Vertical {
+                switch true {
+                case (labelPoint.y < centerPoint.y - 22):
+                    return .bottom
+
+                case (labelPoint.y > centerPoint.y + 22):
+                    return .top
+
                 default:
                     return .center
                 }

@@ -6,6 +6,8 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
     public var rotation: UInt = 0
     public var diameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
     public var unitText: UnitText = UnitText()
+    public var labelPadding = GraffeineLabel.Padding()
+    public var labelAlignment = DistributedLabelAlignment(horizontal: .center, vertical: .center)
 
     override open func generateSublayer() -> CALayer {
         return Label()
@@ -26,6 +28,9 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             label.rotation = rotation
             label.radius = radius
             label.string = text
+            label.frame.size = label.sizeFittingText
+            label.padding = labelPadding
+            label.distributedAlignment = labelAlignment
 
             unitFill.apply(to: label, index: index)
             unitLine.apply(to: label, index: index)
@@ -36,7 +41,6 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             applySelectionState(label, index: index)
             applyRadialSelectionState(label, index: index)
 
-            label.frame.size = label.preferredFrameSize()
             label.reposition(for: index,
                              in: percentages,
                              centerPoint: centerPoint,
@@ -51,6 +55,7 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             } else if let selectedDiameter = selection.radial.innerDiameter {
                 label.radius = resolveRadius(diameter: selectedDiameter, bounds: bounds)
             }
+            if let alignment = selection.text.alignment { label.distributedAlignment = alignment }
         }
     }
 
@@ -76,6 +81,8 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             self.rotation = layer.rotation
             self.diameter = layer.diameter
             self.unitText = layer.unitText
+            self.labelPadding = layer.labelPadding
+            self.labelAlignment = layer.labelAlignment
         }
     }
 

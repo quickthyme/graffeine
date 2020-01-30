@@ -52,6 +52,7 @@ extension GraffeineLayer {
 
         public struct Text {
             public var color: UIColor? = nil
+            public var alignment: DistributedLabelAlignment? = nil
         }
     }
 

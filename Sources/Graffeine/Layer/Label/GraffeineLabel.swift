@@ -147,6 +147,10 @@ open class GraffeineLabel: CALayer {
         }
     }
 
+    public var sizeFittingText: CGSize {
+        return text.preferredFrameSize()
+    }
+
     override open class func needsDisplay(forKey key: String) -> Bool {
         return key == "alignment"
             || key == "padding"

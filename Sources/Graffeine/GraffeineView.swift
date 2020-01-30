@@ -18,6 +18,10 @@ open class GraffeineView: UIView {
         set { self.layer.rasterizationScale = newValue }
     }
 
+    public func pauseAllAnimations() {
+        self.layer.removeAllAnimations()
+    }
+
     public var onSelect: OnSelect? = nil
 
     public var layers: [GraffeineLayer] {
@@ -35,6 +39,10 @@ open class GraffeineView: UIView {
                 self.layer.addSublayer(layer)
             }
         }
+    }
+
+    internal var notificationCenter: NotificationCenterInterface {
+        return NotificationCenter.default
     }
 
     public func layer(id: AnyHashable) -> GraffeineLayer? {
@@ -57,6 +65,7 @@ open class GraffeineView: UIView {
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
+        self.setupNotifications()
     }
 
     required public init?(coder: NSCoder) {
@@ -66,12 +75,17 @@ open class GraffeineView: UIView {
     public convenience init(frame: CGRect, configClass: String) {
         self.init(frame: frame)
         self.configClass = configClass
-        loadConfig()
+        self.loadConfig()
     }
 
     override open func awakeFromNib() {
         super.awakeFromNib()
-        loadConfig()
+        self.loadConfig()
+        self.setupNotifications()
+    }
+
+    deinit {
+        self.tearDownNotifications()
     }
 
     private func loadConfig() {
