@@ -12,17 +12,17 @@ extension GraffeineLayer {
         }
 
         public func apply(to target: CAShapeLayer, index: Int = 0) {
-            target.fillColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
+            target.fillColor = Color.retrieve(at: index, cyclingThrough: colors)
             target.opacity = Float(opacity)
         }
 
         public func apply(to target: CATextLayer, index: Int = 0) {
-            target.backgroundColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
+            target.backgroundColor = Color.retrieve(at: index, cyclingThrough: colors)
             target.opacity = Float(opacity)
         }
 
         public func apply(to target: GraffeineLabel, index: Int = 0) {
-            target.backgroundColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
+            target.backgroundColor = Color.retrieve(at: index, cyclingThrough: colors)
             target.opacity = Float(opacity)
         }
     }

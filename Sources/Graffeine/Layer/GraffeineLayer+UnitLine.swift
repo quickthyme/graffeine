@@ -27,7 +27,7 @@ extension GraffeineLayer {
         }
 
         public func apply(to target: CAShapeLayer, index: Int = 0) {
-            target.strokeColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
+            target.strokeColor = Color.retrieve(at: index, cyclingThrough: colors)
             target.lineWidth = self.thickness
             target.lineDashPattern = self.dashPattern
             target.lineDashPhase = self.dashPhase
@@ -36,12 +36,12 @@ extension GraffeineLayer {
         }
 
         public func apply(to target: CATextLayer, index: Int = 0) {
-            target.borderColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
+            target.borderColor = Color.retrieve(at: index, cyclingThrough: colors)
             target.borderWidth = self.thickness
         }
 
         public func apply(to target: GraffeineLabel, index: Int = 0) {
-            target.borderColor = ColorIndex.retrieve(at: index, cyclingThrough: colors)
+            target.borderColor = Color.retrieve(at: index, cyclingThrough: colors)
             target.borderWidth = self.thickness
         }
     }

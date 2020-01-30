@@ -24,11 +24,13 @@ extension GraffeineLayer {
         public var animation: CAAnimation? = nil
 
         public struct Fill {
+            public var modifyColor: ((CGColor?) -> (CGColor?))? = nil
             public var color: UIColor? = nil
             public var opacity: CGFloat? = nil
         }
 
         public struct Line {
+            public var modifyColor: ((CGColor?) -> (CGColor?))? = nil
             public var color: UIColor? = nil
             public var thickness: CGFloat? = nil
             public var dashPattern: [NSNumber]? = nil
@@ -51,6 +53,7 @@ extension GraffeineLayer {
         }
 
         public struct Text {
+            public var modifyColor: ((CGColor?) -> (CGColor?))? = nil
             public var color: UIColor? = nil
             public var alignment: DistributedLabelAlignment? = nil
         }
@@ -61,7 +64,8 @@ extension GraffeineLayer {
 
         if let shape = layer as? CAShapeLayer {
             if let color = selection.fill.color { shape.fillColor = color.cgColor }
-
+            if let modifier = selection.fill.modifyColor { shape.fillColor = modifier(shape.fillColor) }
+            if let modifier = selection.line.modifyColor { shape.strokeColor = modifier(shape.strokeColor) }
             if let color = selection.line.color { shape.strokeColor = color.cgColor }
             if let thickness = selection.line.thickness { shape.lineWidth = thickness }
             if let dashPattern = selection.line.dashPattern { shape.lineDashPattern = dashPattern }
@@ -74,6 +78,7 @@ extension GraffeineLayer {
             if let color   = selection.fill.color   { text.backgroundColor = color.cgColor }
             if let color   = selection.line.color   { text.borderColor = color.cgColor }
             if let color   = selection.text.color   { text.foregroundColor = color.cgColor }
+            if let modifier = selection.text.modifyColor { text.foregroundColor = modifier(text.foregroundColor) }
             if let thickness = selection.line.thickness { text.borderWidth = thickness }
         }
 
@@ -81,6 +86,7 @@ extension GraffeineLayer {
             if let color = selection.fill.color { label.backgroundColor = color.cgColor }
             if let color = selection.line.color { label.borderColor = color.cgColor }
             if let color = selection.text.color { label.foregroundColor = color.cgColor }
+            if let modifier = selection.text.modifyColor { label.foregroundColor = modifier(label.foregroundColor) }
             if let thickness = selection.line.thickness { label.borderWidth = thickness }
         }
 
