@@ -24,7 +24,7 @@ extension GraffeinePlotLabelLayer {
 
             let labelValue = data.preferredLabelValue(index)
 
-            let valPercent: CGFloat = getPercent(of: value, in: data.valueMaxOrHighest)
+            let valPercent: CGFloat = GraffeineData.getPercent(of: value, in: data.valueMaxOrHighest)
 
             let numberOfUnitsAdjustedForPlotOffset = data.values.count - 1
 
@@ -46,10 +46,6 @@ extension GraffeinePlotLabelLayer {
                     self.opacity = 1.0
                 }
             }
-        }
-
-        func getPercent(of value: Double, in maxValue: Double) -> CGFloat {
-            return (value < maxValue) ? CGFloat(value / maxValue) : 1.0
         }
 
         override public init() {

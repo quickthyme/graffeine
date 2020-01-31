@@ -28,10 +28,6 @@ extension GraffeineLineLayer {
             }
         }
 
-        func getPercent(of value: Double, in maxValue: Double) -> CGFloat {
-            return CGFloat(value / maxValue)
-        }
-
         func constructPath(data: GraffeineData,
                            containerSize: CGSize,
                            smoothing: Smoothing) -> CGPath {
@@ -49,7 +45,7 @@ extension GraffeineLineLayer {
                     continue
                 }
 
-                let valPercent: CGFloat = getPercent(of: value, in: maxValue)
+                let valPercent: CGFloat = GraffeineData.getPercent(of: value, in: maxValue)
 
                 let numberOfUnitsAdjustedForLineOffset = data.values.count - 1
 

@@ -92,8 +92,8 @@ open class GraffeineLayer: CALayer {
     open func removeSublayersFromEnd(_ n: Int) {
         guard (self.sublayers != nil) else { return }
         let targetCount = max(sublayers!.count - n, 0)
-        while (sublayers!.count > targetCount) {
-            sublayers!.last!.removeFromSuperlayer()
+        while ((sublayers?.count ?? 0) > targetCount) {
+            sublayers?.last?.removeFromSuperlayer()
         }
     }
 
