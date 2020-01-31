@@ -24,7 +24,7 @@ public struct GraffeinePlotLayerColumnPositioner: GraffeinePlotLayerPositioning 
                                                   numberOfUnits: numberOfUnitsAdjustedForPlotOffset)
 
         let newPosition = CGPoint(
-            x: (CGFloat(index) * (width + plot.unitColumn.margin)),
+            x: plot.unitColumn.resolvedOffset(index: index, actualWidth: width),
             y: containerSize.height - (containerSize.height * valPercent)
         )
 

@@ -3,8 +3,11 @@ import UIKit
 open class GraffeinePlotLabelLayer: GraffeineLayer {
 
     public var unitText: UnitText = UnitText()
-
     public var diameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
+    public var positioner: Positioner = .column
+    public var labelPadding = GraffeineLabel.Padding()
+    public var labelAlignment = GraffeineLabel.Alignment(horizontal: .center,
+                                                         vertical: .center)
 
     override open func generateSublayer() -> CALayer {
         return Label()
@@ -21,6 +24,9 @@ open class GraffeinePlotLabelLayer: GraffeineLayer {
             label.unitColumn = unitColumn
             label.diameter = resolveDiameter(diameter: diameter, bounds: bounds)
 
+            label.padding = labelPadding
+            label.alignment = labelAlignment
+
             unitFill.apply(to: label, index: index)
             unitLine.apply(to: label, index: index)
             unitText.apply(to: label, index: index)
@@ -30,10 +36,11 @@ open class GraffeinePlotLabelLayer: GraffeineLayer {
             applySelectionState(label, index: index)
             applyRadialSelectionState(label, index: index)
 
-            label.reposition(for: index,
-                             in: data,
-                             containerSize: bounds.size,
-                             animator: animator as? GraffeinePlotLabelDataAnimating)
+            positioner.get().reposition(label: label,
+                                        for: index,
+                                        in: data,
+                                        containerSize: bounds.size,
+                                        animator: animator as? GraffeinePlotLabelDataAnimating)
         }
     }
 
@@ -67,6 +74,9 @@ open class GraffeinePlotLabelLayer: GraffeineLayer {
         if let layer = layer as? Self {
             self.unitText = layer.unitText
             self.diameter = layer.diameter
+            self.positioner = layer.positioner
+            self.labelPadding = layer.labelPadding
+            self.labelAlignment = layer.labelAlignment
         }
     }
 

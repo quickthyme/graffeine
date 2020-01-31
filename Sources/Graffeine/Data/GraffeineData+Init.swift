@@ -162,15 +162,20 @@ extension GraffeineData {
     }
 
     public init(coordinates: [(x: Double, y: Double)],
+                labels: [String?],
                 selectedIndex: Int?) {
 
-        let sXY = GraffeineData.invertPairs(coordinates)
-
-        self.init(valueMax: nil,
-                  valuesHi: sXY.0,
-                  valuesLo: sXY.1,
-                  labels: [],
+        self.init(coordinates: coordinates,
+                  labels: labels,
                   selectedLabels: [],
+                  selectedIndex: selectedIndex)
+    }
+
+    public init(coordinates: [(x: Double, y: Double)],
+                selectedIndex: Int?) {
+
+        self.init(coordinates: coordinates,
+                  labels: [],
                   selectedIndex: selectedIndex)
     }
 }
