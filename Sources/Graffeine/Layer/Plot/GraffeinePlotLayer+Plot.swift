@@ -7,55 +7,6 @@ extension GraffeinePlotLayer {
         public var unitColumn: UnitColumn = UnitColumn()
         public var diameter: CGFloat = 0.0
 
-        open func reposition(for index: Int,
-                             in data: GraffeineData,
-                             containerSize: CGSize,
-                             animator: GraffeinePlotDataAnimating?) {
-
-            guard let value = data.values[index] else {
-                performWithoutAnimation {
-                    self.opacity = 0.0
-                    self.position = .zero
-                }
-                return
-            }
-
-            let valPercent: CGFloat = getPercent(of: value, in: data.valueMaxOrHighest)
-
-            let numberOfUnitsAdjustedForPlotOffset = data.values.count - 1
-
-            let width = unitColumn.resolvedWidth(within: containerSize.width,
-                                                 numberOfUnits: numberOfUnitsAdjustedForPlotOffset)
-
-            let newPosition = CGPoint(
-                x: (CGFloat(index) * (width + unitColumn.margin)),
-                y: containerSize.height - (containerSize.height * valPercent)
-            )
-
-            let newRadius = (diameter / 2)
-
-            let newPath = UIBezierPath(arcCenter: newPosition,
-                                       radius: newRadius,
-                                       startAngle: 0,
-                                       endAngle: DegreesToRadians(360),
-                                       clockwise: true).cgPath
-
-            if let animator = animator {
-                animator.animate(plot: self,
-                                 fromPath: self.path ?? newPath,
-                                 toPath: newPath)
-            } else {
-                performWithoutAnimation {
-                    self.path = newPath
-                    self.opacity = 1.0
-                }
-            }
-        }
-
-        func getPercent(of value: Double, in maxValue: Double) -> CGFloat {
-            return (value < maxValue) ? CGFloat(value / maxValue) : 1.0
-        }
-
         override public init() {
             super.init()
             self.contentsScale = UIScreen.main.scale

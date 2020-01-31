@@ -2,9 +2,9 @@ import UIKit
 
 open class GraffeinePlotLayer: GraffeineLayer {
 
-    public var unitWidth: GraffeineLayer.DimensionalUnit = .relative
-
+    public var unitWidth: DimensionalUnit = .relative
     public var diameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
+    public var positioner: Positioner = .column
 
     override open func generateSublayer() -> CALayer {
         return Plot()
@@ -29,10 +29,11 @@ open class GraffeinePlotLayer: GraffeineLayer {
             applySelectionState(plot, index: index)
             applyRadialSelectionState(plot, index: index)
 
-            plot.reposition(for: index,
-                            in: data,
-                            containerSize: bounds.size,
-                            animator: animator as? GraffeinePlotDataAnimating)
+            positioner.get().reposition(plot: plot,
+                                        for: index,
+                                        in: data,
+                                        containerSize: bounds.size,
+                                        animator: animator as? GraffeinePlotDataAnimating)
         }
     }
 
@@ -66,6 +67,7 @@ open class GraffeinePlotLayer: GraffeineLayer {
         if let layer = layer as? Self {
             self.unitWidth = layer.unitWidth
             self.diameter = layer.diameter
+            self.positioner = layer.positioner
         }
     }
 
