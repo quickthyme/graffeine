@@ -10,6 +10,7 @@ open class GraffeineLineLayer: GraffeineLayer {
 
     public var unitWidth: GraffeineLayer.DimensionalUnit = .relative
     public var smoothing: Smoothing = .none
+    public var positioner: Positioner = .column
 
     override open var expectedNumberOfSublayers: Int {
         return 1
@@ -34,10 +35,11 @@ open class GraffeineLineLayer: GraffeineLayer {
             applySelectionState(line, index: selectedIndex)
         }
 
-        line.reposition(data: data,
-                        containerSize: bounds.size,
-                        smoothing: smoothing,
-                        animator: animator as? GraffeineLineDataAnimating)
+        positioner.get().reposition(line: line,
+                                    data: data,
+                                    containerSize: bounds.size,
+                                    smoothing: smoothing,
+                                    animator: animator as? GraffeineLineDataAnimating)
     }
 
     override public init() {
@@ -60,6 +62,7 @@ open class GraffeineLineLayer: GraffeineLayer {
         if let layer = layer as? Self {
             self.unitWidth = layer.unitWidth
             self.smoothing = layer.smoothing
+            self.positioner = layer.positioner
         }
     }
 
