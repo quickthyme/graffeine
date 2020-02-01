@@ -12,7 +12,7 @@ open class GraffeinePlotLayer: GraffeineLayer {
 
     override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
-        let numberOfUnits = data.values.count
+        let numberOfUnits = data.values.hi.count
 
         for (index, plot) in sublayers.enumerated() {
             guard let plot = plot as? Plot, index < numberOfUnits else { continue }
@@ -38,7 +38,7 @@ open class GraffeinePlotLayer: GraffeineLayer {
     }
 
     open func applyRadialSelectionState(_ plot: Plot, index: Int) {
-        if (data.selectedIndex == index) {
+        if (data.selected.index == index) {
             if let selectedDiameter = selection.radial.outerDiameter {
                 plot.diameter = resolveDiameter(diameter: selectedDiameter, bounds: bounds)
             } else if let selectedDiameter = selection.radial.innerDiameter {
@@ -49,7 +49,6 @@ open class GraffeinePlotLayer: GraffeineLayer {
 
     override public init() {
         super.init()
-        self.contentsScale = UIScreen.main.scale
     }
 
     public convenience init(id: AnyHashable, region: Region = .main) {

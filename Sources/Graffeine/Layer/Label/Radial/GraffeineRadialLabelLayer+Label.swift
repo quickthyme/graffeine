@@ -79,7 +79,6 @@ extension GraffeineRadialLabelLayer {
 
         override public init() {
             super.init()
-            self.contentsScale = UIScreen.main.scale
             self.backgroundColor = UIColor.clear.cgColor
             self.foregroundColor = UIColor.darkGray.cgColor
             self.frame = CGRect(x: 0, y: 0, width: 10.0, height: 10.0)

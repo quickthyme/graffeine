@@ -20,8 +20,24 @@ class GraffeinePlotLayerTests: XCTestCase {
         XCTAssertNotNil(subject)
     }
 
-    func test_given_data_with_7_values_then_it_should_have_7_sublayer_plots() {
+    func test_given_data_then_it_should_have_correctly_positioned_plots() {
         sampleData.applyVectorPlots(to: graffeineView)
+        graffeineView.layoutIfNeeded()
+        let plots = subject.sublayers as! [GraffeinePlotLayer.Plot]
+
+        XCTAssertEqual(plots.count, 7)
+        XCTAssertEqual(normalized(plots[ 0].path!.boundingBoxOfPath), CGRect(x:  -4.00, y: 154.00, width: 8.00, height:  8.00))
+        XCTAssertEqual(normalized(plots[ 1].path!.boundingBoxOfPath), CGRect(x:  14.00, y: 146.10, width: 8.00, height:  8.00))
+        XCTAssertEqual(normalized(plots[ 2].path!.boundingBoxOfPath), CGRect(x:  32.00, y: 130.30, width: 8.00, height:  8.00))
+        XCTAssertEqual(normalized(plots[ 3].path!.boundingBoxOfPath), CGRect(x:  50.00, y: 122.40, width: 8.00, height:  8.00))
+        XCTAssertEqual(normalized(plots[ 4].path!.boundingBoxOfPath), CGRect(x:  68.00, y:  75.00, width: 8.00, height:  8.00))
+        XCTAssertEqual(normalized(plots[ 5].path!.boundingBoxOfPath), CGRect(x:  86.00, y:  35.50, width: 8.00, height:  8.00))
+        XCTAssertEqual(normalized(plots[ 6].path!.boundingBoxOfPath), CGRect(x: 104.00, y:  -4.00, width: 8.00, height:  8.00))
+    }
+
+    func test_given_unitColumn_reduceByOne_is_true_then_it_should_have_correctly_positioned_plots() {
+        sampleData.applyVectorPlots(to: graffeineView)
+        subject.unitColumn.reducedByOne = true
         graffeineView.layoutIfNeeded()
         let plots = subject.sublayers as! [GraffeinePlotLayer.Plot]
 

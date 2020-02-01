@@ -12,19 +12,25 @@ extension GraffeineLayer {
         public var width: DimensionalUnit = .relative
         public var subdivision: UnitSubdivision = UnitSubdivision()
         public var margin: CGFloat = 0.0
+        public var reducedByOne: Bool = false
 
         public init() {}
 
-        public init(width: DimensionalUnit, subdivision: UnitSubdivision, margin: CGFloat) {
+        public init(width: DimensionalUnit,
+                    subdivision: UnitSubdivision,
+                    margin: CGFloat,
+                    reducedByOne: Bool = false) {
             self.width = width
             self.subdivision = subdivision
             self.margin = margin
+            self.reducedByOne = reducedByOne
         }
 
         public func resolvedWidth(within boundary: CGFloat, numberOfUnits: Int = 1) -> CGFloat {
             return width.resolved(within: boundary,
                                   numberOfUnits: numberOfUnits,
-                                  unitMargin: margin)
+                                  unitMargin: margin,
+                                  reducedByOne: reducedByOne)
         }
 
         public func resolvedOffset(index: Int, actualWidth: CGFloat) -> CGFloat {

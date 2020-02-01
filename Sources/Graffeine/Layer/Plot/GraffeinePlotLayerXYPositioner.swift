@@ -10,16 +10,16 @@ public struct GraffeinePlotLayerXYPositioner: GraffeinePlotLayerPositioning {
                            containerSize: CGSize,
                            animator: GraffeinePlotDataAnimating?) {
         guard
-            let X = data.valuesHi[index],
-            let Y = data.valuesLo[index] else {
+            let X = data.values.hi[index],
+            let Y = data.values.lo[index] else {
                 plot.performWithoutAnimation {
                     plot.opacity = 0.0
                 }
                 return
         }
 
-        let Xmax: Double = data.valuesHi.compactMap({ $0 }).max() ?? 1
-        let Ymax: Double = data.valuesLo.compactMap({ $0 }).max() ?? 1
+        let Xmax: Double = data.values.hi.compactMap({ $0 }).max() ?? 1
+        let Ymax: Double = data.values.lo.compactMap({ $0 }).max() ?? 1
 
         let pctX: CGFloat = GraffeineData.getPercent(of: X, in: Xmax)
         let pctY: CGFloat = GraffeineData.getPercent(of: Y, in: Ymax)

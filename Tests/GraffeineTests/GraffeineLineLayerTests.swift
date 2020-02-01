@@ -20,10 +20,10 @@ class GraffeineLineLayerTests: XCTestCase {
         XCTAssertNotNil(subject)
     }
 
-    func test_given_data_with_11_values_then_it_should_have_1_sublayer_line() {
+    func test_given_data_with_11_values_then_it_should_have_2_sublayer_lines() {
         sampleData.applyGreenLine(to: graffeineView)
         graffeineView.layoutIfNeeded()
-        XCTAssertEqual(subject.sublayers!.count, 1)
+        XCTAssertEqual(subject.sublayers!.count, 2)
     }
 
     func test_line_properties_pass_through_to_line_shape_layer() {
@@ -36,7 +36,7 @@ class GraffeineLineLayerTests: XCTestCase {
             $0.unitLine.cap = .square
         }
         graffeineView.layoutIfNeeded()
-        let lineShape = subject.sublayers!.first as! GraffeineLineLayer.Line
+        let lineShape = subject.sublayers!.last as! GraffeineLineLayer.Line
         XCTAssertEqual(lineShape.lineWidth, 10)
         XCTAssertEqual(lineShape.lineDashPattern, [2, 4])
         XCTAssertEqual(lineShape.lineDashPhase,  2)
@@ -52,7 +52,7 @@ class GraffeineLineLayerTests: XCTestCase {
             $0.smoothing = .catmullRom(6)
         }
         graffeineView.layoutIfNeeded()
-        let lineShape = subject.sublayers!.first as! GraffeineLineLayer.Line
+        let lineShape = subject.sublayers!.last as! GraffeineLineLayer.Line
         let linePath = UIBezierPath.init(cgPath: lineShape.path!)
         let linePoints = mockSmoother.extractPoints(from: linePath)
         XCTAssertEqual(linePoints.count, 62)

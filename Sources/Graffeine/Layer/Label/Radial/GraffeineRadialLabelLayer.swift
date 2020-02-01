@@ -16,9 +16,9 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
     override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let centerPoint = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-        let numberOfLabels = data.values.count
-        let total = data.valueMaxOrSum
-        let percentages = data.values.map { CGFloat( ($0 ?? 0) / total ) }
+        let numberOfLabels = data.values.hi.count
+        let total = data.valueMaxOrSumHi
+        let percentages = data.values.hi.map { CGFloat( ($0 ?? 0) / total ) }
         let radius = resolveRadius(diameter: diameter, bounds: bounds)
 
         for (index, label) in sublayers.enumerated() {
@@ -49,7 +49,7 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
     }
 
     open func applyRadialSelectionState(_ label: Label, index: Int) {
-        if (data.selectedIndex == index) {
+        if (data.selected.index == index) {
             if let selectedDiameter = selection.radial.outerDiameter {
                 label.radius = resolveRadius(diameter: selectedDiameter, bounds: bounds)
             } else if let selectedDiameter = selection.radial.innerDiameter {
@@ -61,7 +61,6 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
 
     override public init() {
         super.init()
-        self.contentsScale = UIScreen.main.scale
     }
 
     public convenience init(id: AnyHashable, region: Region = .main) {

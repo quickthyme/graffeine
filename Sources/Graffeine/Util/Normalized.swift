@@ -1,6 +1,6 @@
 import UIKit
 
-internal func normalized(_ val: CGFloat) -> CGFloat {
+internal func normalized<T: FloatingPoint>(_ val: T) -> T {
     return floor(val * 100) / 100
 }
 

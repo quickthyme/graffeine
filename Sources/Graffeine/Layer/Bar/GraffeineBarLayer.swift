@@ -12,7 +12,7 @@ open class GraffeineBarLayer: GraffeineLayer {
 
     override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
-        let numberOfUnits = data.valuesHi.count
+        let numberOfUnits = data.values.hi.count
 
         for (index, bar) in sublayers.enumerated() {
             guard let bar = bar as? Bar, index < numberOfUnits else { continue }
@@ -60,7 +60,6 @@ open class GraffeineBarLayer: GraffeineLayer {
 
     override public init() {
         super.init()
-        self.contentsScale = UIScreen.main.scale
     }
 
     public convenience init(id: AnyHashable, region: Region = .main) {

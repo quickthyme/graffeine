@@ -10,7 +10,7 @@ extension GraffeineGridLineLayer {
                              in data: GraffeineData,
                              containerSize: CGSize) {
 
-            guard let value = data.values[index] else {
+            guard let value = data.values.hi[index] else {
                 performWithoutAnimation {
                     self.frame.size.width = 1.0
                     self.frame.size.height = 0.0
@@ -20,7 +20,7 @@ extension GraffeineGridLineLayer {
             }
 
             let translatedContainerSize = translatedSize(containerSize)
-            let maxVal = data.valueMaxOrHighest
+            let maxVal = data.valueMaxOrHighestHi
 
             let valPercentInverted: CGFloat = (value <= maxVal)
                 ? 1.0 - CGFloat(value / maxVal)

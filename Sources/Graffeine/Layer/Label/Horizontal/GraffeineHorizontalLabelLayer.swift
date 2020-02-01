@@ -5,7 +5,7 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
     public var unitText: UnitText = UnitText()
 
     public var labelPadding = GraffeineLabel.Padding()
-    public var labelAlignment = DistributedLabelAlignment(horizontal: .centerLeftRight,
+    public var labelAlignment = DistributedLabelAlignment(horizontal: .center,
                                                           vertical: .center)
 
     override open var expectedNumberOfSublayers: Int {
@@ -43,7 +43,6 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
 
     override public init() {
         super.init()
-        self.contentsScale = UIScreen.main.scale
     }
 
     public convenience init(id: AnyHashable, height: CGFloat, region: Region = .bottomGutter) {

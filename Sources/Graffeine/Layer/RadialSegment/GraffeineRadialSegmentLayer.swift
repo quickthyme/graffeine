@@ -15,9 +15,9 @@ open class GraffeineRadialSegmentLayer: GraffeineLayer {
     override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
         guard let sublayers = self.sublayers, (!sublayers.isEmpty) else { return }
         let centerPoint = CGPoint(x: bounds.size.width / 2, y: bounds.size.height / 2)
-        let numberOfSegments = data.values.count
-        let total = data.valueMaxOrSum
-        let percentages = data.values.map { CGFloat( ($0 ?? 0) / total ) }
+        let numberOfSegments = data.values.hi.count
+        let total = data.valueMaxOrSumHi
+        let percentages = data.values.hi.map { CGFloat( ($0 ?? 0) / total ) }
         let outerRadius = resolveRadius(diameter: outerDiameter, bounds: bounds)
         let innerRadius = resolveRadius(diameter: innerDiameter, bounds: bounds)
         let centerOffsetRadius = resolveRadius(diameter: centerOffsetDiameter, bounds: bounds)
@@ -47,7 +47,7 @@ open class GraffeineRadialSegmentLayer: GraffeineLayer {
     }
 
     open func applyRadialSelectionState(_ segment: Segment, index: Int) {
-        if (data.selectedIndex == index) {
+        if (data.selected.index == index) {
             if let selectedDiameter = selection.radial.outerDiameter {
                 segment.outerRadius = resolveRadius(diameter: selectedDiameter, bounds: bounds)
             }
@@ -64,7 +64,6 @@ open class GraffeineRadialSegmentLayer: GraffeineLayer {
 
     override public init() {
         super.init()
-        self.contentsScale = UIScreen.main.scale
     }
 
     public convenience init(id: AnyHashable, region: Region = .main) {

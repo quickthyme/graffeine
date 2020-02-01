@@ -44,7 +44,7 @@ class SampleConfig: GraffeineViewConfig {
                     $0.unitLine.colors = [.lightGray]
                     $0.unitLine.dashPattern = [1, 3]
                     $0.unitLine.thickness = 0.5
-                    $0.data = GraffeineData(valueMax: 20, values: [2, 4, 6, 8, 12, 14, 16, 18])
+                    $0.data = GraffeineData(valueMax: 20, valuesHi: [2, 4, 6, 8, 12, 14, 16, 18])
                 }),
 
             GraffeineBarLayer(id: ID.colorBars)
@@ -98,7 +98,7 @@ class SampleConfig: GraffeineViewConfig {
                 .apply ({
                     $0.unitLine.colors = [.darkGray]
                     $0.unitLine.thickness = 1.0
-                    $0.data = GraffeineData(valueMax: 20, values: [0, 10, 20])
+                    $0.data = GraffeineData(valueMax: 20, valuesHi: [0, 10, 20])
                 })
         ]
     }

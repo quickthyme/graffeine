@@ -13,7 +13,7 @@ open class GraffeineLineLayer: GraffeineLayer {
     public var positioner: Positioner = .column
 
     override open var expectedNumberOfSublayers: Int {
-        return 1
+        return 2
     }
 
     override open func generateSublayer() -> CALayer {
@@ -21,21 +21,23 @@ open class GraffeineLineLayer: GraffeineLayer {
     }
 
     override open func repositionSublayers(animator: GraffeineDataAnimating? = nil) {
-        guard let line = self.sublayers?.first(where: { $0 is Line }) as? Line
+        guard
+            let fill = sublayers?.first as? Line,
+            let line = sublayers?.last as? Line
             else { return }
 
         line.unitColumn = unitColumn
-
-        unitFill.apply(to: line)
+        fill.unitColumn = unitColumn
+        unitFill.apply(to: fill)
         unitLine.apply(to: line)
         unitShadow.apply(to: line)
         unitAnimation.apply(to: line)
-
-        if let selectedIndex = data.selectedIndex {
+        if let selectedIndex = data.selected.index {
             applySelectionState(line, index: selectedIndex)
         }
 
         positioner.get().reposition(line: line,
+                                    fill: fill,
                                     data: data,
                                     containerSize: bounds.size,
                                     smoothing: smoothing,
@@ -44,7 +46,7 @@ open class GraffeineLineLayer: GraffeineLayer {
 
     override public init() {
         super.init()
-        self.contentsScale = UIScreen.main.scale
+        self.unitColumn.reducedByOne = true
     }
 
     public convenience init(id: AnyHashable, region: Region = .main) {

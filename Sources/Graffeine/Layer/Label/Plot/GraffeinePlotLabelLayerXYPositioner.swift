@@ -12,8 +12,8 @@ public struct GraffeinePlotLabelLayerXYPositioner: GraffeinePlotLabelLayerPositi
 
         guard
             (0..<data.labels.count ~= index),
-            let X = data.valuesHi[index],
-            let Y = data.valuesLo[index] else {
+            let X = data.values.hi[index],
+            let Y = data.values.lo[index] else {
                 label.performWithoutAnimation {
                     label.opacity = 0.0
                     label.string = ""
@@ -23,8 +23,8 @@ public struct GraffeinePlotLabelLayerXYPositioner: GraffeinePlotLabelLayerPositi
 
         let labelValue = data.preferredLabelValue(index)
 
-        let Xmax: Double = data.valuesHi.compactMap({ $0 }).max() ?? 1
-        let Ymax: Double = data.valuesLo.compactMap({ $0 }).max() ?? 1
+        let Xmax: Double = data.values.hi.compactMap({ $0 }).max() ?? 1
+        let Ymax: Double = data.values.lo.compactMap({ $0 }).max() ?? 1
 
         let pctX: CGFloat = GraffeineData.getPercent(of: X, in: Xmax)
         let pctY: CGFloat = GraffeineData.getPercent(of: Y, in: Ymax)

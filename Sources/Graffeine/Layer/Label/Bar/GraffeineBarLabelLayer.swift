@@ -46,7 +46,6 @@ open class GraffeineBarLabelLayer: GraffeineLayer {
 
     override public init() {
         super.init()
-        self.contentsScale = UIScreen.main.scale
     }
 
     public convenience init(id: AnyHashable, region: Region = .main) {

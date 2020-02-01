@@ -9,7 +9,6 @@ extension GraffeinePlotLabelLayer {
 
         override public init() {
             super.init()
-            self.contentsScale = UIScreen.main.scale
             self.frame = CGRect(x: 0, y: 0, width: 2, height: 2)
             self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             self.position = .zero

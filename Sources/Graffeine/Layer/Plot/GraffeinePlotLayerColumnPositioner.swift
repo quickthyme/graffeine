@@ -8,20 +8,17 @@ public struct GraffeinePlotLayerColumnPositioner: GraffeinePlotLayerPositioning 
                            containerSize: CGSize,
                            animator: GraffeinePlotDataAnimating?) {
 
-        guard let value = data.values[index] else {
+        guard let value = data.values.hi[index] else {
             plot.performWithoutAnimation {
                 plot.opacity = 0.0
-                plot.position = .zero
             }
             return
         }
 
-        let valPercent: CGFloat = GraffeineData.getPercent(of: value, in: data.valueMaxOrHighest)
-
-        let numberOfUnitsAdjustedForPlotOffset = data.values.count - 1
+        let valPercent: CGFloat = GraffeineData.getPercent(of: value, in: data.valueMaxOrHighestHi)
 
         let width = plot.unitColumn.resolvedWidth(within: containerSize.width,
-                                                  numberOfUnits: numberOfUnitsAdjustedForPlotOffset)
+                                                  numberOfUnits: data.values.hi.count)
 
         let newPosition = CGPoint(
             x: plot.unitColumn.resolvedOffset(index: index, actualWidth: width),

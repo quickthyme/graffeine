@@ -15,11 +15,11 @@ extension GraffeineBarLabelLayer {
                              animator: GraffeineLabelDataAnimating?) {
 
             let labelValue = data.preferredLabelValue(index)
-            let drawingInfo = unitColumn.drawingInfo(valueHi: data.valuesHi[index] ?? 0,
+            let drawingInfo = unitColumn.drawingInfo(valueHi: data.values.hi[index] ?? 0,
                                                      valueLo: data.loValueOrZero(index),
-                                                     maxValue: data.valueMaxOrHighest,
+                                                     maxValue: data.valueMaxOrHighestHi,
                                                      unitIndex: index,
-                                                     numberOfUnits: data.valuesHi.count,
+                                                     numberOfUnits: data.values.hi.count,
                                                      containerSize: containerSize,
                                                      flipXY: flipXY)
             if let animator = animator {

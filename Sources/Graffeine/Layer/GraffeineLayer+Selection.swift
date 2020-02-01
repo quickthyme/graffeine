@@ -60,7 +60,7 @@ extension GraffeineLayer {
     }
 
     public func applySelectionState(_ layer: CALayer, index: Int) {
-        guard (data.selectedIndex == index) else { return }
+        guard (data.selected.index == index) else { return }
 
         if let shape = layer as? CAShapeLayer {
             if let color = selection.fill.color { shape.fillColor = color.cgColor }
@@ -106,7 +106,7 @@ extension GraffeineLayer {
             else { return nil }
 
         var selectionData = self.data
-        selectionData.selectedIndex = foundIndex
+        selectionData.selected.index = foundIndex
 
         return SelectionResult(
             point: layerCenter,

@@ -176,7 +176,7 @@ class GraffeineViewTests: XCTestCase {
             GraffeineBarLayer(id: "bar", region: .main).apply {
                 $0.unitFill.colors = [.red]
                 $0.selection.isEnabled = true
-                $0.data = GraffeineData(values: [10, 2], selectedIndex: nil)
+                $0.data = GraffeineData(valuesHi: [10, 2], selectedIndex: nil)
             }
         ]
         subject.layoutSublayers(of: subject.layer)
@@ -187,8 +187,8 @@ class GraffeineViewTests: XCTestCase {
         subject.handleUserSelection(CGPoint(x: 50, y: 50))
 
         XCTAssertNotNil(result)
-        XCTAssertEqual(result!.data.selectedIndex, 0)
-        XCTAssertEqual(result!.data.values[result!.data.selectedIndex!], 10)
+        XCTAssertEqual(result!.data.selected.index, 0)
+        XCTAssertEqual(result!.data.values.hi[result!.data.selected.index!], 10)
         XCTAssertEqual(result!.point, CGPoint(x: 75, y: 110))
         XCTAssert(result!.layer === subject.layer(id: "bar"))
     }

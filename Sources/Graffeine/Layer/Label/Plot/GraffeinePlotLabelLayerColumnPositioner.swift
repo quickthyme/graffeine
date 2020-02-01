@@ -9,7 +9,7 @@ public struct GraffeinePlotLabelLayerColumnPositioner: GraffeinePlotLabelLayerPo
                            animator: GraffeinePlotLabelDataAnimating?) {
 
         guard (0..<data.labels.count ~= index),
-            let value = data.values[index] else {
+            let value = data.values.hi[index] else {
                 label.performWithoutAnimation {
                     label.opacity = 0.0
                     label.string = ""
@@ -19,12 +19,10 @@ public struct GraffeinePlotLabelLayerColumnPositioner: GraffeinePlotLabelLayerPo
 
         let labelValue = data.preferredLabelValue(index)
 
-        let valPercent: CGFloat = GraffeineData.getPercent(of: value, in: data.valueMaxOrHighest)
-
-        let numberOfUnitsAdjustedForPlotOffset = data.values.count - 1
+        let valPercent: CGFloat = GraffeineData.getPercent(of: value, in: data.valueMaxOrHighestHi)
 
         let width = label.unitColumn.resolvedWidth(within: containerSize.width,
-                                                   numberOfUnits: numberOfUnitsAdjustedForPlotOffset)
+                                                   numberOfUnits: data.values.hi.count)
 
         let newPosition = CGPoint(
             x: label.unitColumn.resolvedOffset(index: index, actualWidth: width),

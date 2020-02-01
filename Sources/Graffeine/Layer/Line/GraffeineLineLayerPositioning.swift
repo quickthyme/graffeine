@@ -2,6 +2,7 @@ import UIKit
 
 public protocol GraffeineLineLayerPositioning {
     func reposition(line: GraffeineLineLayer.Line,
+                    fill: GraffeineLineLayer.Line,
                     data: GraffeineData,
                     containerSize: CGSize,
                     smoothing: GraffeineLineLayer.Smoothing,

@@ -39,10 +39,12 @@ open class GraffeineLayer: CALayer {
 
     override public init() {
         super.init()
+        self.contentsScale = UIScreen.main.scale
     }
 
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.contentsScale = UIScreen.main.scale
     }
 
     override public init(layer: Any) {
@@ -68,7 +70,7 @@ open class GraffeineLayer: CALayer {
     }
 
     open var expectedNumberOfSublayers: Int {
-        return self.data.values.count
+        return self.data.values.hi.count
     }
 
     open func generateSublayer() -> CALayer {

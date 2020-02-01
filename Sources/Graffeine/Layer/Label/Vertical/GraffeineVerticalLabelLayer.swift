@@ -8,7 +8,7 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
 
     public var labelPadding = GraffeineLabel.Padding()
     public var labelAlignment = DistributedLabelAlignment(horizontal: .right,
-                                                          vertical: .centerTopBottom)
+                                                          vertical: .center)
 
     override public var unitColumn: GraffeineLayer.UnitColumn {
         get {
@@ -59,7 +59,6 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
 
     override public init() {
         super.init()
-        self.contentsScale = UIScreen.main.scale
     }
 
     public convenience init(id: AnyHashable, width: CGFloat, region: Region = .leftGutter) {

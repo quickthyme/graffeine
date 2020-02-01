@@ -10,7 +10,8 @@ extension GraffeineLayer {
 
         public func resolved(within boundary: CGFloat,
                              numberOfUnits: Int = 1,
-                             unitMargin: CGFloat = 0.0) -> CGFloat {
+                             unitMargin: CGFloat = 0.0,
+                             reducedByOne: Bool = false) -> CGFloat {
             switch self {
 
             case let .explicit(val):
@@ -20,6 +21,7 @@ extension GraffeineLayer {
                 return (0.0...1.0 ~= val) ? floor( (boundary * val) * 100 ) / 100 : boundary
 
             case .relative:
+                let numberOfUnits = (reducedByOne) ? numberOfUnits - 1 : numberOfUnits
                 let boundaryAdjustedForTrailingMargin = boundary + unitMargin
                 return (numberOfUnits > 1)
                     ? (boundaryAdjustedForTrailingMargin / CGFloat(numberOfUnits)) - unitMargin
