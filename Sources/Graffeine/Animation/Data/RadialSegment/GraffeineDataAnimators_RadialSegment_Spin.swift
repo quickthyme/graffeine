@@ -8,13 +8,18 @@ extension GraffeineAnimation.Data.RadialSegment {
 
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
+        public var clockwise: Bool
 
-        public init(duration: TimeInterval, timing: CAMediaTimingFunctionName) {
+        public init(duration: TimeInterval, timing: CAMediaTimingFunctionName, clockwise: Bool) {
             self.duration = duration
             self.timing = timing
+            self.clockwise = clockwise
         }
 
-        public func animate(pieSlice: GraffeineRadialSegmentLayer.Segment, fromAngles: GraffeineAnglePair, toAngles: GraffeineAnglePair, centerPoint: CGPoint) {
+        public func animate(pieSlice: GraffeineRadialSegmentLayer.Segment,
+                            fromAngles: GraffeineAnglePair,
+                            toAngles: GraffeineAnglePair,
+                            centerPoint: CGPoint) {
             let animation = CAKeyframeAnimation(keyPath: "path")
             animation.timingFunction  = CAMediaTimingFunction(name: timing)
             animation.duration = duration
@@ -30,9 +35,9 @@ extension GraffeineAnimation.Data.RadialSegment {
                                       fromAngles: GraffeineAnglePair,
                                       toAngles: GraffeineAnglePair,
                                       centerPoint: CGPoint) -> [CGPath] {
-            let startStep: CGFloat = HalfDegreeInRadians
-            let endStep: CGFloat = HalfDegreeInRadians
-            let fullCircle = DegreesToRadians(360)
+            let startStep: CGFloat = (clockwise) ? HalfDegreeInRadians : -HalfDegreeInRadians
+            let endStep:   CGFloat = (clockwise) ? HalfDegreeInRadians : -HalfDegreeInRadians
+            let fullCircle = FullCircleInRadians
 
             let eqAngles1 = equalizeAngles(
                 [fromAngles.start]

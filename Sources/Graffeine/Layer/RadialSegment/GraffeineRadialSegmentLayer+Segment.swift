@@ -19,8 +19,14 @@ extension GraffeineRadialSegmentLayer {
                              animator: GraffeineRadialSegmentDataAnimating?) {
             let rotAngle = rotationAngle()
             let pctAngle = PercentageToRadians(percentages[index], clockwise)
-            let startAngle = startingAngle(for: index, in: percentages) + rotAngle
-            let newAngles = GraffeineAnglePair(start: startAngle, end: startAngle + pctAngle)
+            let startAngle = (clockwise)
+                ? (0 + startingAngle(for: index, in: percentages)) + rotAngle
+                : (0 - startingAngle(for: index, in: percentages)) + rotAngle
+            let endAngle = startAngle + pctAngle
+            let newAngles = (clockwise)
+                ? GraffeineAnglePair(start: startAngle, end: endAngle)
+                : GraffeineAnglePair(start: endAngle, end: startAngle)
+
             if (self.angles == .zero) {
                 self._angles = GraffeineAnglePair(start: newAngles.start, end: newAngles.start)
             }
@@ -59,7 +65,7 @@ extension GraffeineRadialSegmentLayer {
                                     radius: offsetRadius,
                                     startAngle: angles.start,
                                     endAngle: angles.end,
-                                    clockwise: clockwise)
+                                    clockwise: true)
             if innerRadius == 0 {
                 path.addLine(to: offsetCenter)
                 path.close()
@@ -71,7 +77,7 @@ extension GraffeineRadialSegmentLayer {
                             radius: offsetInnerRadius,
                             startAngle: angles.end,
                             endAngle: angles.start,
-                            clockwise: !clockwise)
+                            clockwise: false)
                 path.close()
             }
 

@@ -17,9 +17,12 @@ extension GraffeineRadialLabelLayer {
                              centerPoint: CGPoint,
                              animator: GraffeineRadialLabelDataAnimating?) {
             let rotAngle = rotationAngle()
-            let pctAngle = percentAngle(percentages[index])
+            let pctAngle = PercentageToRadians(percentages[index], clockwise)
             let startAngle = startingAngle(for: index, in: percentages) + rotAngle
-            let newAngles = GraffeineAnglePair(start: startAngle, end: startAngle + pctAngle)
+            let endAngle = startAngle + pctAngle
+            let newAngles = (clockwise)
+                ? GraffeineAnglePair(start: startAngle, end: endAngle)
+                : GraffeineAnglePair(start: endAngle, end: startAngle)
             if (self.angles == .zero) {
                 self._angles = GraffeineAnglePair(start: newAngles.start, end: newAngles.start)
             }
@@ -47,17 +50,12 @@ extension GraffeineRadialLabelLayer {
         }
 
         private func rotationAngle() -> CGFloat {
-            return percentAngle( CGFloat(rotation % 360) / 360 )
-        }
-
-        private func percentAngle(_ pct: CGFloat) -> CGFloat {
-            let angle = (pct * CGFloat.pi * 2.0)
-            return ((clockwise) ? angle : (0 - angle))
+            return PercentageToRadians( CGFloat(rotation % 360) / 360 , clockwise)
         }
 
         private func startingAngle(for index: Int, in percentages: [CGFloat]) -> CGFloat {
             let startingPercentage = percentages[0..<index].reduce(CGFloat(0)) { $0 + $1 }
-            let angle = (startingPercentage * CGFloat.pi * 2.0)
+            let angle = (startingPercentage * FullCircleInRadians)
             return ((clockwise) ? angle : (0 - angle))
         }
 

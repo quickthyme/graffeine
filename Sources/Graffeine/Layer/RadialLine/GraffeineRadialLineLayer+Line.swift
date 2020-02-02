@@ -18,8 +18,14 @@ extension GraffeineRadialLineLayer {
                              animator: GraffeineRadialLineDataAnimating?) {
             let rotAngle = rotationAngle()
             let pctAngle = PercentageToRadians(percentages[index], clockwise)
-            let startAngle = startingAngle(for: index, in: percentages) + rotAngle
-            let newAngles = GraffeineAnglePair(start: startAngle, end: startAngle + pctAngle)
+            let startAngle = (clockwise)
+                ? (0 + startingAngle(for: index, in: percentages)) + rotAngle
+                : (0 - startingAngle(for: index, in: percentages)) + rotAngle
+            let endAngle = startAngle + pctAngle
+            let newAngles = (clockwise)
+                ? GraffeineAnglePair(start: startAngle, end: endAngle)
+                : GraffeineAnglePair(start: endAngle, end: startAngle)
+
             if (self.angles == .zero) {
                 self._angles = GraffeineAnglePair(start: newAngles.start, end: newAngles.start)
             }

@@ -2,13 +2,14 @@ import UIKit
 
 internal let OneDegreeInRadians = (CGFloat.pi / 180)
 internal let HalfDegreeInRadians = (OneDegreeInRadians / 2)
+internal let FullCircleInRadians = (CGFloat.pi * 2.0)
 
 internal let DegreesToRadians: (CGFloat) -> (CGFloat) = {
     return $0 * OneDegreeInRadians
 }
 
 internal func PercentageToRadians(_ pct: CGFloat, _ clockwise: Bool) -> CGFloat {
-    let angle = (pct * CGFloat.pi * 2.0)
+    let angle = (pct * FullCircleInRadians)
     return ((clockwise) ? angle : (0 - angle))
 }
 
