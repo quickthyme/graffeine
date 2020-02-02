@@ -6,6 +6,9 @@ extension GraffeineLayer {
         public var horizontal: Horizontal
         public var vertical: Vertical
 
+        static let horizontalThreshold: CGFloat = 24
+        static let verticalThreshold: CGFloat = 24
+
         public func graffeineLabelAlignment(for index: Int, count: Int) -> GraffeineLabel.Alignment {
             return GraffeineLabel.Alignment(
                 horizontal: horizontal.labelAlignment(for: index, count: count),
@@ -64,10 +67,10 @@ extension GraffeineLayer {
 
             internal func radialCenterLeftRightLabelAlignment(labelPoint: CGPoint, centerPoint: CGPoint) -> GraffeineLabel.Alignment.Horizontal {
                 switch true {
-                case (labelPoint.x < centerPoint.x - 22):
+                case (labelPoint.x < centerPoint.x - horizontalThreshold):
                     return .right
 
-                case (labelPoint.x > centerPoint.x + 22):
+                case (labelPoint.x > centerPoint.x + horizontalThreshold):
                     return .left
 
                 default:
@@ -103,10 +106,10 @@ extension GraffeineLayer {
 
             internal func radialCenterTopBottomLabelAlignment(labelPoint: CGPoint, centerPoint: CGPoint) -> GraffeineLabel.Alignment.Vertical {
                 switch true {
-                case (labelPoint.y < centerPoint.y - 22):
+                case (labelPoint.y < centerPoint.y - verticalThreshold):
                     return .bottom
 
-                case (labelPoint.y > centerPoint.y + 22):
+                case (labelPoint.y > centerPoint.y + verticalThreshold):
                     return .top
 
                 default:
