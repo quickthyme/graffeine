@@ -14,19 +14,19 @@ extension GraffeineAnimation.Data.RadialSegment {
             self.timing = timing
         }
 
-        public func animate(pieSlice: GraffeineRadialSegmentLayer.Segment, fromAngles: GraffeineAnglePair, toAngles: GraffeineAnglePair, centerPoint: CGPoint) {
+        public func animate(radialSegment: GraffeineRadialSegmentLayer.Segment, fromAngles: GraffeineAnglePair, toAngles: GraffeineAnglePair, centerPoint: CGPoint) {
             let animation = CAKeyframeAnimation(keyPath: "path")
             animation.timingFunction  = CAMediaTimingFunction(name: timing)
             animation.duration = duration
-            animation.values = interpolatePaths(pieSlice: pieSlice,
+            animation.values = interpolatePaths(radialSegment: radialSegment,
                                                 fromAngles: fromAngles,
                                                 toAngles: toAngles,
                                                 centerPoint: centerPoint)
-            pieSlice.path = pieSlice.constructPath(centerPoint: centerPoint, angles: toAngles)
-            pieSlice.add(animation, forKey: "GraffeineAnimation.Data.RadialSegment.Automatic")
+            radialSegment.path = radialSegment.constructPath(centerPoint: centerPoint, angles: toAngles)
+            radialSegment.add(animation, forKey: "GraffeineAnimation.Data.RadialSegment.Automatic")
         }
 
-        private func interpolatePaths(pieSlice: GraffeineRadialSegmentLayer.Segment,
+        private func interpolatePaths(radialSegment: GraffeineRadialSegmentLayer.Segment,
                                       fromAngles: GraffeineAnglePair,
                                       toAngles: GraffeineAnglePair,
                                       centerPoint: CGPoint) -> [CGPath] {
@@ -46,8 +46,8 @@ extension GraffeineAnimation.Data.RadialSegment {
             )
 
             return zip(eqAngles.start, eqAngles.end).map {
-                return pieSlice.constructPath(centerPoint: centerPoint,
-                                              angles: GraffeineAnglePair(start: $0.0, end: $0.1))
+                return radialSegment.constructPath(centerPoint: centerPoint,
+                                                   angles: GraffeineAnglePair(start: $0.0, end: $0.1))
             }
         }
     }

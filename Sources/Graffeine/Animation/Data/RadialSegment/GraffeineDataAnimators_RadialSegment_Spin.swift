@@ -8,35 +8,33 @@ extension GraffeineAnimation.Data.RadialSegment {
 
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
-        public var clockwise: Bool
 
         public init(duration: TimeInterval, timing: CAMediaTimingFunctionName, clockwise: Bool) {
             self.duration = duration
             self.timing = timing
-            self.clockwise = clockwise
         }
 
-        public func animate(pieSlice: GraffeineRadialSegmentLayer.Segment,
+        public func animate(radialSegment: GraffeineRadialSegmentLayer.Segment,
                             fromAngles: GraffeineAnglePair,
                             toAngles: GraffeineAnglePair,
                             centerPoint: CGPoint) {
             let animation = CAKeyframeAnimation(keyPath: "path")
             animation.timingFunction  = CAMediaTimingFunction(name: timing)
             animation.duration = duration
-            animation.values = interpolatePaths(pieSlice: pieSlice,
+            animation.values = interpolatePaths(radialSegment: radialSegment,
                                                 fromAngles: fromAngles,
                                                 toAngles: toAngles,
                                                 centerPoint: centerPoint)
-            pieSlice.path = pieSlice.constructPath(centerPoint: centerPoint, angles: toAngles)
-            pieSlice.add(animation, forKey: "GraffeineAnimation.Data.RadialSegment.Spin")
+            radialSegment.path = radialSegment.constructPath(centerPoint: centerPoint, angles: toAngles)
+            radialSegment.add(animation, forKey: "GraffeineAnimation.Data.RadialSegment.Spin")
         }
 
-        private func interpolatePaths(pieSlice: GraffeineRadialSegmentLayer.Segment,
+        private func interpolatePaths(radialSegment: GraffeineRadialSegmentLayer.Segment,
                                       fromAngles: GraffeineAnglePair,
                                       toAngles: GraffeineAnglePair,
                                       centerPoint: CGPoint) -> [CGPath] {
-            let startStep: CGFloat = (clockwise) ? HalfDegreeInRadians : -HalfDegreeInRadians
-            let endStep:   CGFloat = (clockwise) ? HalfDegreeInRadians : -HalfDegreeInRadians
+            let startStep: CGFloat = (radialSegment.clockwise) ? HalfDegreeInRadians : -HalfDegreeInRadians
+            let endStep:   CGFloat = (radialSegment.clockwise) ? HalfDegreeInRadians : -HalfDegreeInRadians
             let fullCircle = FullCircleInRadians
 
             let eqAngles1 = equalizeAngles(
@@ -66,8 +64,8 @@ extension GraffeineAnimation.Data.RadialSegment {
             )
 
             return zip(eqAngles1.start + eqAngles2.start, eqAngles1.end + eqAngles2.end).map {
-                return pieSlice.constructPath(centerPoint: centerPoint,
-                                              angles: GraffeineAnglePair(start: $0.0, end: $0.1))
+                return radialSegment.constructPath(centerPoint: centerPoint,
+                                                   angles: GraffeineAnglePair(start: $0.0, end: $0.1))
             }
         }
     }

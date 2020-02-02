@@ -1,7 +1,7 @@
 import UIKit
 
 public protocol GraffeineRadialSegmentDataAnimating: GraffeineDataAnimating {
-    func animate(pieSlice: GraffeineRadialSegmentLayer.Segment,
+    func animate(radialSegment: GraffeineRadialSegmentLayer.Segment,
                  fromAngles: GraffeineAnglePair,
                  toAngles: GraffeineAnglePair,
                  centerPoint: CGPoint)

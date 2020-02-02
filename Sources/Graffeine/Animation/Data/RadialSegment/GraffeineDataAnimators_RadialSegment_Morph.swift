@@ -14,22 +14,22 @@ extension GraffeineAnimation.Data.RadialSegment {
             self.timing = timing
         }
 
-        public func animate(pieSlice: GraffeineRadialSegmentLayer.Segment,
+        public func animate(radialSegment: GraffeineRadialSegmentLayer.Segment,
                             fromAngles: GraffeineAnglePair,
                             toAngles: GraffeineAnglePair,
                             centerPoint: CGPoint) {
 
-            let fromPath = pieSlice.presentation()?.path
-                ?? pieSlice.constructPath(centerPoint: centerPoint, angles: fromAngles)
-            let toPath = pieSlice.constructPath(centerPoint: centerPoint, angles: toAngles)
+            let fromPath = radialSegment.presentation()?.path
+                ?? radialSegment.constructPath(centerPoint: centerPoint, angles: fromAngles)
+            let toPath = radialSegment.constructPath(centerPoint: centerPoint, angles: toAngles)
 
             let animation = CABasicAnimation(keyPath: "path")
             animation.timingFunction  = CAMediaTimingFunction(name: timing)
             animation.duration = duration
             animation.fromValue = fromPath
             animation.toValue = toPath
-            pieSlice.path = toPath
-            pieSlice.add(animation, forKey: "GraffeineAnimation.Data.RadialSegment.Morph")
+            radialSegment.path = toPath
+            radialSegment.add(animation, forKey: "GraffeineAnimation.Data.RadialSegment.Morph")
         }
     }
 }

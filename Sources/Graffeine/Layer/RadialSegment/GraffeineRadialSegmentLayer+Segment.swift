@@ -32,7 +32,7 @@ extension GraffeineRadialSegmentLayer {
             }
 
             if let animator = animator {
-                animator.animate(pieSlice: self,
+                animator.animate(radialSegment: self,
                                  fromAngles: self.angles,
                                  toAngles: newAngles,
                                  centerPoint: centerPoint)
