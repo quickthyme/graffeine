@@ -1,6 +1,6 @@
 import UIKit
 
-private let SelectionAnimationKey = "GraffeineLayer.Selection.Animation"
+internal let SelectionAnimationKey = "GraffeineLayer.Selection.Animation"
 
 extension GraffeineLayer {
 
@@ -97,6 +97,33 @@ extension GraffeineLayer {
         if let offset = selection.shadow.offset { layer.shadowOffset = offset }
 
         if let animation = selection.animation { layer.add(animation, forKey: SelectionAnimationKey) }
+    }
+
+    open func applyAreaLineSelectionState(_ line: GraffeineLineLayer.Line, _ fill: GraffeineLineLayer.Line, _ index: Int) {
+        guard (data.selected.index == index) else { return }
+        if (data.selected.index == index) {
+            if let color = selection.fill.color { fill.fillColor = color.cgColor }
+            if let modifier = selection.fill.modifyColor { fill.fillColor = modifier(fill.fillColor) }
+            if let color = selection.line.color { line.strokeColor = color.cgColor }
+            if let modifier = selection.line.modifyColor { line.strokeColor = modifier(line.strokeColor) }
+            if let thickness = selection.line.thickness { line.lineWidth = thickness }
+            if let dashPattern = selection.line.dashPattern { line.lineDashPattern = dashPattern }
+            if let dashPhase = selection.line.dashPhase { line.lineDashPhase = dashPhase }
+            if let join = selection.line.join { line.lineJoin = join }
+            if let cap = selection.line.cap { line.lineCap = cap }
+
+            if let opacity = selection.fill.opacity {
+                line.opacity = Float(opacity)
+                fill.opacity = Float(opacity)
+            }
+
+            if let color = selection.shadow.color { line.shadowColor = color.cgColor }
+            if let opacity = selection.shadow.opacity { line.shadowOpacity = Float(opacity) }
+            if let radius = selection.shadow.radius { line.shadowRadius = radius }
+            if let offset = selection.shadow.offset { line.shadowOffset = offset }
+
+            if let animation = selection.animation { line.add(animation, forKey: SelectionAnimationKey) }
+        }
     }
 
     public func findSelected(_ point: CGPoint) -> SelectionResult? {

@@ -32,9 +32,11 @@ open class GraffeineLineLayer: GraffeineLayer {
         unitLine.apply(to: line)
         unitShadow.apply(to: line)
         unitAnimation.apply(to: line)
+
         if let selectedIndex = data.selected.index {
-            applySelectionState(line, index: selectedIndex)
+            applyAreaLineSelectionState(line, fill, selectedIndex)
         }
+
 
         positioner.get().reposition(line: line,
                                     fill: fill,
