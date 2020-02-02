@@ -9,7 +9,7 @@ extension GraffeineAnimation.Data.RadialSegment {
         public var duration: TimeInterval
         public var timing: CAMediaTimingFunctionName
 
-        public init(duration: TimeInterval, timing: CAMediaTimingFunctionName, clockwise: Bool) {
+        public init(duration: TimeInterval, timing: CAMediaTimingFunctionName) {
             self.duration = duration
             self.timing = timing
         }
