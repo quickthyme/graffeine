@@ -2,6 +2,8 @@ import UIKit
 
 open class GraffeineGridLineLayer: GraffeineLayer {
 
+    public var positioner: Positioner = .default
+
     override open func generateSublayer() -> CALayer {
         return GridLine()
     }
@@ -17,9 +19,10 @@ open class GraffeineGridLineLayer: GraffeineLayer {
             unitShadow.apply(to: line)
             unitAnimation.apply(to: line)
 
-            line.reposition(for: index,
-                            in: data,
-                            containerSize: bounds.size)
+            positioner.get().reposition(line: line,
+                                        for: index,
+                                        in: data,
+                                        containerSize: bounds.size)
         }
     }
 
@@ -39,6 +42,9 @@ open class GraffeineGridLineLayer: GraffeineLayer {
 
     override public init(layer: Any) {
         super.init(layer: layer)
+        if let layer = layer as? Self {
+            self.positioner = layer.positioner
+        }
     }
 
     @discardableResult
