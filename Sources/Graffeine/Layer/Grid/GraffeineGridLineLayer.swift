@@ -2,6 +2,11 @@ import UIKit
 
 open class GraffeineGridLineLayer: GraffeineLayer {
 
+    public typealias Alignment = GraffeineAlignment.Horizontal
+    public typealias Padding = GraffeinePadding
+
+    public var alignment: Alignment = .center
+    public var length: DimensionalUnit = .percentage(1.0)
     public var positioner: Positioner = .default
 
     override open func generateSublayer() -> CALayer {
@@ -13,6 +18,8 @@ open class GraffeineGridLineLayer: GraffeineLayer {
 
         for (index, line) in sublayers.enumerated() {
             guard let line = line as? GridLine else { continue }
+            line.alignment = alignment
+            line.length = length
             line.flipXY = flipXY
 
             unitLine.apply(to: line, index: index)
@@ -43,6 +50,8 @@ open class GraffeineGridLineLayer: GraffeineLayer {
     override public init(layer: Any) {
         super.init(layer: layer)
         if let layer = layer as? Self {
+            self.alignment = layer.alignment
+            self.length = layer.length
             self.positioner = layer.positioner
         }
     }

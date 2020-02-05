@@ -28,56 +28,56 @@ class GraffeineGridLineLayerTests: XCTestCase {
             XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
             XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
             XCTAssertEqual(gridLine.lineWidth, 0.5)
-            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 142.2))
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 60, y: 142.2))
         }
 
         if let gridLine = (subject.sublayers?[1] as? CAShapeLayer) {
             XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
             XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
             XCTAssertEqual(gridLine.lineWidth, 0.5)
-            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 126.4))
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 60, y: 126.4))
         }
 
         if let gridLine = (subject.sublayers?[2] as? CAShapeLayer) {
             XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
             XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
             XCTAssertEqual(gridLine.lineWidth, 0.5)
-            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 110.6))
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 60, y: 110.6))
         }
 
         if let gridLine = (subject.sublayers?[3] as? CAShapeLayer) {
             XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
             XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
             XCTAssertEqual(gridLine.lineWidth, 0.5)
-            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 94.8))
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 60, y: 94.8))
         }
 
         if let gridLine = (subject.sublayers?[4] as? CAShapeLayer) {
             XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
             XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
             XCTAssertEqual(gridLine.lineWidth, 0.5)
-            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 63.2))
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 60, y: 63.2))
         }
 
         if let gridLine = (subject.sublayers?[5] as? CAShapeLayer) {
             XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
             XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
             XCTAssertEqual(gridLine.lineWidth, 0.5)
-            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 47.4))
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 60, y: 47.4))
         }
 
         if let gridLine = (subject.sublayers?[6] as? CAShapeLayer) {
             XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
             XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
             XCTAssertEqual(gridLine.lineWidth, 0.5)
-            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 31.59))
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 60, y: 31.59))
         }
 
         if let gridLine = (subject.sublayers?[7] as? CAShapeLayer) {
             XCTAssertEqual(gridLine.strokeColor, UIColor.lightGray.cgColor)
             XCTAssertEqual(gridLine.lineDashPattern, [1, 3])
             XCTAssertEqual(gridLine.lineWidth, 0.5)
-            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 0, y: 15.79))
+            XCTAssertEqual(normalized(gridLine.position), CGPoint(x: 60, y: 15.79))
         }
     }
 }

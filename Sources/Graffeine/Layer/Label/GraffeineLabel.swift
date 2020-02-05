@@ -2,36 +2,8 @@ import UIKit
 
 open class GraffeineLabel: CALayer {
 
-    public struct Alignment: Equatable {
-        public enum Horizontal: Equatable {
-            case left, center, right
-        }
-
-        public enum Vertical: Equatable {
-            case top, center, bottom
-        }
-
-        public var horizontal: Horizontal = .center
-        public var vertical: Vertical = .center
-        public init() {}
-        public init(horizontal: Horizontal, vertical: Vertical) {
-            self.horizontal = horizontal
-            self.vertical = vertical
-        }
-    }
-
-    public struct Padding: Equatable {
-        public var horizontal: CGFloat = 0
-        public var vertical: CGFloat = 0
-        public init() {}
-        public init(horizontal: CGFloat, vertical: CGFloat) {
-            self.horizontal = horizontal
-            self.vertical = vertical
-        }
-        public static var zero: Padding {
-            return Padding()
-        }
-    }
+    public typealias Alignment = GraffeineAlignment
+    public typealias Padding = GraffeinePadding
 
     internal lazy var text: CATextLayer = {
         let layer = CATextLayer()

@@ -23,18 +23,28 @@ public struct GraffeineGridLineLayerDefaultPositioner: GraffeineGridLineLayerPos
             ? 1.0 - CGFloat(value / maxVal)
             : 0.0
 
+        let hPos = getHPosition(line.alignment, translatedContainerSize.width)
+        let width: CGFloat = line.length.resolved(within: translatedContainerSize.width)
         let yPos: CGFloat = translatedContainerSize.height * valPercentInverted
+        let intendedPoint = CGPoint(x: hPos.x, y: yPos)
+        let thicknessOffsetPoint = thicknessOffset(line, intendedPoint, translatedContainerSize)
+        let newPosition: CGPoint = translatedPosition(line, thicknessOffsetPoint)
 
         line.performWithoutAnimation {
-            line.anchorPoint = translatedAnchor(line, yPos, translatedContainerSize)
-            line.frame.size = translatedSize(line, CGSize(width: translatedContainerSize.width, height: 0.0) )
+            line.anchorPoint = translatedPosition(line, CGPoint(x: hPos.anchorX, y: 0.5))
+            line.frame.size = translatedSize(line, CGSize(width: width, height: 0.0) )
             line.path = line.constructPath().cgPath
-            line.position = translatedPosition(
-                line,
-                thicknessOffset(line,
-                                CGPoint(x: 0, y: translatedContainerSize.height * valPercentInverted),
-                                translatedContainerSize)
-            )
+            line.position = newPosition
+        }
+    }
+
+    private func getHPosition(_ alignment: GraffeineGridLineLayer.Alignment,
+                              _ boundWidth: CGFloat) -> (x: CGFloat, anchorX: CGFloat) {
+
+        switch alignment {
+        case .left:     return (x: CGFloat(0              ), anchorX: CGFloat(0.0))
+        case .center:   return (x: CGFloat(boundWidth / 2 ), anchorX: CGFloat(0.5))
+        case .right:    return (x: CGFloat(boundWidth     ), anchorX: CGFloat(1.0))
         }
     }
 
@@ -58,12 +68,21 @@ public struct GraffeineGridLineLayerDefaultPositioner: GraffeineGridLineLayerPos
         let yPosInt = Int( ceil(yPos) )
         let containerHeightInt = Int( ceil(containerSize.height) )
         switch true {
+
         case (yPosInt == 0):
-            return (line.flipXY) ? CGPoint(x: 1.0, y: 0.0) : CGPoint(x: 0.0, y: 0.0)
+            return (line.flipXY)
+                ? CGPoint(x: 1.0, y: 0.0)
+                : CGPoint(x: 0.0, y: 0.0)
+
         case (yPosInt == containerHeightInt):
-            return (line.flipXY) ? CGPoint(x: 0.0, y: 0.0) : CGPoint(x: 0.0, y: 1.0)
+            return (line.flipXY)
+                ? CGPoint(x: 0.0, y: 0.0)
+                : CGPoint(x: 0.0, y: 1.0)
+
         default:
-            return (line.flipXY) ? CGPoint(x: 0.5, y: 0.0) : CGPoint(x: 0.0, y: 0.5)
+            return (line.flipXY)
+                ? CGPoint(x: 0.5, y: 0.0)
+                : CGPoint(x: 0.0, y: 0.5)
         }
     }
 
