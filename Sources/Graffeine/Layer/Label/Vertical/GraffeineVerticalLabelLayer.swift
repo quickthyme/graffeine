@@ -2,10 +2,12 @@ import UIKit
 
 open class GraffeineVerticalLabelLayer: GraffeineLayer {
 
+    public var positioner: Positioner = .default
     public var rowHeight: GraffeineLayer.DimensionalUnit = .relative
     public var rowMargin: CGFloat = 0.0
     public var unitText: UnitText = UnitText()
 
+    public var labelRotation: Int = 0
     public var labelPadding = GraffeineLabel.Padding()
     public var labelAlignment = DistributedLabelAlignment(horizontal: .right,
                                                           vertical: .center)
@@ -40,6 +42,7 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
             label.unitColumn = unitColumn
             label.padding = labelPadding
             label.alignment = labelAlignment.graffeineLabelAlignment(for: index, count: numberOfUnits)
+            label.labelRotation = labelRotation
 
             unitFill.apply(to: label, index: index)
             unitLine.apply(to: label, index: index)
@@ -49,11 +52,12 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
 
             applySelectionState(label, index: index)
 
-            label.reposition(for: index,
-                             in: data.labels,
-                             rowHeight: rowHeight,
-                             rowMargin: rowMargin,
-                             containerSize: bounds.size)
+            positioner.get().reposition(label: label,
+                                        for: index,
+                                        in: data.labels,
+                                        rowHeight: rowHeight,
+                                        rowMargin: rowMargin,
+                                        containerSize: bounds.size)
         }
     }
 
@@ -78,8 +82,10 @@ open class GraffeineVerticalLabelLayer: GraffeineLayer {
             self.rowHeight = layer.rowHeight
             self.rowMargin = layer.rowMargin
             self.unitText = layer.unitText
+            self.labelRotation = layer.labelRotation
             self.labelPadding = layer.labelPadding
             self.labelAlignment = layer.labelAlignment
+            self.positioner = layer.positioner
         }
     }
 

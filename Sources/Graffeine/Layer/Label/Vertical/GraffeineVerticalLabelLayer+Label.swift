@@ -5,6 +5,7 @@ extension GraffeineVerticalLabelLayer {
     open class Label: GraffeineLabel {
 
         public var unitColumn: UnitColumn = UnitColumn()
+        public var labelRotation: Int = 0
 
         open func reposition(for index: Int,
                              in labels: [String?],
@@ -42,6 +43,7 @@ extension GraffeineVerticalLabelLayer {
             super.init(layer: layer)
             if let layer = layer as? Self {
                 self.unitColumn = layer.unitColumn
+                self.labelRotation = layer.labelRotation
             }
         }
     }
