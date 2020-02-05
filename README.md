@@ -84,7 +84,7 @@ Out of the box, there are a handful of ready-to-go layers:
 | `GraffeinePlotLabelLayer`        |   labels arranged linearly      |
 
 
-##### Constructing
+###### Constructing
 
 When constructing a `GraffeineLayer`, you typically provide it with an `id` and
 a `region`.
@@ -102,7 +102,7 @@ regions than others. For example, the horizontal and vertical label layers are
 generally intended to be placed in one of the gutter regions.
 
 
-##### Dimensional Unit
+###### Dimensional Unit
 
 Certain properties, such as `unitWidth` or `diameter`, are defined as a
 `DimensionalUnit`. This is an abstract unit type *(enum)*, that affects sizing
@@ -124,7 +124,7 @@ Out-of-the-box, there are several label options: horizontal, vertical, bar,
 plot, and radial. All labels support vertical/horizontal alignment and padding.
 
 
-##### Gutter Labels
+###### Gutter Labels
 
 ![sample_2](docs/sample_2.png)
 
@@ -141,7 +141,7 @@ to be `.center` means it will center itself **to the column**. Setting
 but all other labels will be centered.
 
 
-##### Bar Labels
+###### Bar Labels
 
 ![sample_bar_label](docs/sample_bar_label.png)
 
@@ -151,7 +151,7 @@ bar graphs.
 <br />
 
 
-##### Radial Labels
+###### Radial Labels
 
 ![sample_6](docs/sample_6.png)
 
@@ -161,7 +161,7 @@ pie and donut charts.
 <br />
 
 
-##### Plot Labels
+###### Plot Labels
 
 ![sample_4](docs/sample_4.png)
 
@@ -174,6 +174,8 @@ line and plot graphs.
 ## Interaction
 
 ### Setting Data
+
+![sample_9](docs/sample_9.png)
 
 `GraffeineData` is the vehicle with which to pass data into Graffeine.
 It's easy to apply new data to a specific layer by **assignment**:
@@ -201,7 +203,7 @@ create your own, so long as it conforms to `GraffeineDataAnimating`.*
 Selection is divided into two parts, that of receiving user interaction, and that
 of rendering the selection state.
 
-##### Receiving touch events
+###### Receiving touch events
 All selection events are raised through `GraffeineView` via the `onSelect` handler.
 By assigning a handler to this, you will start receiving events whenever the user
 taps on the view.
@@ -238,7 +240,7 @@ information we need in order to handle the event:
     }
 ```
 
-##### Rendering selection
+###### Rendering selection
 
 In order to render the selection changes, you need to first enable some overrides:
 

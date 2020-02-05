@@ -3,7 +3,7 @@ import UIKit
 public extension GraffeineData {
 
     static func getPercent(of value: Double, in maxValue: Double) -> CGFloat {
-        return CGFloat(value / maxValue)
+        return (0 < value && 0 < maxValue) ? CGFloat(value / maxValue) : 0
     }
 
     static func convertHiLo(_ a: Double, _ b: Double) -> (hi: Double, lo: Double) {

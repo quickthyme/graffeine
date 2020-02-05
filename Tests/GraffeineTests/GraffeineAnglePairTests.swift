@@ -1,9 +1,7 @@
 import XCTest
 @testable import Graffeine
 
-class GRAnglePairTests: XCTestCase {
-
-    var subject: GraffeineAnglePair!
+class GraffeineAnglePairTests: XCTestCase {
 
     func test_zero() {
         let subject = GraffeineAnglePair.zero

@@ -8,16 +8,6 @@ open class GraffeineView: UIView {
 
     @IBInspectable public var configClass: String = ""
 
-    public var shouldRasterize: Bool {
-        get { return self.layer.shouldRasterize }
-        set { self.layer.shouldRasterize = newValue }
-    }
-
-    public var rasterizationScale: CGFloat {
-        get { return self.layer.rasterizationScale }
-        set { self.layer.rasterizationScale = newValue }
-    }
-
     public func pauseAllAnimations() {
         self.layer.removeAllAnimations()
     }

@@ -23,6 +23,10 @@ class GraffeineRadialSegmentLayerTests: XCTestCase {
         sampleData = SampleData()
     }
 
+    func test_universe_is_aligned() {
+        XCTAssertEqual(DegreesToRadians(180), CGFloat.pi)
+    }
+
     func test_pie_layer_loaded_properly() {
         XCTAssertNotNil(subject)
     }

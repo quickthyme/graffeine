@@ -13,21 +13,29 @@ class GraffeineViewTests: XCTestCase {
 
     let subjectFrame = CGRect(x: 0, y: 0, width: 300, height: 200)
 
-    func simulateTouch(_ view: UIView) {
+    func simulateTouch_Began_Ended(_ view: UIView) {
         let touches = Set<UITouch>([UITouch()])
         let event = UIEvent()
         subject.touchesBegan(touches, with: event)
         subject.touchesEnded(touches, with: event)
     }
 
-    func simulateCancelledTouch(_ view: UIView) {
+    func simulateTouch_Began_Cancelled(_ view: UIView) {
         let touches = Set<UITouch>([UITouch()])
         let event = UIEvent()
         subject.touchesBegan(touches, with: event)
         subject.touchesCancelled(touches, with: event)
     }
 
-    func simulateMultiTouch(_ view: UIView) {
+    func simulateTouch_Began_Moved_Ended(_ view: UIView) {
+        let touches = Set<UITouch>([UITouch()])
+        let event = UIEvent()
+        subject.touchesBegan(touches, with: event)
+        subject.touchesMoved(touches, with: event)
+        subject.touchesEnded(touches, with: event)
+    }
+
+    func simulateMultiTouch_Began_Ended(_ view: UIView) {
         let touches = Set<UITouch>([UITouch(), UITouch()])
         let event = UIEvent()
         subject.touchesBegan(touches, with: event)
@@ -38,8 +46,14 @@ class GraffeineViewTests: XCTestCase {
         subject = GraffeineView(frame: subjectFrame)
     }
 
-    func test_construct_default_view_does_not_fail() {
-        XCTAssertNotNil(subject)
+    func test_construct_default_does_not_fail() {
+        XCTAssertNotNil(GraffeineView(frame: subjectFrame))
+    }
+
+    func test_construct_with_config_does_not_fail_and_uses_the_config() {
+        let view = GraffeineView(frame: subjectFrame, configClass: "SampleConfig")
+        XCTAssertNotNil(view)
+        XCTAssertEqual(view.layers.count, 13)
     }
 
     func test_construct_default_layer_does_not_fail() {
@@ -150,7 +164,7 @@ class GraffeineViewTests: XCTestCase {
         var didSelect: Bool = false
         subject.layers = [GraffeineBarLayer(id: "mainRegion")]
         subject.onSelect = ({ _ in didSelect = true })
-        simulateTouch(subject)
+        simulateTouch_Began_Ended(subject)
         XCTAssertTrue(didSelect)
     }
 
@@ -158,7 +172,15 @@ class GraffeineViewTests: XCTestCase {
         var didSelect: Bool = false
         subject.layers = [GraffeineBarLayer(id: "mainRegion")]
         subject.onSelect = ({ _ in didSelect = true })
-        simulateCancelledTouch(subject)
+        simulateTouch_Began_Cancelled(subject)
+        XCTAssertFalse(didSelect)
+    }
+
+    func test_given_onSelect_when_touch_moved_then_it_does_not_invoke_onSelect() {
+        var didSelect: Bool = false
+        subject.layers = [GraffeineBarLayer(id: "mainRegion")]
+        subject.onSelect = ({ _ in didSelect = true })
+        simulateTouch_Began_Moved_Ended(subject)
         XCTAssertFalse(didSelect)
     }
 
@@ -166,7 +188,7 @@ class GraffeineViewTests: XCTestCase {
         var didSelect: Bool = false
         subject.layers = [GraffeineBarLayer(id: "mainRegion")]
         subject.onSelect = ({ _ in didSelect = true })
-        simulateMultiTouch(subject)
+        simulateMultiTouch_Began_Ended(subject)
         XCTAssertFalse(didSelect)
     }
 
