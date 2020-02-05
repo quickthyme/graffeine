@@ -6,6 +6,8 @@ open class GraffeineLayer: CALayer {
 
     open var insets: UIEdgeInsets = .zero
 
+    open var maskInsets: UIEdgeInsets = .zero
+
     open var id: AnyHashable = Int(0)
 
     public var unitColumn: UnitColumn = UnitColumn()
@@ -52,6 +54,7 @@ open class GraffeineLayer: CALayer {
         if let layer = layer as? GraffeineLayer {
             self.region = layer.region
             self.insets = layer.insets
+            self.maskInsets = layer.maskInsets
             self.id = layer.id
             self.flipXY = layer.flipXY
             self.data = layer.data
@@ -66,6 +69,7 @@ open class GraffeineLayer: CALayer {
 
     override open func layoutSublayers() {
         super.layoutSublayers()
+        applyClippingMaskIfEnabled()
         repositionSublayers()
     }
 
@@ -110,5 +114,19 @@ open class GraffeineLayer: CALayer {
     open func apply(_ conf: (GraffeineLayer) -> ()) -> GraffeineLayer {
         conf(self)
         return self
+    }
+
+    private func applyClippingMaskIfEnabled() {
+        guard (maskInsets != .zero) else { return }
+        let maskFrame = CGRect(x: 0 + maskInsets.left,
+                               y: 0 + maskInsets.top,
+                               width: bounds.size.width - maskInsets.right - maskInsets.left,
+                               height: bounds.size.height - maskInsets.top - maskInsets.bottom)
+
+        let mask = CAShapeLayer()
+        mask.contentsScale = self.contentsScale
+        mask.path = UIBezierPath(rect: maskFrame).cgPath
+        mask.fillColor = UIColor.black.cgColor
+        self.mask = mask
     }
 }

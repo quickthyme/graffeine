@@ -8,39 +8,6 @@ extension GraffeineBarLayer {
         public var flipXY: Bool = false
         public var roundedEnds: RoundedEnds = .none
 
-        open func reposition(for index: Int,
-                             in data: GraffeineData,
-                             containerSize: CGSize,
-                             animator: GraffeineBarDataAnimating?) {
-
-            let drawingInfo = unitColumn.drawingInfo(valueHi: data.values.hi[index] ?? 0,
-                                                     valueLo: data.loValueOrZero(index),
-                                                     maxValue: data.valueMaxOrHighestHi,
-                                                     unitIndex: index,
-                                                     numberOfUnits: data.values.hi.count,
-                                                     containerSize: containerSize,
-                                                     flipXY: flipXY)
-
-            let oldBarFrame: CGRect = self.path?.boundingBoxOfPath ?? .zero
-            let oldOrigin = oldBarFrame.origin
-            let oldSize = oldBarFrame.size
-
-            let newOrigin = drawingInfo.origin
-            let newSize = drawingInfo.size
-
-            if let animator = animator {
-                animator.animate(bar: self,
-                                 fromOrigin: oldOrigin,
-                                 toOrigin: newOrigin,
-                                 fromSize: oldSize,
-                                 toSize: newSize)
-            } else {
-                performWithoutAnimation {
-                    self.path = constructPath(origin: newOrigin, size: newSize)
-                }
-            }
-        }
-
         open func constructPath(origin: CGPoint, size: CGSize) -> CGPath {
             let frame = CGRect(origin: origin, size: size)
 
