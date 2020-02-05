@@ -7,6 +7,14 @@ extension GraffeinePlotLayer {
         public var unitColumn: UnitColumn = UnitColumn()
         public var diameter: CGFloat = 0.0
 
+        public func constructPath(at point: CGPoint) -> CGPath {
+            return UIBezierPath(arcCenter: point,
+                                radius: (diameter / 2),
+                                startAngle: 0,
+                                endAngle: FullCircleInRadians,
+                                clockwise: true).cgPath
+        }
+
         override public init() {
             super.init()
             self.contentsScale = UIScreen.main.scale

@@ -7,6 +7,7 @@ open class GraffeineRadialSegmentLayer: GraffeineLayer {
     public var outerDiameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
     public var innerDiameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
     public var centerOffsetDiameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
+    public var positioner: Positioner = .default
 
     override open func generateSublayer() -> CALayer {
         return Segment()
@@ -39,10 +40,11 @@ open class GraffeineRadialSegmentLayer: GraffeineLayer {
             applySelectionState(segment, index: index)
             applyRadialSelectionState(segment, index: index)
 
-            segment.reposition(for: index,
-                               in: percentages,
-                               centerPoint: centerPoint,
-                               animator: animator as? GraffeineRadialSegmentDataAnimating)
+            positioner.get().reposition(segment: segment,
+                                        for: index,
+                                        in: percentages,
+                                        centerPoint: centerPoint,
+                                        animator: animator as? GraffeineRadialSegmentDataAnimating)
         }
     }
 
@@ -84,6 +86,7 @@ open class GraffeineRadialSegmentLayer: GraffeineLayer {
             self.outerDiameter = layer.outerDiameter
             self.innerDiameter = layer.innerDiameter
             self.centerOffsetDiameter = layer.centerOffsetDiameter
+            self.positioner = layer.positioner
         }
     }
 

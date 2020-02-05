@@ -9,62 +9,8 @@ extension GraffeineRadialLineLayer {
         public var outerRadius: CGFloat = 0
         public var innerRadius: CGFloat = 0
 
-        private var _angles: GraffeineAnglePair = .zero
+        internal var _angles: GraffeineAnglePair = .zero
         public var angles: GraffeineAnglePair { return _angles }
-
-        open func reposition(for index: Int,
-                             in percentages: [CGFloat],
-                             centerPoint: CGPoint,
-                             animator: GraffeineRadialLineDataAnimating?) {
-            let rotAngle = rotationAngle()
-            let pctAngle = PercentageToRadians(percentages[index], clockwise)
-            let startAngle = (clockwise)
-                ? (0 + startingAngle(for: index, in: percentages)) + rotAngle
-                : (0 - startingAngle(for: index, in: percentages)) + rotAngle
-            let endAngle = startAngle + pctAngle
-            let newAngles = (clockwise)
-                ? GraffeineAnglePair(start: startAngle, end: endAngle)
-                : GraffeineAnglePair(start: endAngle, end: startAngle)
-
-            if (self.angles == .zero) {
-                self._angles = GraffeineAnglePair(start: newAngles.start, end: newAngles.start)
-            }
-
-            let middleAngle = newAngles.middle
-
-            let outerPoint = GraffeineAnglePair.point(for: middleAngle,
-                                                      center: centerPoint,
-                                                      radius: outerRadius)
-
-            let innerPoint = GraffeineAnglePair.point(for: middleAngle,
-                                                      center: centerPoint,
-                                                      radius: innerRadius)
-
-            if let animator = animator {
-                animator.animate(line: self,
-                                 fromAngles: self.angles,
-                                 toAngles: newAngles,
-                                 outerPoint: outerPoint,
-                                 innerPoint: innerPoint)
-            } else {
-                performWithoutAnimation {
-                    self.path = constructPath(outerPoint: outerPoint,
-                                              innerPoint: innerPoint,
-                                              angles: newAngles)
-                }
-            }
-            _angles = newAngles
-        }
-
-        private func rotationAngle() -> CGFloat {
-            return PercentageToRadians( CGFloat(rotation % 360) / 360 , clockwise)
-        }
-
-        private func startingAngle(for index: Int, in percentages: [CGFloat]) -> CGFloat {
-            let startingPercentage = percentages[0..<index].reduce(CGFloat(0)) { $0 + $1 }
-            let angle = PercentageToRadians(startingPercentage, clockwise)
-            return ((clockwise) ? angle : (0 - angle))
-        }
 
         open func constructPath(outerPoint: CGPoint, innerPoint: CGPoint, angles: GraffeineAnglePair) -> CGPath {
             let path = UIBezierPath()

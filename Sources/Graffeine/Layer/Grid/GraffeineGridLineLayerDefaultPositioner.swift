@@ -28,7 +28,7 @@ public struct GraffeineGridLineLayerDefaultPositioner: GraffeineGridLineLayerPos
         line.performWithoutAnimation {
             line.anchorPoint = translatedAnchor(line, yPos, translatedContainerSize)
             line.frame.size = translatedSize(line, CGSize(width: translatedContainerSize.width, height: 0.0) )
-            line.path = generatePath(for: line).cgPath
+            line.path = line.constructPath().cgPath
             line.position = translatedPosition(
                 line,
                 thicknessOffset(line,
@@ -81,12 +81,5 @@ public struct GraffeineGridLineLayerDefaultPositioner: GraffeineGridLineLayerPos
         default:
             return point
         }
-    }
-
-    func generatePath(for line: GraffeineGridLineLayer.GridLine) -> UIBezierPath{
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0, y: 0))
-        path.addLine(to: CGPoint(x: line.bounds.size.width, y: line.bounds.size.height))
-        return path
     }
 }

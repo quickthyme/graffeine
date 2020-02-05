@@ -6,6 +6,7 @@ open class GraffeineRadialLineLayer: GraffeineLayer {
     public var rotation: UInt = 0
     public var outerDiameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
     public var innerDiameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
+    public var positioner: Positioner = .default
 
     override open func generateSublayer() -> CALayer {
         return Line()
@@ -35,10 +36,11 @@ open class GraffeineRadialLineLayer: GraffeineLayer {
             applySelectionState(line, index: index)
             applyRadialSelectionState(line, index: index)
 
-            line.reposition(for: index,
-                             in: percentages,
-                             centerPoint: centerPoint,
-                             animator: animator as? GraffeineRadialLineDataAnimating)
+            positioner.get().reposition(line: line,
+                                        for: index,
+                                        in: percentages,
+                                        centerPoint: centerPoint,
+                                        animator: animator as? GraffeineRadialLineDataAnimating)
         }
     }
 
@@ -75,6 +77,7 @@ open class GraffeineRadialLineLayer: GraffeineLayer {
             self.rotation = layer.rotation
             self.outerDiameter = layer.outerDiameter
             self.innerDiameter = layer.innerDiameter
+            self.positioner = layer.positioner
         }
     }
 

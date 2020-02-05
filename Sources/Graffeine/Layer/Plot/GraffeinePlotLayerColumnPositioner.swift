@@ -25,13 +25,7 @@ public struct GraffeinePlotLayerColumnPositioner: GraffeinePlotLayerPositioning 
             y: containerSize.height - (containerSize.height * valPercent)
         )
 
-        let newRadius = (plot.diameter / 2)
-
-        let newPath = UIBezierPath(arcCenter: newPosition,
-                                   radius: newRadius,
-                                   startAngle: 0,
-                                   endAngle: DegreesToRadians(360),
-                                   clockwise: true).cgPath
+        let newPath = plot.constructPath(at: newPosition)
 
         if let animator = animator {
             animator.animate(plot: plot,

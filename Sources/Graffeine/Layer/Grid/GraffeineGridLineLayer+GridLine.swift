@@ -6,6 +6,13 @@ extension GraffeineGridLineLayer {
 
         open var flipXY: Bool = false
 
+        func constructPath() -> UIBezierPath{
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: 0, y: 0))
+            path.addLine(to: CGPoint(x: bounds.size.width, y: bounds.size.height))
+            return path
+        }
+
         override public init() {
             super.init()
             self.contentsScale = UIScreen.main.scale
