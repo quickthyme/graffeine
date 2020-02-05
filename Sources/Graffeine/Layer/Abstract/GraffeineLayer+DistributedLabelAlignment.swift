@@ -7,7 +7,7 @@ extension GraffeineLayer {
         public var vertical: Vertical
 
         static let horizontalThreshold: CGFloat = 24
-        static let verticalThreshold: CGFloat = 24
+        static let verticalThreshold: CGFloat = 32
 
         public func graffeineLabelAlignment(for index: Int, count: Int) -> GraffeineLabel.Alignment {
             return GraffeineLabel.Alignment(

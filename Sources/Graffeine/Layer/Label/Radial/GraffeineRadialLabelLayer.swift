@@ -3,11 +3,14 @@ import UIKit
 open class GraffeineRadialLabelLayer: GraffeineLayer {
 
     public var clockwise: Bool = true
-    public var rotation: UInt = 0
     public var diameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
+    public var centerRotation: Int = 0
+    public var labelRotation: Int = 0
+    public var labelRotationInheritFromCenter: Bool = false
     public var unitText: UnitText = UnitText()
     public var labelPadding = GraffeineLabel.Padding()
     public var labelAlignment = DistributedLabelAlignment(horizontal: .center, vertical: .center)
+    public var positioner: Positioner = .default
 
     override open func generateSublayer() -> CALayer {
         return Label()
@@ -25,7 +28,9 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             guard let label = label as? Label, index < numberOfLabels else { continue }
             let text = data.preferredLabelValue(index)
             label.clockwise = clockwise
-            label.rotation = rotation
+            label.centerRotation = centerRotation
+            label.labelRotation = labelRotation
+            label.labelRotationInheritFromCenter = labelRotationInheritFromCenter
             label.radius = radius
             label.string = text
             label.frame.size = label.sizeFittingText
@@ -41,10 +46,11 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
             applySelectionState(label, index: index)
             applyRadialSelectionState(label, index: index)
 
-            label.reposition(for: index,
-                             in: percentages,
-                             centerPoint: centerPoint,
-                             animator: animator as? GraffeineRadialLabelDataAnimating)
+            positioner.get().reposition(label: label,
+                                        for: index,
+                                        in: percentages,
+                                        centerPoint: centerPoint,
+                                        animator: animator as? GraffeineRadialLabelDataAnimating)
         }
     }
 
@@ -77,11 +83,14 @@ open class GraffeineRadialLabelLayer: GraffeineLayer {
         super.init(layer: layer)
         if let layer = layer as? Self {
             self.clockwise = layer.clockwise
-            self.rotation = layer.rotation
             self.diameter = layer.diameter
+            self.centerRotation = layer.centerRotation
+            self.labelRotation = layer.labelRotation
+            self.labelRotationInheritFromCenter = layer.labelRotationInheritFromCenter
             self.unitText = layer.unitText
             self.labelPadding = layer.labelPadding
             self.labelAlignment = layer.labelAlignment
+            self.positioner = layer.positioner
         }
     }
 

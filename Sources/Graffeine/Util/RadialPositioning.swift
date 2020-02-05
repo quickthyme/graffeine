@@ -4,8 +4,9 @@ internal let OneDegreeInRadians = (CGFloat.pi / 180)
 internal let HalfDegreeInRadians = (OneDegreeInRadians / 2)
 internal let FullCircleInRadians = (CGFloat.pi * 2.0)
 
-internal let DegreesToRadians: (CGFloat) -> (CGFloat) = {
-    return $0 * OneDegreeInRadians
+internal func DegreesToRadians(_ deg: CGFloat, _ clockwise: Bool = true) -> CGFloat {
+    let rad = deg * OneDegreeInRadians
+    return (clockwise) ? rad : 0 - rad
 }
 
 internal func PercentageToRadians(_ pct: CGFloat, _ clockwise: Bool) -> CGFloat {
