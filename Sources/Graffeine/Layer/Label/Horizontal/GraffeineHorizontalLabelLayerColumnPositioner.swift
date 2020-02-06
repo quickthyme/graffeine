@@ -1,25 +1,20 @@
 import UIKit
 
-public struct GraffeineVerticalLabelLayerDefaultPositioner: GraffeineVerticalLabelLayerPositioning {
+public struct GraffeineHorizontalLabelLayerColumnPositioner: GraffeineHorizontalLabelLayerPositioning {
 
-    public func reposition(label: GraffeineVerticalLabelLayer.Label,
+    public func reposition(label: GraffeineHorizontalLabelLayer.Label,
                            for index: Int,
                            in labels: [String?],
-                           rowHeight: GraffeineLayer.DimensionalUnit,
-                           rowMargin: CGFloat,
                            containerSize: CGSize) {
 
         let labelsCount = labels.count
         let labelValue = (index < labelsCount) ? (labels[index] ?? "") : ""
 
+        let width = label.unitColumn.resolvedWidth(within: containerSize.width,
+                                                   numberOfUnits: labels.count)
+        let xPos = label.unitColumn.resolvedOffset(index: index, actualWidth: width)
 
-        let height = rowHeight.resolved(within: containerSize.height,
-                                        numberOfUnits: labels.count,
-                                        unitMargin: rowMargin)
-
-        let yPos = (CGFloat(index) * (height + rowMargin))
-
-        let newFrame = CGRect(x: 0, y: yPos, width: containerSize.width, height: height)
+        let newFrame = CGRect(x: xPos, y: 0, width: width, height: containerSize.height)
 
         let newTransform = labelRotationTransform(label.labelRotation)
 

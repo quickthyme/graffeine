@@ -2,8 +2,10 @@ import UIKit
 
 open class GraffeineHorizontalLabelLayer: GraffeineLayer {
 
+    public var positioner: Positioner = .column
     public var unitText: UnitText = UnitText()
 
+    public var labelRotation: Int = 0
     public var labelPadding = GraffeineLabel.Padding()
     public var labelAlignment = DistributedLabelAlignment(horizontal: .center,
                                                           vertical: .center)
@@ -26,6 +28,7 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
             label.unitColumn = unitColumn
             label.padding = labelPadding
             label.alignment = labelAlignment.graffeineLabelAlignment(for: index, count: numberOfUnits)
+            label.labelRotation = labelRotation
 
             unitFill.apply(to: label, index: index)
             unitLine.apply(to: label, index: index)
@@ -35,9 +38,10 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
 
             applySelectionState(label, index: index)
 
-            label.reposition(for: index,
-                             in: data.labels,
-                             containerSize: bounds.size)
+            positioner.get().reposition(label: label,
+                                        for: index,
+                                        in: data.labels,
+                                        containerSize: bounds.size)
         }
     }
 
@@ -60,8 +64,10 @@ open class GraffeineHorizontalLabelLayer: GraffeineLayer {
         super.init(layer: layer)
         if let layer = layer as? Self {
             self.unitText = layer.unitText
+            self.labelRotation = layer.labelRotation
             self.labelPadding = layer.labelPadding
             self.labelAlignment = layer.labelAlignment
+            self.positioner = layer.positioner
         }
     }
 

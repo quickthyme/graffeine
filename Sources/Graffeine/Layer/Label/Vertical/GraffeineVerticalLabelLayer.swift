@@ -2,7 +2,7 @@ import UIKit
 
 open class GraffeineVerticalLabelLayer: GraffeineLayer {
 
-    public var positioner: Positioner = .default
+    public var positioner: Positioner = .row
     public var rowHeight: GraffeineLayer.DimensionalUnit = .relative
     public var rowMargin: CGFloat = 0.0
     public var unitText: UnitText = UnitText()

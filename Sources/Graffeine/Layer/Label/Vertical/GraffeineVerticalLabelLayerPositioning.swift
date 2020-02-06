@@ -12,13 +12,13 @@ public protocol GraffeineVerticalLabelLayerPositioning {
 extension GraffeineVerticalLabelLayer {
 
     public enum Positioner {
-        case `default`
+        case row
         case custom(GraffeineVerticalLabelLayerPositioning)
 
         public func get() -> GraffeineVerticalLabelLayerPositioning {
             switch self {
-            case .default:
-                return GraffeineVerticalLabelLayerDefaultPositioner()
+            case .row:
+                return GraffeineVerticalLabelLayerRowPositioner()
 
             case let .custom(positioner):
                 return positioner
