@@ -10,6 +10,8 @@ open class GraffeineLayer: CALayer {
 
     open var id: AnyHashable = Int(0)
 
+    public var fill: ContainerFill = ContainerFill()
+
     public var unitColumn: UnitColumn = UnitColumn()
     public var unitFill:   UnitFill   = UnitFill()
     public var unitLine:   UnitLine   = UnitLine()
@@ -58,6 +60,7 @@ open class GraffeineLayer: CALayer {
             self.id = layer.id
             self.flipXY = layer.flipXY
             self.data = layer.data
+            self.fill = layer.fill
             self.unitColumn = layer.unitColumn
             self.unitFill = layer.unitFill
             self.unitLine = layer.unitLine
@@ -69,6 +72,7 @@ open class GraffeineLayer: CALayer {
 
     override open func layoutSublayers() {
         super.layoutSublayers()
+        fill.apply(to: self)
         applyClippingMaskIfEnabled()
         repositionSublayers()
     }
