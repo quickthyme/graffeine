@@ -39,7 +39,7 @@ extension GraffeineLineLayer {
 
             let valuesBottom: [Double?] = (valuesBottom.isEmpty)
                 ? valuesTop.map { _ in return 0 }
-                : valuesBottom //.map { $0 ?? 0 }
+                : valuesBottom
 
             var path = UIBezierPath()
 
