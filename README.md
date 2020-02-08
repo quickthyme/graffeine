@@ -59,12 +59,19 @@ the `layers` property, like so:
     ]
 
 
-##### Note regarding SwiftUI
+##### Support for SwiftUI
 
 In order to use `GraffeineView` within a SwiftUI view hierarchy, it needs
 to be wrapped using `GraffeineViewRep`, or your own custom
 [`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable).
 
+
+##### Dynamic Colors and Dark Mode
+
+Graffeine conveniently supports dynamic `UIColor` objects, including those
+created with dynamic appearance traits. Whenever the user switches between
+normal and dark display modes, then all of the `fill`, `line`, and `text`
+colors are automatically reapplied with their updated characteristics.
 
 <br />
 
@@ -287,7 +294,7 @@ This only affects whether or not the layer will respond to user touch.
 
 When enabled, the `onSelect` handler may include `SelectionResults`.
 
-If either the `SelectionResult` or its `data.selectedIndex` is nil, we
+If either the `SelectionResult` or its `data.selected.index` is nil, we
 can interpret it as "deselection". Otherwise, we should have all the
 information we need in order to handle the event:
  
