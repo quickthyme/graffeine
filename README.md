@@ -13,8 +13,8 @@
 **It's like, graphing... with caffeine.**
 
 Graffeine is an iOS library that uses CoreAnimation to render various types of data
-graphs and charts. It is highly extendable and features a declarative interface,
-modular layers, configuration binding, and auto-layout.
+graphs and charts. It is dynamically style-able, reasonably extendable, featuring
+a declarative interface, modular layers, configuration binding, and auto-layout.
 
 <br />
 
@@ -58,6 +58,14 @@ the `layers` property, like so:
             })
     ]
 
+
+##### Note regarding SwiftUI
+
+In order to use `GraffeineView` within a SwiftUI view hierarchy, it needs
+to be wrapped using `GraffeineViewRep`, or your own custom
+[`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable).
+
+
 <br />
 
 
@@ -84,7 +92,7 @@ Out of the box, there are a handful of ready-to-go layers:
 | `GraffeinePlotLabelLayer`        |   labels arranged linearly      |
 
 
-###### Constructing
+##### Constructing
 
 When constructing a `GraffeineLayer`, you typically provide it with an `id` and
 a `region`.
@@ -102,7 +110,7 @@ regions than others. For example, the horizontal and vertical label layers are
 generally intended to be placed in one of the gutter regions.
 
 
-###### Dimensional Unit
+##### Dimensional Unit
 
 Certain properties, such as `unitWidth` or `diameter`, are defined as a
 `DimensionalUnit`. This is an abstract unit type *(enum)*, that affects sizing
@@ -114,6 +122,67 @@ and positioning depending on which you specify:
  
  `.relative`          - automatic sizing based on the number
                         of units sharing the same container
+
+
+### GraffeineData
+
+![sample_10](docs/sample_10.png)
+
+The `GraffeineData` structure is the vehicle used to feed data into Graffeine.
+For the most part, Graffeine tries to avoid making assumptions on the developer's
+behalf, but when it comes to the data, there are a few caveats to this, as each
+layer must *interpret* the data it's been given. Therefore, it is important to
+understand a little bit about how certain properties can affect this interpretation:
+
+  - `valueMax`, when provided, will be used as the maximum range for the
+  given values. Otherwise, the layer will automatically *guess* the max
+  based on its display characteristics. When providing this value, it is
+  completely up to the developer to ensure that the value is "legal".
+  
+  - `values.hi` is the primary stream of input data. When in doubt, make sure
+  this is the field containing the values you are expecting to see.
+  
+  - `values.lo` is an additional stream of values that are generally used to
+  alter how the nominal hi-values get rendered. This behavior is largely
+  dependent upon the particular layer's interpretation of the given data.
+  For example, bar and line layers may use this as a lower boundary,
+  whereas a pie chart may ignore it altogether. Also, read the **note below
+  regarding negative values.**
+
+  - `labels` is what label layers look for when rendering text values.
+  
+  - `selected.index`, if set, is the value index of the current selection.
+  
+  - `selected.labels`, if provided, will override the regular label for the
+  given index
+
+
+##### Negative Values and Transposing
+
+It is difficult to create something useful that is also general purpose enough
+to be accessible. When it comes to rendering data as graphical illustrations,
+handling negative values immediately creates problems for the developer.
+This is less about calculation, and more about intuition. Depending on what it
+is the graph is supposed to communicate, one's expectations of how negative
+values should be portrayed can vary.
+
+  - **Radial Layers** do not understand negative values and will likely give
+undesirable results.
+
+  - **Line and Plot Layers** can accept negative values, but their display is
+  essentiallyrooted to the bottom-left (0,0) axis. If you need to display
+  negative values within the visible bounds, then the data needs to be
+  transposed.
+
+  - **Bar Layers**, upon detection of negative values in the data, will try to
+  automatically transpose it so that "zero" becomes centered vertically
+  (or horizontally if using `.flipXY`.)
+
+  **IMPORTANT:** The automatic transposing used by the bar layers will destroy
+  any previously existing values stored in `values.lo`! If you depend on that
+  field for things like segmented bars or candlestick charts, then know that
+  you cannot use these types of charts with negative values. You will need to
+  do your own transposing first, before feeding the data into Graffeine.
 
 <br />
 
