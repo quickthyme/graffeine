@@ -26,9 +26,11 @@ open class GraffeineGridLineLayer: GraffeineLayer {
             unitShadow.apply(to: line)
             unitAnimation.apply(to: line)
 
+            let txData = GraffeineData(transposed: data)
+
             positioner.get().reposition(line: line,
                                         for: index,
-                                        in: data,
+                                        in: txData,
                                         containerSize: bounds.size)
         }
     }

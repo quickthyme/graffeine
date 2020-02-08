@@ -28,9 +28,11 @@ open class GraffeineBarLayer: GraffeineLayer {
 
             applySelectionState(bar, index: index)
 
+            let txData = GraffeineData(transposed: data)
+
             positioner.get().reposition(bar: bar,
                                         for: index,
-                                        in: data,
+                                        in: txData,
                                         containerSize: bounds.size,
                                         animator: animator as? GraffeineBarDataAnimating)
         }

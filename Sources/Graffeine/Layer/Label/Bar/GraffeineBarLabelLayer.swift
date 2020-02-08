@@ -35,8 +35,10 @@ open class GraffeineBarLabelLayer: GraffeineLayer {
 
             applySelectionState(label, index: index)
 
+            let txData = GraffeineData(transposed: data)
+
             label.reposition(for: index,
-                             in: data,
+                             in: txData,
                              alignment: newAlignment,
                              padding: newPadding,
                              containerSize: bounds.size,

@@ -195,4 +195,47 @@ class GraffeineDataTests: XCTestCase {
         XCTAssertEqual(val.0, [1.0, 3.0, 5.0])
         XCTAssertEqual(val.1, [2.0, 4.0, 6.0])
     }
+
+    func test_when_transposed_with_only_positive_values_then_no_change() {
+        let original = GraffeineData(valuesHi: [0, 1, 2, 3, 4, 5])
+        let transposed = GraffeineData(transposed: original)
+        XCTAssertEqual(transposed.values.hi, [0, 1, 2, 3, 4, 5])
+        XCTAssertEqual(transposed.values.lo, [])
+    }
+
+    func test_when_transposed_with_negative_values_then_offset_based_on_best_guess() {
+        let original = GraffeineData(valuesHi: [0, 1, 2, 3, 4, 5, -5])
+        let transposed = GraffeineData(transposed: original)
+        XCTAssertEqual(transposed.valueMax, 10)
+        XCTAssertEqual(transposed.valueMin,  0)
+        XCTAssertEqual(transposed.values.hi, [5, 6, 7, 8, 9, 10, 5])
+        XCTAssertEqual(transposed.values.lo, [5, 5, 5, 5, 5,  5, 0])
+    }
+
+    func test_when_transposed_with_negative_values_and_provided_range_then_offset_accordingly() {
+        let original = GraffeineData(valueMax: 10, valueMin: -10, valuesHi: [0, 1, 2, 3, 4, 5, -5])
+        let transposed = GraffeineData(transposed: original)
+        XCTAssertEqual(transposed.valueMax, 20)
+        XCTAssertEqual(transposed.valueMin,  0)
+        XCTAssertEqual(transposed.values.hi, [10, 11, 12, 13, 14, 15, 10])
+        XCTAssertEqual(transposed.values.lo, [10, 10, 10, 10, 10, 10,  5])
+    }
+
+    func test_when_transposed_with_negative_values_and_provided_max_value_then_offset_accordingly() {
+        let original = GraffeineData(valueMax: 10, valuesHi: [0, 1, 2, 3, 4, 5, -10])
+        let transposed = GraffeineData(transposed: original)
+        XCTAssertEqual(transposed.valueMax, 20)
+        XCTAssertEqual(transposed.valueMin,  0)
+        XCTAssertEqual(transposed.values.hi, [10, 11, 12, 13, 14, 15, 10])
+        XCTAssertEqual(transposed.values.lo, [10, 10, 10, 10, 10, 10,  0])
+    }
+
+    func test_when_transposed_with_negative_hi_and_lo_values_then_ignores_original_lo_vals() {
+        let original = GraffeineData(valueMax: 10, valueMin: -10, valuesHi: [0, 1, 2, 3, 4, 5, -1], valuesLo: [0, -1, -2, -3, -4, -5, -6])
+        let transposed = GraffeineData(transposed: original)
+        XCTAssertEqual(transposed.valueMax, 20)
+        XCTAssertEqual(transposed.valueMin,  0)
+        XCTAssertEqual(transposed.values.hi, [10, 11, 12, 13, 14, 15, 10])
+        XCTAssertEqual(transposed.values.lo, [10, 10, 10, 10, 10, 10,  9])
+    }
 }

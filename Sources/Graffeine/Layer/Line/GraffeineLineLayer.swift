@@ -37,7 +37,6 @@ open class GraffeineLineLayer: GraffeineLayer {
             applyAreaLineSelectionState(line, fill, selectedIndex)
         }
 
-
         positioner.get().reposition(line: line,
                                     fill: fill,
                                     data: data,

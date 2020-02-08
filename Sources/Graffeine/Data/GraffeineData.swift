@@ -30,64 +30,9 @@ public struct GraffeineData: Equatable {
     public var labels: [String?]
     public var selected: Selected
 
-    public var highestHi: Double {
-        return values.hi.map({ $0 ?? 0 }).max() ?? 0
-    }
-
-    public var highestLo: Double {
-        return values.lo.map({ $0 ?? 0 }).max() ?? 0
-    }
-
-    public var lowestHi: Double {
-        return values.hi.map({ $0 ?? 0 }).min() ?? 0
-    }
-
-    public var lowestLo: Double {
-        return values.lo.map({ $0 ?? 0 }).min() ?? 0
-    }
-
-    public var sumHi: Double {
-        return values.hi.reduce(Double(0)) { $0 + ($1 ?? 0) }
-    }
-
-    public var sumLo: Double {
-        return values.lo.reduce(Double(0)) { $0 + ($1 ?? 0) }
-    }
-
-    public var valueMaxOrSumHi: Double {
-        return valueMax ?? sumHi
-    }
-
-    public var valueMaxOrSumLo: Double {
-        return valueMax ?? sumLo
-    }
-
-    public var valueMaxOrHighestHi: Double {
-        return valueMax ?? highestHi
-    }
-
-    public func loValueOrZero(_ idx: Int) -> Double {
-        return (0..<values.lo.count ~= idx)
-            ? values.lo[idx] ?? 0.0
-            : 0.0
-    }
-
-    public func preferredLabelValue(_ index: Int) -> String {
-        return (index == (selected.index ?? Int.max))
-            ? selectedLabelValue(self.selected.index!)
-            : labelValue(index)
-    }
-
-    public func labelValue(_ index: Int) -> String {
-        return (0..<labels.count ~= index)
-            ? labels[index] ?? ""
-            : ""
-    }
-
-    public func selectedLabelValue(_ index: Int) -> String {
-        return (0..<selected.labels.count ~= index)
-            ? selected.labels[index] ?? ""
-            : labelValue(index)
+    internal var _transposeDelta: Double = 0
+    internal var transposeDelta: Double {
+        return _transposeDelta
     }
 
     public init() {
@@ -159,5 +104,4 @@ public struct GraffeineData: Equatable {
                   labels: [],
                   selectedIndex: selectedIndex)
     }
-
 }
