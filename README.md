@@ -99,7 +99,7 @@ Out of the box, there are a handful of ready-to-go layers:
 | `GraffeinePlotLabelLayer`        |   labels arranged linearly      |
 
 
-##### Constructing
+#### Constructing
 
 When constructing a `GraffeineLayer`, you typically provide it with an `id` and
 a `region`.
@@ -117,7 +117,7 @@ regions than others. For example, the horizontal and vertical label layers are
 generally intended to be placed in one of the gutter regions.
 
 
-##### Dimensional Unit
+#### Dimensional Unit
 
 Certain properties, such as `unitWidth` or `diameter`, are defined as a
 `DimensionalUnit`. This is an abstract unit type *(enum)*, that affects sizing
@@ -131,15 +131,73 @@ and positioning depending on which you specify:
                         of units sharing the same container
 
 
+### Value Labels
+
+Out-of-the-box, there are several label options: horizontal, vertical, bar,
+plot, and radial. All labels support vertical/horizontal alignment and padding.
+
+
+##### Gutter Labels
+
+![sample_2](docs/sample_2.png)
+
+Both `GraffeineHorizontalLabelLayer` and `GraffeineVerticalLabelLayer` are designed to
+be used in the gutter region, where they can be configured to align with the units
+displayed in the main region. This is important for things like bar and line charts,
+where the labels need to line up exactly with the grid.
+
+When using the horizontal or vertical label layers, you can choose how their unit
+alignment gets distributed. Their horizontal/vertical label alignment properties
+are relative to the unit, or column-width in which they are bound. So setting a label
+to be `.center` means it will center itself **to the column**. Setting
+`.centerLeftRight` will cause the first and last labels to be left/right aligned,
+but all other labels will be centered.
+
+
+##### Bar Labels
+
+![sample_bar_label](docs/sample_bar_label.png)
+
+The `GraffeineBarLabelLayer` is primarily designed to be used in conjunction with
+bar graphs.
+
+<br />
+
+
+##### Radial Labels
+
+![sample_6](docs/sample_6.png)
+
+The `GraffeineRadialLabelLayer` is primarily designed to be used in conjunction with
+pie and donut charts.
+
+<br />
+
+
+##### Plot Labels
+
+![sample_4](docs/sample_4.png)
+
+The `GraffeinePlotLabelLayer` is primarily designed to be used in conjunction with
+line and plot graphs.
+
+<br />
+
+
+
+## Interaction
+
 ### GraffeineData
 
-![sample_10](docs/sample_10.png)
+![sample_9](docs/sample_9.png)
 
 The `GraffeineData` structure is the vehicle used to feed data into Graffeine.
+
 For the most part, Graffeine tries to avoid making assumptions on the developer's
-behalf, but when it comes to the data, there are a few caveats to this, as each
-layer must *interpret* the data it's been given. Therefore, it is important to
-understand a little bit about how certain properties can affect this interpretation:
+behalf whenever it can help it, but when it comes to the data, there are a few
+caveats to this, as each layer must *interpret* the data it's been given. Therefore,
+it is important to understand a little bit about how certain properties can affect
+said interpretation:
 
   - `valueMax`, when provided, will be used as the maximum range for the
   given values. Otherwise, the layer will automatically *guess* the max
@@ -153,7 +211,7 @@ understand a little bit about how certain properties can affect this interpretat
   alter how the nominal hi-values get rendered. This behavior is largely
   dependent upon the particular layer's interpretation of the given data.
   For example, bar and line layers may use this as a lower boundary,
-  whereas a pie chart may ignore it altogether. Also, read the **note below
+  whereas a pie chart may ignore it altogether. Also, see the **section below
   regarding negative values.**
 
   - `labels` is what label layers look for when rendering text values.
@@ -164,7 +222,28 @@ understand a little bit about how certain properties can affect this interpretat
   given index
 
 
-##### Negative Values and Transposing
+##### Displaying the data
+
+It is easy to apply new data to a specific layer by **assignment**:
+
+    graffeineView.layer(id: "bar")?.data = GraffeineData(values: [1, 2, 3])
+                                             
+Or if you want it to **animate** whenever the data changes:
+
+    let data = GraffeineData(values: [1, 2, 3])
+    let animator = GraffeineAnimation.Data.RadialSegment.Spin(duration: 1.2,
+                                                              timing: .easeInEaseOut)
+    
+    graffeineView.layer(id: "pie")?.setData(data, animator: animator)
+
+  ☝️ *There are a handful of data animators included with the library, out-of-box,
+  or you can create your own, so long as it conforms to `GraffeineDataAnimating`.*
+
+
+
+### Negative Values and Transposing
+
+![sample_10](docs/sample_10.png)
 
 It is difficult to create something useful that is also general purpose enough
 to be accessible. When it comes to rendering data as graphical illustrations,
@@ -185,101 +264,23 @@ undesirable results.
   automatically transpose it so that "zero" becomes centered vertically
   (or horizontally if using `.flipXY`.)
 
-  **IMPORTANT:** The automatic transposing used by the bar layers will destroy
-  any previously existing values stored in `values.lo`! If you depend on that
-  field for things like segmented bars or candlestick charts, then know that
-  you cannot use these types of charts with negative values. You will need to
-  do your own transposing first, before feeding the data into Graffeine.
+  **IMPORTANT:** The automatic transposing used by the bar layers will override
+  any values stored in `values.lo`! If you depend on that field for things like
+  segmented bars or candlestick charts, then know that you cannot use these
+  types of graphs with negative values without transposing. You will need to
+  do your own sanitizing first, before feeding the data into Graffeine.
 
 <br />
 
 
-### Value Labels
-
-Out-of-the-box, there are several label options: horizontal, vertical, bar,
-plot, and radial. All labels support vertical/horizontal alignment and padding.
-
-
-###### Gutter Labels
-
-![sample_2](docs/sample_2.png)
-
-Both `GraffeineHorizontalLabelLayer` and `GraffeineVerticalLabelLayer` are designed to
-be used in the gutter region, where they can be configured to align with the units
-displayed in the main region. This is important for things like bar and line charts,
-where the labels need to line up exactly with the grid.
-
-When using the horizontal or vertical label layers, you can choose how their unit
-alignment gets distributed. Their horizontal/vertical label alignment properties
-are relative to the unit, or column-width in which they are bound. So setting a label
-to be `.center` means it will center itself **to the column**. Setting
-`.centerLeftRight` will cause the first and last labels to be left/right aligned,
-but all other labels will be centered.
-
-
-###### Bar Labels
-
-![sample_bar_label](docs/sample_bar_label.png)
-
-The `GraffeineBarLabelLayer` is primarily designed to be used in conjunction with
-bar graphs.
-
-<br />
-
-
-###### Radial Labels
-
-![sample_6](docs/sample_6.png)
-
-The `GraffeineRadialLabelLayer` is primarily designed to be used in conjunction with
-pie and donut charts.
-
-<br />
-
-
-###### Plot Labels
-
-![sample_4](docs/sample_4.png)
-
-The `GraffeinePlotLabelLayer` is primarily designed to be used in conjunction with
-line and plot graphs.
-
-<br />
-
-
-## Interaction
-
-### Setting Data
-
-![sample_9](docs/sample_9.png)
-
-`GraffeineData` is the vehicle with which to pass data into Graffeine.
-It's easy to apply new data to a specific layer by **assignment**:
-
-    graffeineView.layer(id: "bar")?.data = GraffeineData(values: [1, 2, 3])
-                                             
-Or if you want it to **animate** whenever the data changes:
-
-    let data = GraffeineData(values: [1, 2, 3])
-    let animator = GraffeineAnimation.Data.RadialSegment.Spin(duration: 1.2,
-                                                              timing: .easeInEaseOut)
-    
-    graffeineView.layer(id: "pie")?.setData(data, animator: animator)
-
-*There are a handful of data animators included with the library, out-of-box, or you can
-create your own, so long as it conforms to `GraffeineDataAnimating`.*
-
-<br />
-
-
-### Handling Selection
+### User Selection
 
 ![sample_selection_1](docs/sample_selection_1.png)
 
 Selection is divided into two parts, that of receiving user interaction, and that
 of rendering the selection state.
 
-###### Receiving touch events
+#### Receiving touch events
 All selection events are raised through `GraffeineView` via the `onSelect` handler.
 By assigning a handler to this, you will start receiving events whenever the user
 taps on the view.
@@ -316,7 +317,7 @@ information we need in order to handle the event:
     }
 ```
 
-###### Rendering selection
+#### Rendering the selection
 
 In order to render the selection changes, you need to first enable some overrides:
 
@@ -324,7 +325,8 @@ In order to render the selection changes, you need to first enable some override
     graffeineView.layer(id: "bars")?.selection.line.color = .black
     graffeineView.layer(id: "bars")?.selection.line.thickness = 3.0
 
-Then, just include the `selectedIndex` whenever you set the data.
+Then, just include the `selectedIndex` whenever you set the data. Make sure to
+include any layers that need to respond to the selection change.
 
 <br />
 
