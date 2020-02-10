@@ -58,21 +58,6 @@ the `layers` property, like so:
             })
     ]
 
-
-##### Support for SwiftUI
-
-In order to use `GraffeineView` within a SwiftUI view hierarchy, it needs
-to be wrapped using `GraffeineViewRep`, or your own custom
-[`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable).
-
-
-##### Dynamic Colors and Dark Mode
-
-Graffeine conveniently supports dynamic `UIColor` objects, including those
-created with dynamic appearance traits. Whenever the user switches between
-normal and dark display modes, then all of the `fill`, `line`, and `text`
-colors are automatically reapplied with their updated characteristics.
-
 <br />
 
 
@@ -230,11 +215,12 @@ It is easy to apply new data to a specific layer by **assignment**:
                                              
 Or if you want it to **animate** whenever the data changes:
 
-    let data = GraffeineData(values: [1, 2, 3])
-    let animator = GraffeineAnimation.Data.RadialSegment.Spin(duration: 1.2,
-                                                              timing: .easeInEaseOut)
+    graffeineView.layer(id: "pie")?.unitAnimation.data.add(
+        "reload", GraffeineAnimation.Data.RadialSegment
+            .Spin(duration: 1.2, timing: .easeInEaseOut))
     
-    graffeineView.layer(id: "pie")?.setData(data, animator: animator)
+    graffeineView.layer(id: "pie")?.setData(GraffeineData(values: [1, 2, 3]),
+                                            animationKey: "reload")
 
   ☝️ *There are a handful of data animators included with the library, out-of-box,
   or you can create your own, so long as it conforms to `GraffeineDataAnimating`.*
@@ -245,12 +231,11 @@ Or if you want it to **animate** whenever the data changes:
 
 ![sample_10](docs/sample_10.png)
 
-It is difficult to create something useful that is also general purpose enough
-to be accessible. When it comes to rendering data as graphical illustrations,
-handling negative values immediately creates problems for the developer.
-This is less about calculation, and more about intuition. Depending on what it
-is the graph is supposed to communicate, one's expectations of how negative
-values should be portrayed can vary.
+When it comes to rendering data as graphical illustrations, handling negative
+values immediately creates problems for the developer. This is less about
+calculation, and more about intuition. Depending on what it is the graph
+is supposed to communicate, one's expectations of how negative values should
+be portrayed can vary.
 
   - **Radial Layers** do not understand negative values and will likely give
 undesirable results.
@@ -267,8 +252,8 @@ undesirable results.
   **IMPORTANT:** The automatic transposing used by the bar layers will override
   any values stored in `values.lo`! If you depend on that field for things like
   segmented bars or candlestick charts, then know that you cannot use these
-  types of graphs with negative values without transposing. You will need to
-  do your own sanitizing first, before feeding the data into Graffeine.
+  types of graphs with negative values. You will need to do your own transposing
+  first, before feeding the data into Graffeine.
 
 <br />
 
@@ -327,6 +312,26 @@ In order to render the selection changes, you need to first enable some override
 
 Then, just include the `selectedIndex` whenever you set the data. Make sure to
 include any layers that need to respond to the selection change.
+
+<br />
+
+
+### Notes
+
+
+##### Support for SwiftUI
+
+In order to use `GraffeineView` within a SwiftUI view hierarchy, it needs
+to be wrapped using `GraffeineViewRep`, or your own custom
+[`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable).
+
+
+##### Dynamic Colors and Dark Mode
+
+Graffeine conveniently supports dynamic `UIColor` objects, including those
+created with dynamic appearance traits. Whenever the user switches between
+normal and dark display modes, then all of the `fill`, `line`, and `text`
+colors are automatically reapplied with their updated characteristics.
 
 <br />
 
