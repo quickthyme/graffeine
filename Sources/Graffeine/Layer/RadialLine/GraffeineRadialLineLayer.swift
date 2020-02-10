@@ -31,7 +31,7 @@ open class GraffeineRadialLineLayer: GraffeineLayer {
 
             unitLine.apply(to: line, index: index)
             unitShadow.apply(to: line)
-            unitAnimation.apply(to: line)
+            unitAnimation.perpetual.apply(to: line)
 
             applySelectionState(line, index: index)
             applyRadialSelectionState(line, index: index)

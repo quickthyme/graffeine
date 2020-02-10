@@ -3,15 +3,33 @@ import UIKit
 extension GraffeineLayer {
 
     public struct UnitAnimation {
-
-        private static let prefix = "GraffeineLayer.UnitAnimation."
-        private var prefix: String { return UnitAnimation.prefix }
-
+        private static let prefixPerpetual: String = "GraffeineLayer.UnitAnimation.Perpetual."
+        private static let prefixData: String = "GraffeineLayer.UnitAnimation.Data."
         public init() {}
+
+        public var perpetual: PerpetualContainer = PerpetualContainer(prefix: prefixPerpetual)
+        public var data: DataContainer = DataContainer(prefix: prefixData)
+    }
+}
+
+extension GraffeineLayer.UnitAnimation {
+
+    public struct PerpetualContainer {
+
+        internal var prefix: String
+
+        public init(prefix: String) {
+            self.prefix = prefix
+        }
 
         private var animations: [String: CAAnimation] = [:]
 
         public var animationKeys: [String] {
+            let prefixCount = prefix.count
+            return animations.map { String($0.key.dropFirst(prefixCount)) }
+        }
+
+        internal var prefixedAnimationKeys: [String] {
             return animations.map { $0.key }
         }
 
@@ -33,7 +51,7 @@ extension GraffeineLayer {
         }
 
         private func removeUnwantedAnimations(from target: CALayer) {
-            let wantedKeys = self.animationKeys
+            let wantedKeys = self.prefixedAnimationKeys
             let appliedKeys = (target.animationKeys() ?? [])
                 .filter({ $0.starts(with: prefix) })
 
@@ -48,6 +66,45 @@ extension GraffeineLayer {
             for (key, animation) in animations {
                 target.add(animation, forKey: key)
             }
+        }
+    }
+}
+
+extension GraffeineLayer.UnitAnimation {
+
+    public struct DataContainer {
+
+        internal var prefix: String
+
+        public init(prefix: String) {
+            self.prefix = prefix
+        }
+
+        private var animations: [String: GraffeineDataAnimating] = [:]
+
+        public var animationKeys: [String] {
+            let prefixCount = prefix.count
+            return animations.map { String($0.key.dropFirst(prefixCount)) }
+        }
+
+        internal var prefixedAnimationKeys: [String] {
+            return animations.map { $0.key }
+        }
+
+        public mutating func add(_ key: String, _ animation: GraffeineDataAnimating) {
+            self.animations[prefix + key] = animation
+        }
+
+        public mutating func remove(_ key: String) {
+            self.animations.removeValue(forKey: prefix + key)
+        }
+
+        public mutating func removeAll() {
+            self.animations.removeAll()
+        }
+
+        public func get(key: String) -> GraffeineDataAnimating? {
+            return animations[prefix + key]
         }
     }
 }

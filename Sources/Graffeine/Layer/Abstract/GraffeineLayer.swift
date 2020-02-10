@@ -28,13 +28,14 @@ open class GraffeineLayer: CALayer {
 
     public var data: GraffeineData {
         get { return _data }
-        set { setData(newValue, animator: nil) }
+        set { setData(newValue, animationKey: nil) }
     }
 
-    open func setData(_ data: GraffeineData, animator: GraffeineDataAnimating?) {
+    open func setData(_ data: GraffeineData, animationKey: String?) {
         _data = data
         addOrRemoveSublayers()
-        if let animator = animator {
+        if let key = animationKey,
+            let animator = unitAnimation.data.get(key: key) {
             repositionSublayers(animator: animator)
         } else {
             setNeedsLayout()

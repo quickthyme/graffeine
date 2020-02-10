@@ -31,7 +31,7 @@ open class GraffeineLineLayer: GraffeineLayer {
         unitFill.apply(to: fill)
         unitLine.apply(to: line)
         unitShadow.apply(to: line)
-        unitAnimation.apply(to: line)
+        unitAnimation.perpetual.apply(to: line)
 
         if let selectedIndex = data.selected.index {
             applyAreaLineSelectionState(line, fill, selectedIndex)

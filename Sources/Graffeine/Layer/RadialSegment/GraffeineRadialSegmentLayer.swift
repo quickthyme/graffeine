@@ -35,7 +35,7 @@ open class GraffeineRadialSegmentLayer: GraffeineLayer {
             unitFill.apply(to: segment, index: index)
             unitLine.apply(to: segment, index: index)
             unitShadow.apply(to: segment)
-            unitAnimation.apply(to: segment)
+            unitAnimation.perpetual.apply(to: segment)
 
             applySelectionState(segment, index: index)
             applyRadialSelectionState(segment, index: index)
