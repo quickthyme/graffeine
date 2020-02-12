@@ -2,15 +2,31 @@ import UIKit
 
 open class GraffeineView: UIView {
 
-    public typealias OnSelect = (GraffeineLayer.SelectionResult?) -> ()
-
     public typealias Region = GraffeineLayer.Region
+    public typealias OnSelect = (GraffeineLayer.SelectionResult?) -> ()
+    public typealias LayerData = (layerId: AnyHashable, data: GraffeineData, semantic: GraffeineData.AnimationSemantic)
+    public typealias OnLayerDataInput =  (GraffeineLayer, LayerData) -> (Bool)
 
     @IBInspectable public var configClass: String = ""
 
     public func pauseAllAnimations() {
         self.layer.removeAllAnimations()
     }
+
+    public var layerDataInput: [LayerData] {
+        get { return [] }
+        set {
+            for aLayerData in newValue {
+                if let aLayer = layer(id: aLayerData.layerId) {
+                    if !(self.onLayerDataInput?(aLayer, aLayerData) ?? false) {
+                        aLayer.setData(aLayerData.data, semantic: aLayerData.semantic)
+                    }
+                }
+            }
+        }
+    }
+
+    public var onLayerDataInput: OnLayerDataInput? = nil
 
     public var onSelect: OnSelect? = nil
 

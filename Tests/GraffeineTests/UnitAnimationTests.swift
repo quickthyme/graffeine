@@ -46,8 +46,7 @@ class UnitAnimationTests: XCTestCase {
 
     func test_adding_and_removing_data_animations_key_retrieve() {
         let animator = GraffeineAnimation.Data.Bar.Grow(duration: 0.5, timing: .linear)
-        subject.data.add("beanstalk", animator)
-        XCTAssertEqual(subject.data.animationKeys, ["beanstalk"])
-        XCTAssertEqual(subject.data.prefixedAnimationKeys, ["GraffeineLayer.UnitAnimation.Data.beanstalk"])
+        subject.data.add(animator: animator, for: .reload)
+        XCTAssertEqual(subject.data.semantics, [.reload])
     }
 }

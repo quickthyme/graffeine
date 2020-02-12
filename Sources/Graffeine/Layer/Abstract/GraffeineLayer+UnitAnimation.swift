@@ -4,11 +4,10 @@ extension GraffeineLayer {
 
     public struct UnitAnimation {
         private static let prefixPerpetual: String = "GraffeineLayer.UnitAnimation.Perpetual."
-        private static let prefixData: String = "GraffeineLayer.UnitAnimation.Data."
         public init() {}
 
         public var perpetual: PerpetualContainer = PerpetualContainer(prefix: prefixPerpetual)
-        public var data: DataContainer = DataContainer(prefix: prefixData)
+        public var data: DataContainer = DataContainer()
     }
 }
 
@@ -74,37 +73,30 @@ extension GraffeineLayer.UnitAnimation {
 
     public struct DataContainer {
 
-        internal var prefix: String
-
-        public init(prefix: String) {
-            self.prefix = prefix
+        public init() {
         }
 
-        private var animations: [String: GraffeineDataAnimating] = [:]
+        private var animators: [GraffeineData.AnimationSemantic: GraffeineDataAnimating] = [:]
 
-        public var animationKeys: [String] {
-            let prefixCount = prefix.count
-            return animations.map { String($0.key.dropFirst(prefixCount)) }
+        public var semantics: [GraffeineData.AnimationSemantic] {
+            return animators.map { $0.key }
         }
 
-        internal var prefixedAnimationKeys: [String] {
-            return animations.map { $0.key }
+        public mutating func add(animator: GraffeineDataAnimating, for semantic: GraffeineData.AnimationSemantic) {
+            guard (semantic != .notAnimated) else { return }
+            self.animators[semantic] = animator
         }
 
-        public mutating func add(_ key: String, _ animation: GraffeineDataAnimating) {
-            self.animations[prefix + key] = animation
-        }
-
-        public mutating func remove(_ key: String) {
-            self.animations.removeValue(forKey: prefix + key)
+        public mutating func remove(for semantic: GraffeineData.AnimationSemantic) {
+            self.animators.removeValue(forKey: semantic)
         }
 
         public mutating func removeAll() {
-            self.animations.removeAll()
+            self.animators.removeAll()
         }
 
-        public func get(key: String) -> GraffeineDataAnimating? {
-            return animations[prefix + key]
+        public func get(for semantic: GraffeineData.AnimationSemantic) -> GraffeineDataAnimating? {
+            return animators[semantic]
         }
     }
 }

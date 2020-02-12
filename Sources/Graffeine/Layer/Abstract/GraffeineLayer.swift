@@ -2,25 +2,21 @@ import UIKit
 
 open class GraffeineLayer: CALayer {
 
-    open var region: Region = .main
+    public typealias Applicator = (GraffeineLayer) -> ()
 
-    open var insets: UIEdgeInsets = .zero
-
-    open var maskInsets: UIEdgeInsets = .zero
-
-    open var id: AnyHashable = Int(0)
-
+    public var id: AnyHashable = Int(0)
+    public var region: Region = .main
+    public var insets: UIEdgeInsets = .zero
+    public var maskInsets: UIEdgeInsets = .zero
     public var fill: ContainerFill = ContainerFill()
-
     public var unitColumn: UnitColumn = UnitColumn()
     public var unitFill:   UnitFill   = UnitFill()
     public var unitLine:   UnitLine   = UnitLine()
     public var unitShadow: UnitShadow = UnitShadow()
     public var unitAnimation: UnitAnimation = UnitAnimation()
-
     public var selection: Selection = Selection()
 
-    open var flipXY: Bool = false {
+    public var flipXY: Bool = false {
         didSet { self.addOrRemoveSublayers() }
     }
 
@@ -28,14 +24,13 @@ open class GraffeineLayer: CALayer {
 
     public var data: GraffeineData {
         get { return _data }
-        set { setData(newValue, animationKey: nil) }
+        set { setData(newValue, semantic: .notAnimated) }
     }
 
-    open func setData(_ data: GraffeineData, animationKey: String?) {
+    open func setData(_ data: GraffeineData, semantic: GraffeineData.AnimationSemantic = .notAnimated) {
         _data = data
         addOrRemoveSublayers()
-        if let key = animationKey,
-            let animator = unitAnimation.data.get(key: key) {
+        if let animator = unitAnimation.data.get(for: semantic) {
             repositionSublayers(animator: animator)
         } else {
             setNeedsLayout()
@@ -116,8 +111,8 @@ open class GraffeineLayer: CALayer {
     }
 
     @discardableResult
-    open func apply(_ conf: (GraffeineLayer) -> ()) -> GraffeineLayer {
-        conf(self)
+    open func apply(_ applicator: Applicator) -> GraffeineLayer {
+        applicator(self)
         return self
     }
 
