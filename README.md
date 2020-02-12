@@ -216,11 +216,11 @@ It is easy to apply new data to a specific layer by **assignment**:
 Or if you want it to **animate** whenever the data changes:
 
     graffeineView.layer(id: "pie")?.unitAnimation.data.add(
-        "reload", GraffeineAnimation.Data.RadialSegment
-            .Spin(duration: 1.2, timing: .easeInEaseOut))
+        GraffeineAnimation.Data.RadialSegment
+            .Spin(duration: 1.2, timing: .easeInEaseOut), for: .reload)
     
     graffeineView.layer(id: "pie")?.setData(GraffeineData(values: [1, 2, 3]),
-                                            animationKey: "reload")
+                                            semantic: .reload)
 
   ☝️ *There are a handful of data animators included with the library, out-of-box,
   or you can create your own, so long as it conforms to `GraffeineDataAnimating`.*
