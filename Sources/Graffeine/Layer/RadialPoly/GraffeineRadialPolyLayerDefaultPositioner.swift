@@ -30,7 +30,7 @@ public struct GraffeineRadialPolyLayerDefaultPositioner: GraffeineRadialPolyLaye
         let toPath = poly.constructPath(radii: radii,
                                         angles: angles,
                                         centerPoint: centerPoint)
-        let fromPath = poly.path ?? toPath
+        let fromPath = poly.presentation()?.path ?? toPath
 
         if let animator = animator {
             animator.animate(poly: poly,
