@@ -5,7 +5,8 @@ class SampleConfig: GraffeineViewConfig {
 
     enum ID: Hashable {
         case topGutter, rightGutter, bottomGutter, leftGutter, bgGrid, fgGrid
-        case colorBars, descendingBars, rgbaBars, redLine, greenLine, vectorPlots, pie, pieLabels
+        case colorBars, descendingBars, rgbaBars, redLine, greenLine, vectorPlots
+        case pie, pieLabels, radar
     }
 
     static let colorValues: [UIColor] = [.black, .brown, .red, .orange, .yellow, .green,
@@ -82,6 +83,11 @@ class SampleConfig: GraffeineViewConfig {
                     $0.diameter = .explicit(8.0)
                     $0.unitLine.thickness = 2.0
                     $0.unitLine.colors = [.brown]
+                }),
+
+            GraffeineRadialPolyLayer(id: ID.radar)
+                .apply ({
+                    $0.unitLine.colors = [.orange]
                 }),
 
             GraffeineRadialSegmentLayer(id: ID.pie)

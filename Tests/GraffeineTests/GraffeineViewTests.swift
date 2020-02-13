@@ -53,7 +53,7 @@ class GraffeineViewTests: XCTestCase {
     func test_construct_with_config_does_not_fail_and_uses_the_config() {
         let view = GraffeineView(frame: subjectFrame, configClass: "SampleConfig")
         XCTAssertNotNil(view)
-        XCTAssertEqual(view.layers.count, 13)
+        XCTAssertEqual(view.layers.count, 14)
     }
 
     func test_construct_default_layer_does_not_fail() {
@@ -144,7 +144,7 @@ class GraffeineViewTests: XCTestCase {
     func test_auto_load_config_from_class_name_set_in_IB() {
         subject.configClass = "SampleConfig"
         subject.awakeFromNib()
-        XCTAssertEqual(subject.layers.count, 13)
+        XCTAssertEqual(subject.layers.count, 14)
         XCTAssert(subject.layers[ 0] is GraffeineHorizontalLabelLayer)
         XCTAssert(subject.layers[ 1] is GraffeineVerticalLabelLayer)
         XCTAssert(subject.layers[ 2] is GraffeineHorizontalLabelLayer)
@@ -155,9 +155,10 @@ class GraffeineViewTests: XCTestCase {
         XCTAssert(subject.layers[ 7] is GraffeineLineLayer)
         XCTAssert(subject.layers[ 8] is GraffeineLineLayer)
         XCTAssert(subject.layers[ 9] is GraffeinePlotLayer)
-        XCTAssert(subject.layers[10] is GraffeineRadialSegmentLayer)
-        XCTAssert(subject.layers[11] is GraffeineRadialLabelLayer)
-        XCTAssert(subject.layers[12] is GraffeineGridLineLayer)
+        XCTAssert(subject.layers[10] is GraffeineRadialPolyLayer)
+        XCTAssert(subject.layers[11] is GraffeineRadialSegmentLayer)
+        XCTAssert(subject.layers[12] is GraffeineRadialLabelLayer)
+        XCTAssert(subject.layers[13] is GraffeineGridLineLayer)
     }
 
     func test_given_onSelect_when_it_is_touched_then_it_invokes_onSelect() {

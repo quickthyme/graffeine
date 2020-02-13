@@ -9,11 +9,12 @@ import SwiftUI
 @available(iOS 13, *)
 public struct GraffeineViewRep: UIViewRepresentable {
     public typealias UIViewType = GraffeineView
+
     public var configClass: String?
+    public var onSelect: GraffeineView.OnSelect?
 
     @Binding public var layerDataInput: [GraffeineView.LayerData]
 
-    public var onSelect: GraffeineView.OnSelect?
 
     public func makeUIView(context: UIViewRepresentableContext<GraffeineViewRep>) -> GraffeineView {
         let view = GraffeineView(frame: .zero, configClass: self.configClass ?? "")
@@ -22,6 +23,7 @@ public struct GraffeineViewRep: UIViewRepresentable {
     }
 
     public func updateUIView(_ uiView: GraffeineView, context: UIViewRepresentableContext<GraffeineViewRep>) {
+        uiView.onSelect = onSelect
         uiView.layerDataInput = layerDataInput
         uiView.layoutSublayers(of: uiView.layer)
     }

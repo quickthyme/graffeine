@@ -33,6 +33,12 @@ class SampleData {
         }
     }
 
+    func applyRadarValues(to graffeineView: GraffeineView) {
+        if let layer = graffeineView.layer(id: SampleConfig.ID.radar) {
+            layer.data = GraffeineData(valueMax: 6, valuesHi: [3, 3, 3])
+        }
+    }
+
     func applyVectorPlots(to graffeineView: GraffeineView) {
         if let layer = graffeineView.layer(id: SampleConfig.ID.vectorPlots) {
             layer.data = GraffeineData(valueMax: 20, valuesHi: [0, 1, 3, 4, 10, 15, 20])

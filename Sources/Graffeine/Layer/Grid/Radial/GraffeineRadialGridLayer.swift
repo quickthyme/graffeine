@@ -45,6 +45,7 @@ open class GraffeineRadialGridLayer: GraffeineLayer {
     override public init(layer: Any) {
         super.init(layer: layer)
         if let layer = layer as? Self {
+            self.maxDiameter = layer.maxDiameter
             self.positioner = layer.positioner
         }
     }
