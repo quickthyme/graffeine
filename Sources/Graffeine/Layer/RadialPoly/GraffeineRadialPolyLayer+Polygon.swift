@@ -4,7 +4,7 @@ extension GraffeineRadialPolyLayer {
 
     open class Polygon: CAShapeLayer {
 
-        public var rotation: UInt = 0
+        public var rotation: Int = 0
         public var maxRadius: CGFloat = 0
 
         public func constructPath(radii: [CGFloat],

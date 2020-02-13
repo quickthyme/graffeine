@@ -5,7 +5,7 @@ extension GraffeineRadialLineLayer {
     open class Line: CAShapeLayer {
 
         public var clockwise: Bool = true
-        public var rotation: UInt = 0
+        public var rotation: Int = 0
         public var outerRadius: CGFloat = 0
         public var innerRadius: CGFloat = 0
 

@@ -2,7 +2,7 @@ import UIKit
 
 open class GraffeineRadialPolyLayer: GraffeineLayer {
 
-    public var rotation: UInt = 0
+    public var rotation: Int = 0
     public var maxDiameter: GraffeineLayer.DimensionalUnit = .percentage(1.0)
     public var positioner: Positioner = .default
 

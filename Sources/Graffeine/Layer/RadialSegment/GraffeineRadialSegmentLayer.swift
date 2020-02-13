@@ -3,7 +3,7 @@ import UIKit
 open class GraffeineRadialSegmentLayer: GraffeineLayer {
 
     public var clockwise: Bool = true
-    public var rotation: UInt = 0
+    public var rotation: Int = 0
     public var outerDiameter: GraffeineLayer.DimensionalUnit = .percentage(0.9)
     public var innerDiameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)
     public var centerOffsetDiameter: GraffeineLayer.DimensionalUnit = .explicit(0.0)

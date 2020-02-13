@@ -36,7 +36,7 @@ public struct GraffeineRadialSegmentLayerDefaultPositioner: GraffeineRadialSegme
         segment._angles = newAngles
     }
 
-    private func rotationAngle(_ rotation: UInt, _ clockwise: Bool) -> CGFloat {
+    private func rotationAngle(_ rotation: Int, _ clockwise: Bool) -> CGFloat {
         return PercentageToRadians( CGFloat(rotation % 360) / 360 , clockwise)
     }
 
