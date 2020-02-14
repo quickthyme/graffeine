@@ -75,6 +75,7 @@ Out of the box, there are a handful of ready-to-go layers:
 | `GraffeineGridLineLayer`         |   horizontal or vertical lines  |
 | `GraffeineLineLayer`             |   bezier line connecting data   |
 | `GraffeineRadialLineLayer`       |   lines outward from center     |
+| `GraffeineRadialPolyLayer`       |   polygon arranged circularly   |
 | `GraffeineRadialSegmentLayer`    |   segmented pies and donuts     |
 | `GraffeinePlotLayer`             |   individual plots (points)     |
 | `GraffeineHorizontalLabelLayer`  |   labels arranged horizontally  |
@@ -114,6 +115,8 @@ and positioning depending on which you specify:
  
  `.relative`          - automatic sizing based on the number
                         of units sharing the same container
+
+<br />
 
 
 ### Value Labels
@@ -241,7 +244,7 @@ be portrayed can vary.
 undesirable results.
 
   - **Line and Plot Layers** can accept negative values, but their display is
-  essentiallyrooted to the bottom-left (0,0) axis. If you need to display
+  essentially rooted to the bottom-left (0,0) axis. If you need to display
   negative values within the visible bounds, then the data needs to be
   transposed.
 
@@ -297,10 +300,19 @@ information we need in order to handle the event:
  user taps on something, you can do that in the `onSelect` handler like so:
 
 ```
-    graffeineView.onSelect = { selection in
-        selection?.layer.setData(selection!.data, animator: barAnimator)
+    graffeineView.onSelect = { view, selection in
+        view.select(index: selection?.data.selected.index, semantic: .select)
     }
 ```
+
+**Alternatively**, if you only want to update the *selected* layer:
+
+```
+    graffeineView.onSelect = { view, selection in
+        selection?.layer.setData(selection!.data, semantic: .select)
+    }
+```
+
 
 #### Rendering the selection
 
@@ -316,17 +328,31 @@ include any layers that need to respond to the selection change.
 <br />
 
 
-### Notes
+### SwiftUI
+
+**GraffeineView** is a natural fit for SwiftUI. Add it to any view hierarchy
+using the provided `GraffeineViewRep`, or your own custom
+[`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable):
+
+    struct ContentView: View {
+
+    @State var dataInput: [GraffeineView.LayerData] = []
+
+    var body: some View {
+        GraffeineViewRep(
+            configClass: "VerticalDescendingBarsConfig",
+            layerDataInput: $dataInput,
+            onSelect:({ view, selection in
+                view.select(index: selection?.data.selected.index,
+                            semantic: .select)
+            }))
+        }
+    }
+
+<br />
 
 
-##### Support for SwiftUI
-
-In order to use `GraffeineView` within a SwiftUI view hierarchy, it needs
-to be wrapped using `GraffeineViewRep`, or your own custom
-[`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable).
-
-
-##### Dynamic Colors and Dark Mode
+### Dynamic Colors and Dark Mode
 
 Graffeine conveniently supports dynamic `UIColor` objects, including those
 created with dynamic appearance traits. Whenever the user switches between

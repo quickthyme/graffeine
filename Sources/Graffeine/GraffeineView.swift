@@ -3,7 +3,7 @@ import UIKit
 open class GraffeineView: UIView {
 
     public typealias Region = GraffeineLayer.Region
-    public typealias OnSelect = (GraffeineLayer.SelectionResult?) -> ()
+    public typealias OnSelect = (_ graffeineView: GraffeineView, _ selectionResult: GraffeineLayer.SelectionResult?) -> ()
     public typealias LayerData = (layerId: AnyHashable, data: GraffeineData, semantic: GraffeineData.AnimationSemantic)
     public typealias OnLayerDataInput =  (GraffeineLayer, LayerData) -> (Bool)
 
@@ -11,6 +11,14 @@ open class GraffeineView: UIView {
 
     public func pauseAllAnimations() {
         self.layer.removeAllAnimations()
+    }
+
+    public func select(index: Int?, semantic: GraffeineData.AnimationSemantic = .notAnimated) {
+        for layer in layers {
+            var data = layer.data
+            data.selected.index = index
+            layer.setData(data, semantic: semantic)
+        }
     }
 
     public var layerDataInput: [LayerData] {
@@ -28,7 +36,9 @@ open class GraffeineView: UIView {
 
     public var onLayerDataInput: OnLayerDataInput? = nil
 
-    public var onSelect: OnSelect? = nil
+    public var onSelect: OnSelect? = nil {
+        didSet { Self.setupUIKitTapGestureRecognizer(self) }
+    }
 
     public var layers: [GraffeineLayer] {
         get { return (self.layer.sublayers ?? Array<CALayer>()).compactMap { $0 as? GraffeineLayer } }
@@ -119,35 +129,27 @@ open class GraffeineView: UIView {
     }
 
     // MARK: - Selection and Touch
-    private var touchBeganInside: Bool = false
-    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        touchBeganInside = touches.count == 1
-    }
-
-    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesMoved(touches, with: event)
-        touchBeganInside = false
-    }
-
-    override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        touchBeganInside = false
-    }
-
-    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        if (touchBeganInside && touches.count == 1),
-            let touch = touches.first {
-            handleUserSelection(touch.location(in: self))
+    internal static func setupUIKitTapGestureRecognizer(_ target: GraffeineView) {
+        let recognizer = UITapGestureRecognizer(target: target,
+                                                action: #selector(handleUITap(_:)))
+        recognizer.name = "GraffeineTap"
+        if let existing = target.gestureRecognizers?.first(where: { $0.name == "GraffeineTap" }) {
+            target.removeGestureRecognizer(existing)
         }
-        touchBeganInside = false
+        target.addGestureRecognizer(recognizer)
+    }
+
+    @objc internal func handleUITap(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            let location = sender.location(in: self)
+            handleUserSelection(location)
+        }
     }
 
     internal func handleUserSelection(_ point: CGPoint) {
         let selectables = findSelectableLayers()
         let results = findSelected(point, selectables)
-        self.onSelect?(results.first)
+        self.onSelect?(self, results.first)
     }
 
     private func findSelectableLayers() -> [GraffeineLayer] {
