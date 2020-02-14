@@ -15,6 +15,7 @@
 Graffeine is an iOS library that uses CoreAnimation to render various types of data
 graphs and charts. It is dynamically style-able, reasonably extendable, featuring
 a declarative interface, modular layers, configuration binding, and auto-layout.
+**Supports both UIKit and SwiftUI.**
 
 <br />
 
@@ -57,6 +58,26 @@ the `layers` property, like so:
                 $0.colors = [.blue, .orange]
             })
     ]
+
+##### Configuration Class
+
+![ib_config_binding](docs/ib_config_binding.png)
+
+GraffeineView allows automatic binding to a configuration class, as a convenient
+means for encapsulating all of the setup and styling for your graphs. We provide
+the name of our `configClass` during init, or by binding within InterfaceBuilder
+as shown here.
+
+The base config class itself is an NSObject subclass containing nothing more than an
+empty initializer. Just override this in a custom config subclass, and
+then design the view however. This is where we'll generally want to construct
+our layers, like in the example above.
+
+Using the config file is completely optional, but it is there as a convenience
+to help us extract our infrastructure and styling code away from the more
+interesting use-cases and the models driving them. This is also why data animations
+now use semantics rather than just "keys", so that we can invoke them with
+meaningful intent based on current context. *(See Interaction)*
 
 <br />
 
@@ -181,11 +202,10 @@ line and plot graphs.
 
 The `GraffeineData` structure is the vehicle used to feed data into Graffeine.
 
-For the most part, Graffeine tries to avoid making assumptions on the developer's
-behalf whenever it can help it, but when it comes to the data, there are a few
-caveats to this, as each layer must *interpret* the data it's been given. Therefore,
-it is important to understand a little bit about how certain properties can affect
-said interpretation:
+The same data structure is used to drive all of the layer types. For the most part,
+it should be reasonably self-evident, however, there are a few caveats to this,
+as each layer *interprets* the data differently. Therefore, it is somewhat important
+to understand a little bit about how certain properties can affect rendering:
 
   - `valueMax`, when provided, will be used as the maximum range for the
   given values. Otherwise, the layer will automatically *guess* the max
@@ -195,12 +215,11 @@ said interpretation:
   - `values.hi` is the primary stream of input data. When in doubt, make sure
   this is the field containing the values you are expecting to see.
   
-  - `values.lo` is an additional stream of values that are generally used to
-  alter how the nominal hi-values get rendered. This behavior is largely
-  dependent upon the particular layer's interpretation of the given data.
-  For example, bar and line layers may use this as a lower boundary,
-  whereas a pie chart may ignore it altogether. Also, see the **section below
-  regarding negative values.**
+  - `values.lo` is an additional, optional stream of values that are generally
+  used to alter how the nominal hi-values get rendered. This behavior is largely
+  dependent upon the particular layer's contextual presentation. For example, bar
+  and line layers may use this as a lower boundary, whereas a pie chart may ignore
+  it altogether. Also, see the **section below regarding negative values.**
 
   - `labels` is what label layers look for when rendering text values.
   
@@ -228,6 +247,12 @@ Or if you want it to **animate** whenever the data changes:
   ☝️ *There are a handful of data animators included with the library, out-of-box,
   or you can create your own, so long as it conforms to `GraffeineDataAnimating`.*
 
+##### Data Binding
+
+As an alternative to setting data on the layers manually, you can apply data to
+many layers at once by assigning a special array to GraffeineView's `layerDataInput`
+field. This is a *write-only* field that is primarily intended for use with SwiftUI
+`@State` bindings, but is perfectly fine to utilize in UIKit driven scenes as well.
 
 
 ### Negative Values and Transposing
