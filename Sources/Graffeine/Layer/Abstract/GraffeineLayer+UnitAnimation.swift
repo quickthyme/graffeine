@@ -16,6 +16,7 @@ extension GraffeineLayer.UnitAnimation {
     public struct PerpetualContainer {
 
         internal var prefix: String
+        internal let selectedPrefix: String = SelectionAnimationKey
 
         public init(prefix: String) {
             self.prefix = prefix
@@ -52,7 +53,7 @@ extension GraffeineLayer.UnitAnimation {
         private func removeUnwantedAnimations(from target: CALayer) {
             let wantedKeys = self.prefixedAnimationKeys
             let appliedKeys = (target.animationKeys() ?? [])
-                .filter({ $0.starts(with: prefix) })
+                .filter({ $0.starts(with: prefix) || $0.starts(with: selectedPrefix) })
 
             for key in appliedKeys {
                 if !wantedKeys.contains(key) {
