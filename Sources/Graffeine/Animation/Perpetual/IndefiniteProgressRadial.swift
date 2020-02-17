@@ -5,7 +5,8 @@ extension GraffeineAnimation.Perpetual {
     static let equalizeAngles = GraffeineAnimation.Data.RadialSegment.equalizeAngles
 
     public static func IndefiniteProgressRadial(radialSegment: @autoclosure @escaping () -> (GraffeineRadialSegmentLayer.Segment),
-                                                centerPoint: CGPoint) -> (() -> (CAAnimation)) {
+                                                centerPoint: CGPoint,
+                                                duration: TimeInterval) -> (() -> (CAAnimation)) {
 
         return {
             let segment = radialSegment()
@@ -20,7 +21,7 @@ extension GraffeineAnimation.Perpetual {
 
             let animation = CAKeyframeAnimation(keyPath: "path")
             animation.timingFunction  = CAMediaTimingFunction(name: .linear)
-            animation.duration = 1.6
+            animation.duration = duration
             animation.values = interpolatePaths(radialSegment: segment,
                                                 initialAngles: initialAngles,
                                                 halfwayAngles: halfwayAngles,
