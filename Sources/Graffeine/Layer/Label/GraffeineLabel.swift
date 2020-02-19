@@ -40,7 +40,7 @@ open class GraffeineLabel: CALayer {
     }
 
     override public var backgroundColor: CGColor? {
-        get { return text.backgroundColor }
+        get { return nil }
         set {
             super.backgroundColor = nil
             text.backgroundColor = newValue
@@ -57,7 +57,7 @@ open class GraffeineLabel: CALayer {
     }
 
     public override var borderColor: CGColor? {
-        get { return text.borderColor }
+        get { return nil }
         set {
             super.borderColor = nil
             text.borderColor = newValue
@@ -66,7 +66,7 @@ open class GraffeineLabel: CALayer {
     }
 
     public override var borderWidth: CGFloat {
-        get { return text.borderWidth }
+        get { return 0 }
         set {
             super.borderWidth = 0
             text.borderWidth = newValue
@@ -75,7 +75,7 @@ open class GraffeineLabel: CALayer {
     }
 
     public override var shadowColor: CGColor? {
-        get { return text.shadowColor }
+        get { return nil }
         set {
             super.shadowColor = nil
             text.shadowColor = newValue
@@ -84,7 +84,7 @@ open class GraffeineLabel: CALayer {
     }
 
     public override var shadowOffset: CGSize {
-        get { return text.shadowOffset }
+        get { return .zero }
         set {
             super.shadowOffset = .zero
             text.shadowOffset = newValue
@@ -93,7 +93,7 @@ open class GraffeineLabel: CALayer {
     }
 
     public override var shadowOpacity: Float {
-        get { return text.shadowOpacity }
+        get { return 0 }
         set {
             super.shadowOpacity = 0
             text.shadowOpacity = newValue
@@ -102,7 +102,7 @@ open class GraffeineLabel: CALayer {
     }
 
     public override var shadowRadius: CGFloat {
-        get { return text.shadowRadius }
+        get { return 0 }
         set {
             super.shadowRadius = 0
             text.shadowRadius = newValue
@@ -111,7 +111,7 @@ open class GraffeineLabel: CALayer {
     }
 
     public override var shadowPath: CGPath? {
-        get { return text.shadowPath }
+        get { return nil }
         set {
             super.shadowPath = nil
             text.shadowPath = newValue
