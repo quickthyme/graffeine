@@ -28,6 +28,7 @@ open class GraffeineLayer: CALayer {
     }
 
     open func setData(_ data: GraffeineData, semantic: GraffeineData.AnimationSemantic = .notAnimated) {
+        guard data != _data else { return }
         _data = data
         addOrRemoveSublayers()
         if let animator = unitAnimation.data.get(for: semantic) {
