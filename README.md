@@ -17,8 +17,6 @@ graphs and charts. It is dynamically style-able, reasonably extendable, featurin
 a declarative interface, modular layers, configuration binding, and auto-layout.
 **Supports both UIKit and SwiftUI.**
 
-<br />
-
 
 ## Pieces and Parts
 
@@ -43,21 +41,23 @@ resizing events.
 By default, `GraffeineView` contains no layers. You must add layers to it by setting
 the `layers` property, like so:
 
-    graffeineView.layers = [
-        GraffeineHorizontalLabelLayer(id: "top", 
-                                      height: 16,
-                                      region: .topGutter),
-        
-        GraffeineHorizontalLabelLayer(id: "bottom",
-                                      height: 26,
-                                      region: .bottomGutter),
-        
-        GraffeineBarLayer(id: "bars")
-            .apply ({
-                $0.unitColumn.margin = 5
-                $0.colors = [.blue, .orange]
-            })
-    ]
+```swift
+graffeineView.layers = [
+    GraffeineHorizontalLabelLayer(id: "top", 
+                                    height: 16,
+                                    region: .topGutter),
+    
+    GraffeineHorizontalLabelLayer(id: "bottom",
+                                    height: 26,
+                                    region: .bottomGutter),
+    
+    GraffeineBarLayer(id: "bars")
+        .apply ({
+            $0.unitColumn.margin = 5
+            $0.colors = [.blue, .orange]
+        })
+]
+```
 
 ##### Configuration Class
 
@@ -78,8 +78,6 @@ to help us extract our infrastructure and styling code away from the more
 interesting use-cases and the models driving them. This is also why data animations
 now use semantics rather than just "keys", so that we can invoke them with
 meaningful intent based on current context. *(See Interaction)*
-
-<br />
 
 
 ### GraffeineLayer 
@@ -114,8 +112,9 @@ a `region`.
 **id** is used to identify and access the layer after it has been added to a
 `GraffeineView`:
 
-    let pieLayer = graffeineView.layer(id: "pie")
-
+```swift
+let pieLayer = graffeineView.layer(id: "pie")
+```
 
 **region** is the target area of the view to place the layer *(see GraffeineView)*
 
@@ -136,8 +135,6 @@ and positioning depending on which you specify:
  
  `.relative`          - automatic sizing based on the number
                         of units sharing the same container
-
-<br />
 
 
 ### Value Labels
@@ -170,8 +167,6 @@ but all other labels will be centered.
 The `GraffeineBarLabelLayer` is primarily designed to be used in conjunction with
 bar graphs.
 
-<br />
-
 
 ##### Radial Labels
 
@@ -180,8 +175,6 @@ bar graphs.
 The `GraffeineRadialLabelLayer` is primarily designed to be used in conjunction with
 pie and donut charts.
 
-<br />
-
 
 ##### Plot Labels
 
@@ -189,8 +182,6 @@ pie and donut charts.
 
 The `GraffeinePlotLabelLayer` is primarily designed to be used in conjunction with
 line and plot graphs.
-
-<br />
 
 
 
@@ -233,19 +224,24 @@ to understand a little bit about how certain properties can affect rendering:
 
 It is easy to apply new data to a specific layer by **assignment**:
 
-    graffeineView.layer(id: "bar")?.data = GraffeineData(values: [1, 2, 3])
+```swift
+graffeineView.layer(id: "bar")?.data = GraffeineData(values: [1, 2, 3])
+```
                                              
 Or if you want it to **animate** whenever the data changes:
 
-    graffeineView.layer(id: "pie")?.unitAnimation.data.add(
-        GraffeineAnimation.Data.RadialSegment
-            .Spin(duration: 1.2, timing: .easeInEaseOut), for: .reload)
-    
-    graffeineView.layer(id: "pie")?.setData(GraffeineData(values: [1, 2, 3]),
-                                            semantic: .reload)
+```swift
+graffeineView.layer(id: "pie")?.unitAnimation.data.add(
+    GraffeineAnimation.Data.RadialSegment
+        .Spin(duration: 1.2, timing: .easeInEaseOut), for: .reload)
+
+graffeineView.layer(id: "pie")?.setData(GraffeineData(values: [1, 2, 3]),
+                                        semantic: .reload)
+```
 
   ☝️ *There are a handful of data animators included with the library, out-of-box,
   or you can create your own, so long as it conforms to `GraffeineDataAnimating`.*
+
 
 ##### Data Binding
 
@@ -255,7 +251,7 @@ field. This is a *write-only* field that is primarily intended for use with Swif
 `@State` bindings, but is perfectly fine to utilize in UIKit driven scenes as well.
 
 
-### Negative Values and Transposing
+#### Negative Values and Transposing
 
 ![sample_10](docs/sample_10.png)
 
@@ -283,8 +279,6 @@ undesirable results.
   types of graphs with negative values. You will need to do your own transposing
   first, before feeding the data into Graffeine.
 
-<br />
-
 
 ### User Selection
 
@@ -302,7 +296,9 @@ In order to receive more granular events, you first need to tell it which layer(
 you want to receive touch events for. Do this by setting the layer's
 `selection.isEnabled` property to `true`:
 
-    graffeineView.layer(id: "bars")?.selection.isEnabled = true
+```swift
+graffeineView.layer(id: "bars")?.selection.isEnabled = true
+```
 
 This only affects whether or not the layer will respond to user touch.
 
@@ -324,18 +320,18 @@ information we need in order to handle the event:
  This is by design. If you just want to immediately display selection whenever the
  user taps on something, you can do that in the `onSelect` handler like so:
 
-```
-    graffeineView.onSelect = { view, selection in
-        view.select(index: selection?.data.selected.index, semantic: .select)
-    }
+```swift
+graffeineView.onSelect = { view, selection in
+    view.select(index: selection?.data.selected.index, semantic: .select)
+}
 ```
 
 **Alternatively**, if you only want to update the *selected* layer:
 
-```
-    graffeineView.onSelect = { view, selection in
-        selection?.layer.setData(selection!.data, semantic: .select)
-    }
+```swift
+graffeineView.onSelect = { view, selection in
+    selection?.layer.setData(selection!.data, semantic: .select)
+}
 ```
 
 
@@ -343,38 +339,38 @@ information we need in order to handle the event:
 
 In order to render the selection changes, you need to first enable some overrides:
 
-    graffeineView.layer(id: "bars")?.selection.fill.color = .green
-    graffeineView.layer(id: "bars")?.selection.line.color = .black
-    graffeineView.layer(id: "bars")?.selection.line.thickness = 3.0
+```swift
+graffeineView.layer(id: "bars")?.selection.fill.color = .green
+graffeineView.layer(id: "bars")?.selection.line.color = .black
+graffeineView.layer(id: "bars")?.selection.line.thickness = 3.0
+graffeineView.layer(id: "labels")?.selection.text.color = .label
+```
 
 Then, just include the `selectedIndex` whenever you set the data. Make sure to
 include any layers that need to respond to the selection change.
-
-<br />
 
 
 ### SwiftUI
 
 **GraffeineView** is a natural fit for SwiftUI. Add it to any view hierarchy
-using the provided `GraffeineViewRep`, or your own custom
-[`UIViewRepresentable`](https://developer.apple.com/documentation/swiftui/uiviewrepresentable):
+using the provided `GraffeineViewRep`:
 
-    struct ContentView: View {
+```swift
+struct ContentView: View {
 
-    @State var dataInput: [GraffeineView.LayerData] = []
+@State var dataInput: [GraffeineView.LayerData] = []
 
-    var body: some View {
-        GraffeineViewRep(
-            configClass: "VerticalDescendingBarsConfig",
-            layerDataInput: $dataInput,
-            onSelect:({ view, selection in
-                view.select(index: selection?.data.selected.index,
-                            semantic: .select)
-            }))
-        }
+var body: some View {
+    GraffeineViewRep(
+        configClass: "VerticalDescendingBarsConfig",
+        layerDataInput: $dataInput,
+        onSelect:({ view, selection in
+            view.select(index: selection?.data.selected.index,
+                        semantic: .select)
+        }))
     }
-
-<br />
+}
+```
 
 
 ### Dynamic Colors and Dark Mode
@@ -384,8 +380,6 @@ created with dynamic appearance traits. Whenever the user switches between
 normal and dark display modes, then all of the `fill`, `line`, and `text`
 colors are automatically reapplied with their updated characteristics.
 
-<br />
-
 
 ### Demo App
 
@@ -394,4 +388,3 @@ There is an iOS app,
 which demonstrates how to quickly go about composing many typical types of graphs. If
 nothing else, it serves as an example of how to plug the library in and turn it on.
 
-<br />
