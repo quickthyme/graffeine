@@ -42,21 +42,21 @@ By default, `GraffeineView` contains no layers. We must add layers to it by sett
 the `layers` property, like so:
 
 ```swift
-    graffeineView.layers = [
-        GraffeineHorizontalLabelLayer(id: "top", 
-                                      height: 16,
-                                      region: .topGutter),
-        
-        GraffeineHorizontalLabelLayer(id: "bottom",
-                                      height: 26,
-                                      region: .bottomGutter),
-        
-        GraffeineBarLayer(id: "bars")
-            .apply ({
-                $0.unitColumn.margin = 5
-                $0.colors = [.blue, .orange]
-            })
-    ]    
+graffeineView.layers = [
+    GraffeineHorizontalLabelLayer(id: "top", 
+                                    height: 16,
+                                    region: .topGutter),
+    
+    GraffeineHorizontalLabelLayer(id: "bottom",
+                                    height: 26,
+                                    region: .bottomGutter),
+    
+    GraffeineBarLayer(id: "bars")
+        .apply ({
+            $0.unitColumn.margin = 5
+            $0.colors = [.blue, .orange]
+        })
+]    
 ```
 
 ##### Configuration Class
@@ -113,7 +113,7 @@ a `region`.
 `GraffeineView`:
 
 ```swift
-    let pieLayer = graffeineView.layer(id: "pie")
+let pieLayer = graffeineView.layer(id: "pie")
 ```
 
 **region** is the target area of the view to place the layer *(see GraffeineView)*
@@ -224,18 +224,18 @@ to understand a little bit about how certain properties can affect rendering:
 It is easy to apply new data to a specific layer by **assignment**:
 
 ```swift
-    graffeineView.layer(id: "bar")?.data = GraffeineData(values: [1, 2, 3])
+graffeineView.layer(id: "bar")?.data = GraffeineData(values: [1, 2, 3])
 ```
                                              
 Or if we want it to **animate** whenever the data changes:
 
 ```swift
-    graffeineView.layer(id: "pie")?.unitAnimation.data.add(
-        GraffeineAnimation.Data.RadialSegment
-            .Spin(duration: 1.2, timing: .easeInEaseOut), for: .reload)
-    
-    graffeineView.layer(id: "pie")?.setData(GraffeineData(values: [1, 2, 3]),
-                                            semantic: .reload)
+graffeineView.layer(id: "pie")?.unitAnimation.data.add(
+    GraffeineAnimation.Data.RadialSegment
+        .Spin(duration: 1.2, timing: .easeInEaseOut), for: .reload)
+
+graffeineView.layer(id: "pie")?.setData(GraffeineData(values: [1, 2, 3]),
+                                        semantic: .reload)
 ```
 
   ☝️ *There are a handful of data animators included with the library, out-of-box,
@@ -288,15 +288,15 @@ of rendering the selection state.
 
 #### Receiving touch events
 All selection events are raised through `GraffeineView` via the `onSelect` handler.
-By assigning a handler to this, you will start receiving events whenever the user
+By assigning a handler to this, we will start receiving events whenever the user
 taps on the view.
 
-In order to receive more granular events, you first need to tell it which layer(s)
-you want to receive touch events for. Do this by setting the layer's
+In order to receive more granular events, we first need to tell it which layer(s)
+we want to receive touch events for. Do this by setting the layer's
 `selection.isEnabled` property to `true`:
 
 ```swift
-    graffeineView.layer(id: "bars")?.selection.isEnabled = true
+graffeineView.layer(id: "bars")?.selection.isEnabled = true
 ```
 
 **This only affects whether or not the layer will respond to user touch.**
@@ -308,7 +308,7 @@ can interpret it as "deselection". Otherwise, we should have all the
 information we need in order to handle the event:
  
  - `point` is the view coordinate of the item that was selected, (in the
- coordinate-space of the `GraffeineView`). This is useful in case you wish to
+ coordinate-space of the `GraffeineView`). This is useful in case we wish to
  present some kind of pop-up UI and would like to attach any stems or other
  such elements to this point.
 
@@ -316,8 +316,8 @@ information we need in order to handle the event:
 
  - `layer` is a reference to the GraffeineLayer that contains the selected item.
  Graffeine does NOT automatically update its state in response to a selection event.
- This is by design. If you just want to immediately display selection whenever the
- user taps on something, you can do that in the `onSelect` handler like so:
+ This is by design. If we just want to immediately display selection whenever the
+ user taps on something, we can do that in the `onSelect` handler like so:
 
 ```swift
 graffeineView.onSelect = { view, selection in
@@ -325,7 +325,7 @@ graffeineView.onSelect = { view, selection in
 }
 ```
 
-**Alternatively**, if you only want to update the *selected* layer:
+**Alternatively**, if we only want to update the *selected* layer:
 
 ```swift
 graffeineView.onSelect = { view, selection in
@@ -336,7 +336,7 @@ graffeineView.onSelect = { view, selection in
 
 #### Rendering the selection
 
-In order to render the selection changes, you need to first enable some overrides:
+In order to render the selection changes, we need to first enable some overrides:
 
 ```swift
 graffeineView.layer(id: "bars")?.selection.fill.color = .green
@@ -345,8 +345,8 @@ graffeineView.layer(id: "bars")?.selection.line.thickness = 3.0
 graffeineView.layer(id: "labels")?.selection.text.color = .label
 ```
 
-Then, just include the `selectedIndex` whenever you set the data. Make sure to
-include any layers that need to respond to the selection change.
+The next time data is set on each of these layers, they will render the selected
+index however appropriate.
 
 
 ### SwiftUI
