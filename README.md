@@ -38,25 +38,25 @@ Whenever a layer exists belonging to one of the regions, its positioning and siz
 automatically be managed by the view, which includes responding to layout changes or
 resizing events.
 
-By default, `GraffeineView` contains no layers. You must add layers to it by setting
+By default, `GraffeineView` contains no layers. We must add layers to it by setting
 the `layers` property, like so:
 
 ```swift
-graffeineView.layers = [
-    GraffeineHorizontalLabelLayer(id: "top", 
-                                    height: 16,
-                                    region: .topGutter),
-    
-    GraffeineHorizontalLabelLayer(id: "bottom",
-                                    height: 26,
-                                    region: .bottomGutter),
-    
-    GraffeineBarLayer(id: "bars")
-        .apply ({
-            $0.unitColumn.margin = 5
-            $0.colors = [.blue, .orange]
-        })
-]
+    graffeineView.layers = [
+        GraffeineHorizontalLabelLayer(id: "top", 
+                                      height: 16,
+                                      region: .topGutter),
+        
+        GraffeineHorizontalLabelLayer(id: "bottom",
+                                      height: 26,
+                                      region: .bottomGutter),
+        
+        GraffeineBarLayer(id: "bars")
+            .apply ({
+                $0.unitColumn.margin = 5
+                $0.colors = [.blue, .orange]
+            })
+    ]    
 ```
 
 ##### Configuration Class
@@ -64,7 +64,7 @@ graffeineView.layers = [
 ![ib_config_binding](docs/ib_config_binding.png)
 
 GraffeineView allows automatic binding to a configuration class, as a convenient
-means for encapsulating all of the setup and styling for your graphs. We provide
+means for encapsulating all of the setup and styling for our graphs. We provide
 the name of our `configClass` during init, or by binding within InterfaceBuilder
 as shown here.
 
@@ -83,7 +83,7 @@ meaningful intent based on current context. *(See Interaction)*
 ### GraffeineLayer 
 
 *(abstract)* Container-like "graphing layer" used to represent a particular graph
-component. By combining layers, you can dial in exactly the layout you want and
+component. By combining layers, we can dial in exactly the layout we want and
 render amazing graphs.
 
 Out of the box, there are a handful of ready-to-go layers:
@@ -106,28 +106,27 @@ Out of the box, there are a handful of ready-to-go layers:
 
 #### Constructing
 
-When constructing a `GraffeineLayer`, you typically provide it with an `id` and
+When constructing a `GraffeineLayer`, we typically provide it with an `id` and
 a `region`.
 
 **id** is used to identify and access the layer after it has been added to a
 `GraffeineView`:
 
 ```swift
-let pieLayer = graffeineView.layer(id: "pie")
+    let pieLayer = graffeineView.layer(id: "pie")
 ```
 
 **region** is the target area of the view to place the layer *(see GraffeineView)*
 
-You can use any layer with any region, although some are more intended for certain
-regions than others. For example, the horizontal and vertical label layers are
-generally intended to be placed in one of the gutter regions.
+Any layer may be used with any region. While some are intended to be used with
+certain regions, we're free to arrange them however we like.
 
 
 #### Dimensional Unit
 
 Certain properties, such as `unitWidth` or `diameter`, are defined as a
 `DimensionalUnit`. This is an abstract unit type *(enum)*, that affects sizing
-and positioning depending on which you specify:
+and positioning depending on which we specify:
 
  `.explicit( val )`   - literal number of pixels/points *(22.0 == 22px)*
  
@@ -152,7 +151,7 @@ be used in the gutter region, where they can be configured to align with the uni
 displayed in the main region. This is important for things like bar and line charts,
 where the labels need to line up exactly with the grid.
 
-When using the horizontal or vertical label layers, you can choose how their unit
+When using the horizontal or vertical label layers, we can choose how their unit
 alignment gets distributed. Their horizontal/vertical label alignment properties
 are relative to the unit, or column-width in which they are bound. So setting a label
 to be `.center` means it will center itself **to the column**. Setting
@@ -203,13 +202,13 @@ to understand a little bit about how certain properties can affect rendering:
   based on its display characteristics. When providing this value, it is
   completely up to the developer to ensure that the value is "legal".
   
-  - `values.hi` is the primary stream of input data. When in doubt, make sure
-  this is the field containing the values you are expecting to see.
+  - `values.hi` is the primary stream of input data. If/when troubleshooting, we
+  should make sure that this is the field containing the values we expect to see.
   
   - `values.lo` is an additional, optional stream of values that are generally
-  used to alter how the nominal hi-values get rendered. This behavior is largely
-  dependent upon the particular layer's contextual presentation. For example, bar
-  and line layers may use this as a lower boundary, whereas a pie chart may ignore
+  used to alter how the nominal hi-values get rendered. This behavior largely
+  depends upon the particular layer's characteristics. For example, bar
+  and line layers can use this as a lower boundary, whereas a pie chart ignores
   it altogether. Also, see the **section below regarding negative values.**
 
   - `labels` is what label layers look for when rendering text values.
@@ -225,27 +224,28 @@ to understand a little bit about how certain properties can affect rendering:
 It is easy to apply new data to a specific layer by **assignment**:
 
 ```swift
-graffeineView.layer(id: "bar")?.data = GraffeineData(values: [1, 2, 3])
+    graffeineView.layer(id: "bar")?.data = GraffeineData(values: [1, 2, 3])
 ```
                                              
-Or if you want it to **animate** whenever the data changes:
+Or if we want it to **animate** whenever the data changes:
 
 ```swift
-graffeineView.layer(id: "pie")?.unitAnimation.data.add(
-    GraffeineAnimation.Data.RadialSegment
-        .Spin(duration: 1.2, timing: .easeInEaseOut), for: .reload)
-
-graffeineView.layer(id: "pie")?.setData(GraffeineData(values: [1, 2, 3]),
-                                        semantic: .reload)
+    graffeineView.layer(id: "pie")?.unitAnimation.data.add(
+        GraffeineAnimation.Data.RadialSegment
+            .Spin(duration: 1.2, timing: .easeInEaseOut), for: .reload)
+    
+    graffeineView.layer(id: "pie")?.setData(GraffeineData(values: [1, 2, 3]),
+                                            semantic: .reload)
 ```
 
   ☝️ *There are a handful of data animators included with the library, out-of-box,
-  or you can create your own, so long as it conforms to `GraffeineDataAnimating`.*
+  or we can create our own custom, so long as it conforms to one of the
+  `GraffeineDataAnimating` protocols.*
 
 
 ##### Data Binding
 
-As an alternative to setting data on the layers manually, you can apply data to
+As an alternative to setting data on the layers manually, we can apply data to
 many layers at once by assigning a special array to GraffeineView's `layerDataInput`
 field. This is a *write-only* field that is primarily intended for use with SwiftUI
 `@State` bindings, but is perfectly fine to utilize in UIKit driven scenes as well.
@@ -265,19 +265,18 @@ be portrayed can vary.
 undesirable results.
 
   - **Line and Plot Layers** can accept negative values, but their display is
-  essentially rooted to the bottom-left (0,0) axis. If you need to display
-  negative values within the visible bounds, then the data needs to be
-  transposed.
+  essentially rooted to the bottom-left (0,0) axis. If we need to show
+  negative values within the visible bounds, then we must transpose the data
+  ourselves before feeding it to Graffeine.
 
   - **Bar Layers**, upon detection of negative values in the data, will try to
   automatically transpose it so that "zero" becomes centered vertically
   (or horizontally if using `.flipXY`.)
 
   **IMPORTANT:** The automatic transposing used by the bar layers will override
-  any values stored in `values.lo`! If you depend on that field for things like
-  segmented bars or candlestick charts, then know that you cannot use these
-  types of graphs with negative values. You will need to do your own transposing
-  first, before feeding the data into Graffeine.
+  any values stored in `values.lo`! Therefore, we cannot rely on this for things
+  like segmented bars or candlestick charts. In this situation, we must transpose
+  the data beforehand.
 
 
 ### User Selection
@@ -297,10 +296,10 @@ you want to receive touch events for. Do this by setting the layer's
 `selection.isEnabled` property to `true`:
 
 ```swift
-graffeineView.layer(id: "bars")?.selection.isEnabled = true
+    graffeineView.layer(id: "bars")?.selection.isEnabled = true
 ```
 
-This only affects whether or not the layer will respond to user touch.
+**This only affects whether or not the layer will respond to user touch.**
 
 When enabled, the `onSelect` handler may include `SelectionResults`.
 
@@ -358,16 +357,16 @@ using the provided `GraffeineViewRep`:
 ```swift
 struct ContentView: View {
 
-@State var dataInput: [GraffeineView.LayerData] = []
+    @State var dataInput: [GraffeineView.LayerData] = []
 
-var body: some View {
-    GraffeineViewRep(
-        configClass: "VerticalDescendingBarsConfig",
-        layerDataInput: $dataInput,
-        onSelect:({ view, selection in
-            view.select(index: selection?.data.selected.index,
-                        semantic: .select)
-        }))
+    var body: some View {
+        GraffeineViewRep(
+            configClass: "VerticalDescendingBarsConfig",
+            layerDataInput: $dataInput,
+            onSelect:({ view, selection in
+                view.select(index: selection?.data.selected.index,
+                            semantic: .select)
+            }))
     }
 }
 ```
